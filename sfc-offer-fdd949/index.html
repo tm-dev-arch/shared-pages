@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>本日の1on1セッション限定SPオファー｜ハイチケットファネル®運用プログラム / SFC顧問プログラム</title>
+<style>
+  :root {
+    --bg: #0b0b16;
+    --line: rgba(255,255,255,0.09);
+    --line-soft: rgba(255,255,255,0.05);
+    --text: #e8e6f0;
+    --muted: #9896a8;
+    --soft: #c9c7d6;
+    --blue: #6bb8e0;
+    --purple: #8a6aaf;
+    --gold: #d4a843;
+    --grad: linear-gradient(135deg, #6bb8e0, #7b8ec8, #9b7bb8, #8a6aaf);
+    --grad-soft: linear-gradient(90deg, rgba(107,184,224,0.12), rgba(155,123,184,0.12));
+    --card: linear-gradient(135deg, rgba(45,45,58,0.55), rgba(26,26,46,0.55));
+    --colw: 176px;
+    --tabh: 59px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Plus Jakarta Sans", "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+    line-height: 1.7;
+    letter-spacing: 0.03em;
+    padding: 0 24px 80px;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+
+  /* ---------- タブ切替 ---------- */
+  .tabs {
+    position: sticky; top: 0; z-index: 40;
+    display: flex; gap: 8px; justify-content: center;
+    background: var(--bg); padding: 11px 0 12px;
+  }
+  .tab {
+    font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: .06em;
+    color: var(--muted); background: rgba(255,255,255,0.045);
+    border: 1px solid var(--line); border-radius: 100px;
+    padding: 7px 28px; cursor: pointer; transition: all .15s;
+  }
+  .tab:hover { color: #fff; border-color: rgba(107,184,224,0.45); }
+  .tab.active { color: #fff; background: var(--grad); border-color: transparent; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ---------- ヘッダー ---------- */
+  .head { text-align: center; margin: 26px 0 30px; }
+  .head .label {
+    display: inline-block; font-size: 11px; letter-spacing: 0.4em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 14px; font-weight: 600;
+  }
+  .head h1 {
+    font-size: clamp(22px, 3.6vw, 32px); font-weight: 700; letter-spacing: 0.06em;
+    line-height: 1.5; margin-bottom: 12px;
+  }
+  .head h1 .grad {
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .head .sub { font-size: 14px; color: var(--soft); }
+  .gold-line {
+    width: 160px; height: 1px; margin: 20px auto 0;
+    background: linear-gradient(90deg, transparent, rgba(212,168,67,0.85), transparent);
+  }
+
+  /* ---------- 一括開閉 ---------- */
+  .toolbar { display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 6px; }
+  .toolbar button {
+    font-family: inherit; font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em;
+    color: var(--soft); background: rgba(255,255,255,0.05);
+    border: 1px solid var(--line); border-radius: 100px;
+    padding: 5px 16px; cursor: pointer; transition: all .15s;
+  }
+  .toolbar button:hover { color: #fff; border-color: rgba(107,184,224,0.5); background: rgba(107,184,224,0.12); }
+
+  /* ---------- 固定プランヘッダー ---------- */
+  .plan-head {
+    position: sticky; top: var(--tabh); z-index: 20;
+    display: grid; grid-template-columns: 1fr var(--colw) var(--colw);
+    gap: 10px; padding: 12px 0 14px;
+    background: var(--bg);
+    box-shadow: 0 10px 24px -12px rgba(0,0,0,0.9);
+  }
+  .plan-head .spacer { display: flex; align-items: center; padding: 0 6px; }
+  .plan-head .spacer span {
+    font-size: 12px; letter-spacing: 0.22em; color: var(--soft); font-weight: 700;
+  }
+  .plan {
+    border-radius: 9px; padding: 14px 10px; text-align: center;
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, rgba(54,54,72,0.98), rgba(32,32,54,0.98));
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .plan .pname {
+    font-size: 13.5px; font-weight: 700; line-height: 1.55; letter-spacing: 0.01em;
+    color: #fff;
+  }
+  .plan .pname .nb { white-space: nowrap; }
+  .plan .pname sup { font-size: 0.6em; vertical-align: super; line-height: 0; }
+  .plan.premium {
+    border-color: rgba(107,184,224,0.55);
+    background:
+      radial-gradient(ellipse 90% 120% at 50% 0%, rgba(123,142,200,0.32), transparent 72%),
+      linear-gradient(135deg, rgba(58,58,80,0.98), rgba(34,34,58,0.98));
+  }
+
+  /* ---------- セクション（開閉式） ---------- */
+  .sec { margin-top: 14px; }
+  .sec > summary { list-style: none; cursor: pointer; }
+  .sec > summary::-webkit-details-marker { display: none; }
+  .sec-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px; border-radius: 8px;
+    background: linear-gradient(90deg, rgba(107,184,224,0.16), rgba(155,123,184,0.10));
+    border: 1px solid var(--line);
+    transition: background .15s;
+  }
+  .sec > summary:hover .sec-head { background: linear-gradient(90deg, rgba(107,184,224,0.26), rgba(155,123,184,0.16)); }
+  .sec[open] .sec-head { border-radius: 8px 8px 0 0; border-bottom: none; }
+  .sec-head .no {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.16em; color: var(--blue); flex-shrink: 0;
+  }
+  .sec-head h2 { font-size: 13.5px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.5; }
+  .sec-head .count {
+    font-size: 10.5px; color: var(--muted); font-weight: 600;
+    border: 1px solid var(--line); border-radius: 100px; padding: 1px 10px;
+    flex-shrink: 0; margin-left: auto;
+  }
+  .sec-head .chev {
+    flex-shrink: 0; font-size: 10px; color: var(--soft);
+    transition: transform .2s; line-height: 1;
+  }
+  .sec[open] .sec-head .chev { transform: rotate(180deg); }
+
+  .sec-note {
+    padding: 7px 16px; font-size: 11.5px; color: var(--soft);
+    background: rgba(255,255,255,0.03);
+    border-left: 1px solid var(--line); border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .rows {
+    border: 1px solid var(--line); border-top: none; border-radius: 0 0 8px 8px;
+    background: var(--card); overflow: hidden;
+  }
+  .row {
+    display: grid; grid-template-columns: 1fr var(--colw) var(--colw);
+    gap: 10px; align-items: center;
+    padding: 7px 16px; border-bottom: 1px solid var(--line-soft);
+    font-size: 13px;
+  }
+  .row:last-child { border-bottom: none; }
+  .row:nth-child(even) { background: rgba(255,255,255,0.022); }
+  .row .item { color: var(--text); }
+  .row .item.indent { padding-left: 16px; color: var(--soft); font-size: 12.5px; }
+  .row .c { text-align: center; font-size: 12.5px; color: var(--blue); font-weight: 600; }
+  .row .c.no { color: rgba(255,255,255,0.22); font-weight: 400; }
+  .row .c .pill {
+    display: inline-block; padding: 1px 10px; border-radius: 100px;
+    font-size: 10.5px; font-weight: 700;
+    background: var(--grad-soft); border: 1px solid rgba(107,184,224,0.3);
+  }
+
+  /* 差分が出るセクションの強調 */
+  .sec.diff .sec-head {
+    background: linear-gradient(90deg, rgba(212,168,67,0.16), rgba(155,123,184,0.10));
+    border-color: rgba(212,168,67,0.4);
+  }
+  .sec.diff > summary:hover .sec-head { background: linear-gradient(90deg, rgba(212,168,67,0.26), rgba(155,123,184,0.16)); }
+  .sec.diff .sec-head .no { color: var(--gold); }
+  .sec.diff .rows { border-color: rgba(212,168,67,0.4); }
+  .sec.diff .row .c:not(.no) { color: var(--gold); }
+  .diff-badge {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.16em;
+    color: var(--gold); border: 1px solid rgba(212,168,67,0.5);
+    border-radius: 100px; padding: 1px 12px; white-space: nowrap;
+    margin-left: auto; flex-shrink: 0;
+  }
+  .sec.diff .sec-head .count { margin-left: 0; }
+
+  /* ---------- 価格 ---------- */
+  .offer-sec { margin-top: 48px; }
+  .offer-title { text-align: center; margin-bottom: 24px; }
+  .offer-title .label {
+    display: inline-block; font-size: 15px; font-weight: 700; letter-spacing: 0.08em;
+    color: #fff; padding: 9px 32px; border-radius: 6px; background: var(--grad);
+  }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card {
+    border: 1px solid var(--line); border-radius: 12px; padding: 28px 26px;
+    background: var(--card);
+  }
+  .card.premium {
+    border-color: rgba(107,184,224,0.45);
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 0%, rgba(123,142,200,0.16), transparent 70%),
+      linear-gradient(135deg, rgba(45,45,58,0.75), rgba(26,26,46,0.75));
+  }
+  .card .cname { font-size: 15px; font-weight: 700; letter-spacing: 0.04em; text-align: center; line-height: 1.5; }
+  .card .cguard {
+    display: block; text-align: center; margin: 12px auto 18px;
+    font-size: 11.5px; font-weight: 700; color: var(--blue);
+    border: 1px solid rgba(107,184,224,0.3); border-radius: 100px; padding: 3px 0;
+    background: var(--grad-soft);
+  }
+  .card .cprice {
+    text-align: center; font-size: 36px; font-weight: 700; line-height: 1.2;
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .card .ctax { text-align: center; font-size: 11.5px; color: var(--muted); margin-bottom: 18px; }
+  .card dl { border-top: 1px solid var(--line); }
+  .card .prow {
+    display: grid; grid-template-columns: 92px 1fr; gap: 10px;
+    padding: 7px 0; border-bottom: 1px solid var(--line-soft);
+    font-size: 12px; align-items: baseline;
+  }
+  .card .prow:last-child { border-bottom: none; }
+  .card .prow dt { color: var(--muted); }
+  .card .prow dd { color: var(--text); font-weight: 500; }
+  .card .prow dd.hl { color: var(--blue); font-weight: 700; }
+
+  /* 支払い方法 */
+  .paybox {
+    margin: 2px 0 16px; border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden;
+  }
+  .paybox .phead {
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.18em; color: var(--muted);
+    text-align: center; padding: 7px 0; background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .payrow {
+    display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center;
+    padding: 10px 14px; border-bottom: 1px solid var(--line-soft);
+  }
+  .payrow:last-child { border-bottom: none; }
+  .payrow.best { background: var(--grad-soft); }
+  .payrow .pname { display: block; font-size: 12px; font-weight: 600; color: var(--text); }
+  .payrow .pnote { display: block; font-size: 10.5px; color: var(--muted); line-height: 1.5; }
+  .payrow .pamt {
+    text-align: right; font-size: 15px; font-weight: 700;
+    color: var(--soft); white-space: nowrap; line-height: 1.35;
+  }
+  .payrow.best .pamt { font-size: 17px; color: var(--blue); }
+  .payrow .poff {
+    display: block; font-size: 10px; font-weight: 700; color: var(--gold); white-space: nowrap;
+  }
+
+  .terms {
+    margin-top: 20px; border: 1px solid var(--line); border-radius: 10px;
+    background: var(--card); padding: 18px 22px;
+  }
+  .terms .trow { display: grid; grid-template-columns: 110px 1fr; gap: 14px; font-size: 12.5px; padding: 5px 0; }
+  .terms .trow dt { color: var(--blue); font-weight: 700; }
+  .terms .trow dd { color: var(--soft); }
+
+  /* ---------- サクセスパス ---------- */
+  /* プラン別表示フィルタ */
+  .plan-filter {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap; margin: 14px 0 4px;
+  }
+  .plan-filter .pf-label { font-size: 10.5px; letter-spacing: .2em; color: var(--muted); font-weight: 800; margin-right: 4px; }
+  .plan-filter .pf {
+    font-family: inherit; font-size: 11.5px; font-weight: 700; letter-spacing: .04em;
+    color: var(--muted); background: rgba(255,255,255,0.045);
+    border: 1px solid var(--line); border-radius: 100px;
+    padding: 5px 18px; cursor: pointer; transition: all .15s;
+  }
+  .plan-filter .pf:hover { color: #fff; border-color: rgba(107,184,224,0.45); }
+  .plan-filter .pf.active { color: #fff; background: var(--grad); border-color: transparent; }
+
+  .sfc-tag {
+    display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: .08em;
+    color: var(--gold); border: 1px solid rgba(212,168,67,.55); border-radius: 100px;
+    padding: 0 8px; margin-left: 8px; white-space: nowrap; vertical-align: middle;
+    flex-shrink: 0;
+  }
+  .fblock .sfc-tag, .flow-entry .sfc-tag { color: #ffe9b8; border-color: rgba(255,233,184,.6); }
+  #panel-path.hide-sfc [data-sfc] { display: none !important; }
+
+  .path-badge-wrap { text-align: center; padding: 2px 16px 4px; }
+  .path-badge {
+    display: inline-block; font-size: 14px; font-weight: 700; letter-spacing: 0.06em;
+    color: #fff; padding: 8px 30px; border-radius: 6px; background: var(--grad);
+  }
+  .flow { padding: 18px 0 4px; }
+  .flow-entry {
+    border: 1px solid var(--line); border-radius: 12px; padding: 16px 22px;
+    background: rgba(255,255,255,0.045); text-align: center;
+  }
+  .flow-entry .fe-label { font-size: 10px; letter-spacing: .3em; color: var(--blue); font-weight: 800; margin-bottom: 5px; }
+  .flow-entry .fe-title { font-size: 17px; font-weight: 700; letter-spacing: .03em; }
+  .flow-entry .fe-sub { font-size: 12px; color: var(--muted); margin-top: 5px; }
+
+  .flow-arrow { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 0 4px; }
+  .flow-arrow span {
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--soft);
+    background: rgba(255,255,255,0.07); border: 1px solid var(--line);
+    border-radius: 100px; padding: 3px 16px;
+  }
+  .flow-arrow::after { content: "↓"; color: var(--muted); font-size: 14px; line-height: 1; }
+
+  .fblock { position: relative; border-radius: 14px; padding: 26px 26px 22px; color: #fff; margin-top: 12px; }
+  .fblock.s1 { background: linear-gradient(135deg, #4a7fb5, #6bb8e0); }
+  .fblock.s2 { background: linear-gradient(135deg, #6a6ab0, #9b7bb8); }
+  .fblock.s3 { background: linear-gradient(135deg, #5d4a85, #332c52); }
+  .fb-tag {
+    position: absolute; top: -11px; left: 20px;
+    font-size: 11px; font-weight: 800; letter-spacing: .1em;
+    background: var(--bg); color: #fff; border: 1px solid rgba(255,255,255,.35);
+    border-radius: 100px; padding: 2px 14px;
+  }
+  .fblock h3 { font-size: 20px; font-weight: 700; letter-spacing: .03em; line-height: 1.4; margin-bottom: 6px; }
+  .fb-meta { font-size: 12.5px; font-weight: 600; opacity: .92; margin-bottom: 12px; }
+  .fb-group { font-size: 10.5px; font-weight: 800; letter-spacing: .14em; opacity: .72; margin: 14px 0 4px; }
+  .fblock ul { list-style: none; }
+  .fblock li {
+    display: flex; align-items: baseline; gap: 10px;
+    font-size: 13px; padding: 5px 0; line-height: 1.6;
+    border-bottom: 1px solid rgba(255,255,255,.13);
+  }
+  .fblock li:last-child { border-bottom: none; }
+  .fblock li::before { content: "✓"; font-size: 11px; opacity: .8; flex-shrink: 0; }
+  .fblock li b { flex: 1; font-weight: 500; }
+  .fblock li em {
+    font-style: normal; font-size: 10.5px; font-weight: 700; flex-shrink: 0;
+    background: rgba(255,255,255,.2); border-radius: 100px; padding: 1px 10px; white-space: nowrap;
+  }
+  .flow-support {
+    margin-top: 16px; border: 1px solid var(--line); border-left: 3px solid var(--gold);
+    border-radius: 10px; padding: 15px 20px; background: rgba(255,255,255,0.035);
+  }
+  .flow-support b { font-size: 12.5px; color: var(--gold); font-weight: 700; letter-spacing: .04em; }
+  .flow-support p { font-size: 12px; color: var(--soft); margin-top: 5px; line-height: 1.7; }
+
+  /* ---------- ガントチャート ---------- */
+  .g-section { margin-top: 38px; }
+  .g-title {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 18px; border-radius: 8px 8px 0 0;
+    background: linear-gradient(90deg, rgba(107,184,224,0.16), rgba(155,123,184,0.10));
+    border: 1px solid var(--line); border-bottom: none;
+  }
+  .g-title h2 { font-size: 14px; font-weight: 700; letter-spacing: .04em; }
+  .g-box { border: 1px solid var(--line); border-radius: 0 0 8px 8px; background: var(--card); }
+
+  .gantt-wrap { overflow-x: auto; padding: 16px 16px 8px; }
+  .gantt { min-width: 880px; --gcol: 236px; --c: calc((100%) / 13); }
+  .g-phase, .g-head, .grow { display: grid; grid-template-columns: var(--gcol) 1fr; align-items: stretch; }
+
+  .g-phase { margin-bottom: 4px; }
+  .g-phase-track { display: grid; grid-template-columns: repeat(13, 1fr); gap: 4px; }
+  .g-phase-track span {
+    font-size: 10.5px; font-weight: 800; letter-spacing: .1em; color: #fff;
+    text-align: center; padding: 5px 0; border-radius: 5px;
+    white-space: nowrap; overflow: hidden;
+  }
+  .g-phase-track .ph1 { background: linear-gradient(135deg, #4a7fb5, #6bb8e0); }
+  .g-phase-track .ph2 { background: linear-gradient(135deg, #6a6ab0, #9b7bb8); }
+  .g-phase-track .ph3 { background: linear-gradient(135deg, #5d4a85, #332c52); }
+
+  .g-head { border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.035); border-radius: 6px 6px 0 0; }
+  .g-head .gn { font-size: 10px; letter-spacing: .22em; color: var(--muted); font-weight: 800; padding: 8px 12px; display: flex; align-items: center; }
+  .g-weeks { display: grid; grid-template-columns: repeat(13, 1fr); }
+  .g-weeks span {
+    font-size: 11px; font-weight: 800; color: var(--soft); text-align: center;
+    padding: 8px 0; border-left: 1px solid var(--line-soft);
+  }
+  .g-weeks span:nth-child(odd) { background: rgba(255,255,255,0.03); }
+
+  .grow { border-bottom: 1px solid var(--line-soft); min-height: 34px; }
+  .grow:last-child { border-bottom: none; }
+  .grow .gn {
+    font-size: 12px; color: var(--text); padding: 6px 12px; line-height: 1.5;
+    display: flex; align-items: center; border-left: 3px solid transparent;
+  }
+  .grow.g0 .gn { border-left-color: rgba(212,168,67,.85); }
+  .grow.g1 .gn { border-left-color: #6bb8e0; }
+  .grow.g2 .gn { border-left-color: #9b7bb8; }
+  .grow.g3 .gn { border-left-color: #7a63a8; }
+  .grow.phase { background: rgba(255,255,255,0.05); }
+  .grow.phase .gn { font-weight: 700; font-size: 12.5px; }
+
+  .gtrack {
+    display: grid; grid-template-columns: repeat(13, 1fr); align-items: center; padding: 7px 0;
+    background-image:
+      linear-gradient(90deg, transparent calc(2 * var(--c) - 1px), rgba(155,123,184,.5) calc(2 * var(--c) - 1px), rgba(155,123,184,.5) calc(2 * var(--c)), transparent calc(2 * var(--c))),
+      linear-gradient(90deg, transparent calc(12 * var(--c) - 1px), rgba(155,123,184,.5) calc(12 * var(--c) - 1px), rgba(155,123,184,.5) calc(12 * var(--c)), transparent calc(12 * var(--c))),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 var(--c), transparent var(--c) calc(2 * var(--c))),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 1px, transparent 1px var(--c));
+  }
+  .bar {
+    grid-row: 1; height: 19px; border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9.5px; font-weight: 800; color: #fff; letter-spacing: 0;
+    white-space: nowrap; overflow: hidden;
+    box-shadow: 0 2px 8px -2px rgba(0,0,0,.55);
+  }
+  .grow.phase .bar { height: 23px; font-size: 10.5px; letter-spacing: .08em; }
+  .bar.support { background: linear-gradient(90deg, #d4a843, rgba(212,168,67,.62)); color: #2b2410; }
+  .bar.p1 { background: linear-gradient(90deg, #4a7fb5, #6bb8e0); }
+  .bar.p2 { background: linear-gradient(90deg, #6a6ab0, #9b7bb8); }
+  .bar.p3 { background: linear-gradient(90deg, #7a63a8, #4a3c70); }
+
+  .g-legend { display: flex; gap: 18px; flex-wrap: wrap; padding: 4px 20px 20px; font-size: 11px; color: var(--muted); }
+  .g-legend i { display: inline-block; width: 22px; height: 9px; border-radius: 3px; margin-right: 7px; vertical-align: middle; }
+
+  footer { text-align: center; margin-top: 48px; color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 0.25em; }
+
+  @media (max-width: 820px) {
+    :root { --colw: 104px; }
+    body { padding: 0 14px 60px; }
+    .tab { font-size: 12px; padding: 6px 18px; }
+    .row { font-size: 12px; padding: 7px 12px; }
+    .row .desc { display: none; }
+    .sec-head h2 { font-size: 12.5px; }
+    .sec-head .count { display: none; }
+    .plan .pname { font-size: 11px; }
+    .plan .pname .nb { white-space: normal; }
+    .cards { grid-template-columns: 1fr; }
+    .diff-badge { display: none; }
+    .g-head, .grow { grid-template-columns: 150px 1fr; }
+    .grow .gn { font-size: 10.5px; padding: 5px 8px; }
+    .gantt-wrap { padding: 12px 10px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ========== タブ ========== -->
+  <nav class="tabs">
+    <button type="button" class="tab active" data-panel="offer">オファー表</button>
+    <button type="button" class="tab" data-panel="path">サクセスパス</button>
+  </nav>
+
+  <!-- ==================== オファー表 ==================== -->
+  <section class="panel active" id="panel-offer">
+
+    <div class="head">
+      <div class="label">Special Offer</div>
+      <h1>本日の1on1セッション限定<span class="grad">SPオファー</span></h1>
+      <p class="sub">ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム</p>
+      <div class="gold-line"></div>
+    </div>
+
+    <div class="toolbar">
+      <button type="button" id="openAll">すべて開く</button>
+      <button type="button" id="closeAll">すべて閉じる</button>
+    </div>
+
+    <div class="plan-head">
+      <div class="spacer"><span>提供内容</span></div>
+      <div class="plan">
+        <div class="pname"><span class="nb">ハイチケットファネル<sup>®</sup></span><br>運用プログラム</div>
+      </div>
+      <div class="plan premium">
+        <div class="pname">SFC<br>- 顧問プログラム -</div>
+      </div>
+    </div>
+
+    <!-- 01 コンプリート講座 -->
+    <details class="sec" open>
+      <summary>
+        <div class="sec-head">
+          <span class="no">01</span>
+          <h2>累計23億の売上アップ実績・ファネルマーケティングコンプリート講座</h2>
+          <span class="count">12項目</span>
+          <span class="chev">▼</span>
+        </div>
+      </summary>
+      <div class="rows">
+        <div class="row"><span class="item">【月商7桁→8桁→億単位をつくるSNSマーケ講座全11シリーズ】</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">累計20億の売上貢献したハイチケットファネル®構築講座</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">1本動画で個別面談を自動ゲットするウェビナー制作講座</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">商品単価10倍で高利益化するハイチケットビジネス開発講座</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">12ステップでどんな商品も売れるクロージング習得講座</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">月10万から始めるインスタ広告攻略講座</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">毎日新規リストが集まる勝ちクリエイティブ制作講座</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">累計1万リストを集めた高登録オプトインLPのつくり方講座</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">売上が2倍〜10倍変わるA/Bテスト運用講座</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">フォロワーとリストを収益化するチャレンジローンチ講座</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">参加費55万円の億ファネル継承合宿のオンライン版</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">バックステージPASS／朝礼ハイライト</span><span class="c">◯</span><span class="c">◯</span></div>
+      </div>
+    </details>
+
+    <!-- 02 超速実践テンプレート -->
+    <details class="sec" open>
+      <summary>
+        <div class="sec-head">
+          <span class="no">02</span>
+          <h2>最速4日・平均29日でファネル運用開始できる超速実践テンプレート</h2>
+          <span class="count">20項目</span>
+          <span class="chev">▼</span>
+        </div>
+      </summary>
+      <div class="rows">
+        <div class="row"><span class="item">60分で購入希望者に変えるプレゼン台本テンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">丸パクリOK！Canvaウェビナースライドテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">ライブも自動化もできるセールス動画構成テンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">売れる商品コンセプトをつくるビジネスデザインテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">ダウンロードしてすぐ使えるセールスファネルテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">LINE自動化メッセージシナリオテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">マネして売れるハイチケットオファーテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">読むだけで売れるクロージング台本Canvaテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">平均登録率15%で新規リストを集めるLPテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">優良顧客を安く集める勝ち画像クリエイティブ参考テンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">広告で影響力を拡大する動画クリエイティブ参考テンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">チャレンジローンチ1Dayモデル構成テンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">チャレンジローンチ3Dayモデル構成テンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">マネして実践チャレンジローンチCanvaスライドテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">成約率10%でフロント商品を自動売りしたLP構成テンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">購入者の35%が追加購入したアップセルLPの構成テンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">低単価とサブスク自動売りで1億売ったファネルテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">15分でフロント商品を販売するセールス動画の台本テンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">コピペで使えるセールス動画のCanvaスライドテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">マネして売れるアップセルVSLのCanvaスライドテンプレート</span><span class="c">◯</span><span class="c">◯</span></div>
+      </div>
+    </details>
+
+    <!-- 03 AIメンター＆ツール -->
+    <details class="sec" open>
+      <summary>
+        <div class="sec-head">
+          <span class="no">03</span>
+          <h2>累計23億のノウハウを搭載｜24時間365日対応のAIメンター＆ツール</h2>
+          <span class="count">4項目</span>
+          <span class="chev">▼</span>
+        </div>
+      </summary>
+      <div class="rows">
+        <div class="row"><span class="item">AXファネル®無制限利用権利</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">コミュニティ「AIファネルホルダー®」</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">AIファネルメンター使い放題</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">リリース予定のAXファネル先行利用権利</span><span class="c">◯</span><span class="c">◯</span></div>
+      </div>
+    </details>
+
+    <!-- 04 安心サポート環境 -->
+    <details class="sec" open>
+      <summary>
+        <div class="sec-head">
+          <span class="no">04</span>
+          <h2>売れる仕組みが100%完成できる安心サポート環境</h2>
+          <span class="count">7項目</span>
+          <span class="chev">▼</span>
+        </div>
+      </summary>
+      <div class="rows">
+        <div class="row"><span class="item">LINEオープンチャットコミュニティ</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">毎月2回のファネル構築サポートグルコン</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">毎月1回のライティング添削グルコン</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">毎月1回のMeta広告スタートグルコン</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">ファネルホルダー交流会（オンライン／オフライン）</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">コミュニティメンバー限定の非公開イベントご招待</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">SFCサクセスチームのサポート</span><span class="c">◯</span><span class="c">◯</span></div>
+      </div>
+    </details>
+
+    <!-- 05 無制限添削＆グルコン -->
+    <details class="sec" open>
+      <summary>
+        <div class="sec-head">
+          <span class="no">05</span>
+          <h2>億越え起業家たちと一緒に運用｜SFCサクセスチームの無制限添削＆グループコンサルティング</h2>
+          <span class="count">5項目</span>
+          <span class="chev">▼</span>
+        </div>
+      </summary>
+      <div class="sec-note">【毎週のグルコンでも、グルチャでも、いつでも何度でも相談OK ── グルコン・添削・LINEサポートはSFCサクセスチームが担当】</div>
+      <div class="rows">
+        <div class="row"><span class="item">SFCサクセスチームグルコン参加／毎週金曜9:00〜11:00</span><span class="c"><span class="pill">毎週開催</span></span><span class="c"><span class="pill">毎週開催</span></span></div>
+        <div class="row"><span class="item">疑問解消グループチャットサポート（LINE）</span><span class="c"><span class="pill">無制限</span></span><span class="c"><span class="pill">無制限</span></span></div>
+        <div class="row"><span class="item">SFCサクセスチームのマンツーマンサポート</span><span class="c"><span class="pill">無制限</span></span><span class="c"><span class="pill">無制限</span></span></div>
+        <div class="row"><span class="item">SFC合同オフ会の特別参加権利</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">年1回のリトリート合宿</span><span class="c">◯</span><span class="c">◯</span></div>
+      </div>
+    </details>
+
+    <!-- 06 ビジネスのすべてを相談 -->
+    <details class="sec" open>
+      <summary>
+        <div class="sec-head">
+          <span class="no">06</span>
+          <h2>オファー設計から広告運用・CS体制まで、ビジネスのすべてを何度でも相談OK</h2>
+          <span class="count">18項目</span>
+          <span class="chev">▼</span>
+        </div>
+      </summary>
+      <div class="sec-note">【SFCサクセスチームが専任でサポート】</div>
+      <div class="rows">
+        <div class="row"><span class="item">売れるオファー開発＆価格設定の無制限アドバイス</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">商品コンセプト設計の無制限添削＆アドバイス</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">サクセスパス開発の無制限相談OK</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">個別面談クロージング技術の習得＆スクリプト添削アドバイス</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">プレゼン台本＆スライド作成の添削無制限アドバイス</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">ファネル設計の相談何度でも、何本でもOK</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">メルマガ＆LINE自動化コンサルティング</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">UTAGEシステムの構築サポート無制限</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">Meta広告の初期設定サポート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">広告コンセプト設計の無制限＆何個でも添削アドバイス</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">クリエイティブの審査チェックサポート</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">オプトLPのコピーライティング添削アドバイス</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">広告運用＆A/Bテストの分析改善アドバイス</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">SNSフォロワーのマネタイズ導線</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">メルマガLINEリストの最大化施策</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">顧客リストのLTV最大化施策</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">顧客を成功に導くCS体制構築</span><span class="c">◯</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">売れてヒマになった後のステージのあり方相談</span><span class="c">◯</span><span class="c">◯</span></div>
+      </div>
+    </details>
+
+    <!-- 07 SFC CLUB（差分） -->
+    <details class="sec diff" open>
+      <summary>
+        <div class="sec-head">
+          <span class="no">07</span>
+          <h2>Strategic Funnel® CLUB｜大賀顧問プログラム</h2>
+          <span class="diff-badge">2プランの違いはここ</span>
+          <span class="count">6項目</span>
+          <span class="chev">▼</span>
+        </div>
+      </summary>
+      <div class="rows">
+        <div class="row"><span class="item">Strategic Funnel®︎ CLUB入会権利／1年</span><span class="c no">ー</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">大賀フルコミ朝礼FB（平日／月〜木 8:45〜9:15）</span><span class="c no">ー</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">大賀からの直接アドバイス＆添削FB（朝礼・グルコン）</span><span class="c no">ー</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">SFC限定のシークレットシェア会</span><span class="c no">ー</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">SFC限定VIP会食</span><span class="c no">ー</span><span class="c">◯</span></div>
+        <div class="row"><span class="item">SFC限定リトリート合宿</span><span class="c no">ー</span><span class="c">◯</span></div>
+      </div>
+    </details>
+
+    <!-- 価格 -->
+    <div class="offer-sec">
+      <div class="offer-title">
+        <span class="label">本日の申し込み限定：特別条件のオファー</span>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="cname">ハイチケットファネル®︎<br>運用プログラム</div>
+          <span class="cguard">売上1000万保証</span>
+          <div class="cprice">¥2,625,000</div>
+          <div class="ctax">定価／税込</div>
+
+          <div class="paybox">
+            <div class="phead">お支払い方法</div>
+            <div class="payrow">
+              <div><span class="pname">クレジットカード</span><span class="pnote">一括または2分割のみ（Visa・Mastercard・JCB）</span></div>
+              <div class="pamt">¥2,625,000</div>
+            </div>
+            <div class="payrow">
+              <div><span class="pname">銀行振込・分割</span><span class="pnote">初回50万＋20万×10回</span></div>
+              <div class="pamt">¥2,500,000<span class="poff">定価より −125,000円</span></div>
+            </div>
+            <div class="payrow best">
+              <div><span class="pname">銀行振込・一括または2分割</span><span class="pnote">最もお得な条件</span></div>
+              <div class="pamt">¥2,000,000<span class="poff">定価より −625,000円</span></div>
+            </div>
+          </div>
+
+          <dl>
+            <div class="prow"><dt>安心サポート</dt><dd>広告集客100%黒字化保証</dd></div>
+            <div class="prow"><dt>期間</dt><dd>1年間</dd></div>
+            <div class="prow"><dt>期間終了後</dt><dd>月額15万円</dd></div>
+            <div class="prow"><dt>スタッフ枠</dt><dd>1名につき月額55,000円</dd></div>
+            <div class="prow"><dt>加入条件</dt><dd>ー</dd></div>
+          </dl>
+        </div>
+
+        <div class="card premium">
+          <div class="cname">SFC<br>- 顧問プログラム -</div>
+          <span class="cguard">売上2000万保証</span>
+          <div class="cprice">¥6,300,000</div>
+          <div class="ctax">定価／税込</div>
+
+          <div class="paybox">
+            <div class="phead">お支払い方法</div>
+            <div class="payrow">
+              <div><span class="pname">クレジットカード</span><span class="pnote">一括または2分割のみ（Visa・Mastercard・JCB）</span></div>
+              <div class="pamt">¥6,300,000</div>
+            </div>
+            <div class="payrow">
+              <div><span class="pname">銀行振込・分割</span><span class="pnote">初回100万＋50万×10回</span></div>
+              <div class="pamt">¥6,000,000<span class="poff">定価より −300,000円</span></div>
+            </div>
+            <div class="payrow best">
+              <div><span class="pname">銀行振込・一括または2分割</span><span class="pnote">最もお得な条件</span></div>
+              <div class="pamt">¥5,200,000<span class="poff">定価より −1,100,000円</span></div>
+            </div>
+          </div>
+
+          <dl>
+            <div class="prow"><dt>安心サポート</dt><dd>広告集客100%黒字化保証</dd></div>
+            <div class="prow"><dt>期間</dt><dd>1年間</dd></div>
+            <div class="prow"><dt>期間終了後</dt><dd>月額35万円</dd></div>
+            <div class="prow"><dt>スタッフ枠</dt><dd>1名につき月額110,000円</dd></div>
+            <div class="prow"><dt>加入条件</dt><dd>年商1500万以上の起業家限定</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="terms">
+        <div class="trow"><dt>お支払い</dt><dd>表示金額はすべて税込です。銀行振込でのお申し込みには振込割引を適用し、一括または2分割の場合はさらに割引を適用します</dd></div>
+        <div class="trow"><dt>確認事項</dt><dd>申し込み後のキャンセル・返金なし</dd></div>
+        <div class="trow"><dt>売上保証条件</dt><dd>プログラムの内容を実践して期間内の売上が保証金額未満の場合：無制限サポート延長</dd></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== サクセスパス ==================== -->
+  <section class="panel" id="panel-path">
+
+    <div class="head">
+      <div class="label">Success Path</div>
+      <h1>13週間の<span class="grad">サクセスパス</span></h1>
+      <p class="sub">ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム 共通</p>
+      <div class="gold-line"></div>
+    </div>
+
+    <div class="path-badge-wrap">
+      <span class="path-badge">この企画であなたが進むサクセスパス</span>
+    </div>
+
+    <div class="plan-filter">
+      <span class="pf-label">表示プラン</span>
+      <button type="button" class="pf active" data-plan="sfc">SFC顧問プログラム</button>
+      <button type="button" class="pf" data-plan="htf">ハイチケットファネル®運用プログラム</button>
+    </div>
+
+    <div class="flow">
+
+      <div class="flow-entry" data-sfc="1">
+        <div class="fe-label">START</div>
+        <div class="fe-title">キックオフMTG<span class="sfc-tag">SFC限定</span></div>
+        <div class="fe-sub">1W ｜ 現状把握・ゴール設定・アクションプラン確定</div>
+      </div>
+
+      <div class="flow-arrow" data-sfc="1"><span>オファー設計へ</span></div>
+
+      <div class="fblock s1">
+        <span class="fb-tag">STEP#1</span>
+        <h3>ビジネスデザイン設計</h3>
+        <p class="fb-meta">1W – 2W ｜ ハイチケット開発／バックエンド商品の再構築＆高額化</p>
+        <ul>
+          <li><b>ビジネスデザインワークシート作成</b><em>1W</em></li>
+          <li><b>ハイチケットオファーのWHOを設定</b><em>2W</em></li>
+          <li><b>市場の必要十分条件を満たすWHATの設定</b><em>2W</em></li>
+          <li><b>WHAT到達を満たすHOWの洗い出し</b><em>2W</em></li>
+          <li><b>インパクトオファーの仮決め</b><em>2W</em></li>
+        </ul>
+      </div>
+
+      <div class="flow-arrow"><span>インパクトオファー確定</span></div>
+
+      <div class="fblock s2">
+        <span class="fb-tag">STEP#2</span>
+        <h3>ハイチケットウェビナーファネル®スケール</h3>
+        <p class="fb-meta">3W – 13W〜 ｜ ファネルを構築して運用に乗せ、個別面談を自動で獲得する</p>
+        <div class="fb-group">構築フェーズ（3W – 6W）</div>
+        <ul>
+          <li><b>ハイチケットウェビナースクリプト開発</b><em>3W</em></li>
+          <li><b>ハイチケットウェビナー撮影＆編集</b><em>3–5W</em></li>
+          <li><b>ハイチケットウェビナーファネル構築</b><em>5–6W</em></li>
+          <li><b>LINEマーケティングシナリオ構築</b><em>6W</em></li>
+          <li><b>高CVオプトインLP＆クリエイティブ制作</b><em>6W</em></li>
+        </ul>
+        <div class="fb-group">運用・最適化フェーズ（6W – 13W〜）</div>
+        <ul>
+          <li><b>A/Bテストを繰り返してファネルの最適化</b><em>6–8W</em></li>
+          <li><b>Facebook広告による小規模テスト運用</b><em>7–8W</em></li>
+          <li><b>ファネルクローザー®技術の習得＆スクリプト最適化</b><em>9W〜</em></li>
+          <li><b>ハイチケットCV後に予算を引き上げてスケール</b><em>9–12W</em></li>
+          <li><b>ハイチケットウェビナーファネル®の自動化を完了</b><em>13W〜</em></li>
+        </ul>
+      </div>
+
+      <div class="flow-arrow"><span>ファネル自動化が完了</span></div>
+
+      <div class="fblock s3">
+        <span class="fb-tag">STEP#3</span>
+        <h3>リストバリュー＆ROAS最大化施策の実施</h3>
+        <p class="fb-meta">13W〜 ｜ 広告費即時回収モデルを構築してROASを最大化</p>
+        <ul>
+          <li><b>ハウスリストの潜在資産の掘り起こし施策の策定</b><em>13W〜</em></li>
+          <li><b>チャレンジローンチの企画開発</b><em>13W〜</em></li>
+          <li><b>広告費即時回収ファネルの企画設計</b><em>13W〜</em></li>
+          <li><b>ダウンセル×エバーグリーン化でリストバリューの最大化</b><em>13W〜</em></li>
+        </ul>
+      </div>
+
+      <div class="flow-support">
+        <b>◆ 全期間の伴走サポート（2W〜13W〜・常時並走）</b>
+        <p>SFCサクセスチームのグルコン／コンサル／定例。STEP#1〜#3のどの段階でも、詰まったその週のうちに相談して前に進められる体制で並走します。</p>
+        <p data-sfc="1">＋ 大賀フルコミ朝礼FB（平日 月〜木 8:45〜9:15）<span class="sfc-tag">SFC限定</span></p>
+      </div>
+
+    </div>
+
+    <!-- ガントチャート -->
+    <div class="g-section">
+      <div class="g-title">
+        <h2>📅 週次スケジュール（13週ガントチャート）</h2>
+      </div>
+      <div class="g-box">
+        <div class="gantt-wrap">
+          <div class="gantt">
+            <div class="g-phase">
+              <div class="gn"></div>
+              <div class="g-phase-track">
+                <span class="ph1" style="grid-column:1/3">STEP#1・設計</span>
+                <span class="ph2" style="grid-column:3/13">STEP#2・構築 → 運用</span>
+                <span class="ph3" style="grid-column:13/14">STEP#3</span>
+              </div>
+            </div>
+
+            <div class="g-head">
+              <div class="gn">施策</div>
+              <div class="g-weeks">
+                <span>1W</span><span>2W</span><span>3W</span><span>4W</span><span>5W</span><span>6W</span><span>7W</span>
+                <span>8W</span><span>9W</span><span>10W</span><span>11W</span><span>12W</span><span>13W〜</span>
+              </div>
+            </div>
+
+            <div class="grow g0" data-sfc="1"><div class="gn">キックオフMTG<span class="sfc-tag">SFC限定</span></div><div class="gtrack"><span class="bar support" style="grid-column:1/2">1W</span></div></div>
+            <div class="grow g0"><div class="gn">グルコン／コンサル／定例</div><div class="gtrack"><span class="bar support" style="grid-column:2/14">全期間 並走</span></div></div>
+            <div class="grow g0" data-sfc="1"><div class="gn">大賀フルコミ朝礼FB<span class="sfc-tag">SFC限定</span></div><div class="gtrack"><span class="bar support" style="grid-column:2/14">全期間 並走</span></div></div>
+
+            <div class="grow phase g1"><div class="gn">STEP#1：ビジネスデザイン設計</div><div class="gtrack"><span class="bar p1" style="grid-column:1/3">1W – 2W</span></div></div>
+            <div class="grow g1"><div class="gn">ビジネスデザインワークシート作成</div><div class="gtrack"><span class="bar p1" style="grid-column:1/2">1W</span></div></div>
+            <div class="grow g1"><div class="gn">ハイチケットオファーのWHOを設定</div><div class="gtrack"><span class="bar p1" style="grid-column:2/3">2W</span></div></div>
+            <div class="grow g1"><div class="gn">市場の必要十分条件を満たすWHATの設定</div><div class="gtrack"><span class="bar p1" style="grid-column:2/3">2W</span></div></div>
+            <div class="grow g1"><div class="gn">WHAT到達を満たすHOWの洗い出し</div><div class="gtrack"><span class="bar p1" style="grid-column:2/3">2W</span></div></div>
+            <div class="grow g1"><div class="gn">インパクトオファーの仮決め</div><div class="gtrack"><span class="bar p1" style="grid-column:2/3">2W</span></div></div>
+
+            <div class="grow phase g2"><div class="gn">STEP#2：ハイチケットウェビナーファネル®スケール</div><div class="gtrack"><span class="bar p2" style="grid-column:3/14">3W – 13W〜</span></div></div>
+            <div class="grow g2"><div class="gn">ハイチケットウェビナースクリプト開発</div><div class="gtrack"><span class="bar p2" style="grid-column:3/4">3W</span></div></div>
+            <div class="grow g2"><div class="gn">ハイチケットウェビナー撮影＆編集</div><div class="gtrack"><span class="bar p2" style="grid-column:3/6">3–5W</span></div></div>
+            <div class="grow g2"><div class="gn">ハイチケットウェビナーファネル構築</div><div class="gtrack"><span class="bar p2" style="grid-column:5/7">5–6W</span></div></div>
+            <div class="grow g2"><div class="gn">LINEマーケティングシナリオ構築</div><div class="gtrack"><span class="bar p2" style="grid-column:6/7">6W</span></div></div>
+            <div class="grow g2"><div class="gn">高CVオプトインLP＆クリエイティブ制作</div><div class="gtrack"><span class="bar p2" style="grid-column:6/7">6W</span></div></div>
+            <div class="grow g2"><div class="gn">A/Bテストを繰り返してファネルの最適化</div><div class="gtrack"><span class="bar p2" style="grid-column:6/9">6–8W</span></div></div>
+            <div class="grow g2"><div class="gn">Facebook広告による小規模テスト運用</div><div class="gtrack"><span class="bar p2" style="grid-column:7/9">7–8W</span></div></div>
+            <div class="grow g2"><div class="gn">ファネルクローザー®技術の習得＆スクリプト最適化</div><div class="gtrack"><span class="bar p2" style="grid-column:9/14">9W 〜</span></div></div>
+            <div class="grow g2"><div class="gn">ハイチケットCV後に予算を引き上げてスケール</div><div class="gtrack"><span class="bar p2" style="grid-column:9/13">9–12W</span></div></div>
+            <div class="grow g2"><div class="gn">ハイチケットウェビナーファネル®の自動化を完了</div><div class="gtrack"><span class="bar p2" style="grid-column:13/14">13W〜</span></div></div>
+
+            <div class="grow phase g3"><div class="gn">STEP#3：リストバリュー＆ROAS最大化施策の実施</div><div class="gtrack"><span class="bar p3" style="grid-column:13/14">13W〜</span></div></div>
+            <div class="grow g3"><div class="gn">ハウスリストの潜在資産の掘り起こし施策の策定</div><div class="gtrack"><span class="bar p3" style="grid-column:13/14">13W〜</span></div></div>
+            <div class="grow g3"><div class="gn">チャレンジローンチの企画開発</div><div class="gtrack"><span class="bar p3" style="grid-column:13/14">13W〜</span></div></div>
+            <div class="grow g3"><div class="gn">広告費即時回収ファネルの企画設計</div><div class="gtrack"><span class="bar p3" style="grid-column:13/14">13W〜</span></div></div>
+            <div class="grow g3"><div class="gn">ダウンセル×エバーグリーン化でリストバリューの最大化</div><div class="gtrack"><span class="bar p3" style="grid-column:13/14">13W〜</span></div></div>
+          </div>
+        </div>
+
+        <div class="g-legend">
+          <span><i class="bar support" style="height:9px"></i>伴走サポート（全期間並走）</span>
+          <span><i class="bar p1" style="height:9px"></i>STEP#1：ビジネスデザイン設計</span>
+          <span><i class="bar p2" style="height:9px"></i>STEP#2：ファネル構築＆運用</span>
+          <span><i class="bar p3" style="height:9px"></i>STEP#3：ROAS最大化</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>SPECIAL OFFER — 面談提示用</footer>
+
+</div>
+
+<script>
+  // タブ切替
+  document.querySelectorAll('.tab').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var target = btn.getAttribute('data-panel');
+      document.querySelectorAll('.tab').forEach(function (b) {
+        b.classList.toggle('active', b === btn);
+      });
+      document.querySelectorAll('.panel').forEach(function (p) {
+        p.classList.toggle('active', p.id === 'panel-' + target);
+      });
+      window.scrollTo(0, 0);
+    });
+  });
+
+  // サクセスパスのプラン別表示フィルタ
+  document.querySelectorAll('.pf').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var plan = btn.getAttribute('data-plan');
+      document.querySelectorAll('.pf').forEach(function (b) {
+        b.classList.toggle('active', b === btn);
+      });
+      document.getElementById('panel-path').classList.toggle('hide-sfc', plan === 'htf');
+    });
+  });
+
+  // セクション一括開閉（オファー表）
+  document.getElementById('openAll').addEventListener('click', function () {
+    document.querySelectorAll('#panel-offer details.sec').forEach(function (d) { d.open = true; });
+  });
+  document.getElementById('closeAll').addEventListener('click', function () {
+    document.querySelectorAll('#panel-offer details.sec').forEach(function (d) { d.open = false; });
+  });
+</script>
+</body>
+</html>
