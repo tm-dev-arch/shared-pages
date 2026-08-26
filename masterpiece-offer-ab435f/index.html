@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>マスターピース インナーサークル｜オファー内容</title>
+<style>
+  :root {
+    --bg: #0b0b16;
+    --card: #15152280;
+    --card-solid: #15152200;
+    --line: rgba(255,255,255,0.09);
+    --text: #e8e6f0;
+    --muted: #9896a8;
+    --soft: #c9c7d6;
+    --blue: #6bb8e0;
+    --purple: #8a6aaf;
+    --gold: #d4a843;
+    --grad: linear-gradient(135deg, #6bb8e0, #7b8ec8, #9b7bb8, #8a6aaf);
+    --grad-soft: linear-gradient(90deg, rgba(107,184,224,0.12), rgba(155,123,184,0.12));
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Plus Jakarta Sans", "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+    line-height: 1.8;
+    letter-spacing: 0.03em;
+    padding: 56px 24px 80px;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  /* ---------- ヘッダー ---------- */
+  .head { text-align: center; margin-bottom: 56px; }
+  .head .label {
+    display: inline-block; font-size: 11px; letter-spacing: 0.4em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 18px; font-weight: 600;
+  }
+  .head h1 {
+    font-size: clamp(26px, 4.5vw, 40px); font-weight: 700; letter-spacing: 0.06em;
+    line-height: 1.5; margin-bottom: 14px;
+  }
+  .head h1 .grad {
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .head .sub { font-size: 14px; color: var(--muted); }
+  .gold-line {
+    width: 160px; height: 1px; margin: 28px auto 0;
+    background: linear-gradient(90deg, transparent, rgba(212,168,67,0.85), transparent);
+  }
+
+  /* ---------- 3STEPサクセスパス ---------- */
+  .steps-head {
+    text-align: center; margin-bottom: 26px;
+  }
+  .steps-head .badge {
+    display: inline-block; font-size: 16px; font-weight: 700; letter-spacing: 0.08em;
+    color: #fff; padding: 10px 36px; border-radius: 6px;
+    background: var(--grad);
+  }
+  .steps3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+  .step3 { text-align: center; }
+  .step3 .step-no {
+    font-size: 15px; font-weight: 800; letter-spacing: 0.1em; margin-bottom: 12px;
+    color: var(--text);
+  }
+  .step3 .step-card {
+    border-radius: 8px; padding: 34px 20px; min-height: 150px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15.5px; font-weight: 700; line-height: 1.9; color: #fff;
+    letter-spacing: 0.04em;
+  }
+  .step3:nth-child(1) .step-card { background: linear-gradient(135deg, #4a7fb5, #6bb8e0); }
+  .step3:nth-child(2) .step-card { background: linear-gradient(135deg, #5f74b8, #7b8ec8, #9b7bb8); }
+  .step3:nth-child(3) .step-card { background: linear-gradient(135deg, #8a6aaf, #5d4a85); }
+  .step3 .step-sub { font-size: 11.5px; color: var(--muted); margin-top: 10px; line-height: 1.7; }
+
+  /* ---------- 比較動画 ---------- */
+  .compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .cmp {
+    background: linear-gradient(135deg, rgba(45,45,58,0.55), rgba(26,26,46,0.55));
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+  }
+  .cmp .cmp-label {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 18px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--line);
+  }
+  .cmp .cmp-label .tag {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.2em; padding: 2px 10px;
+    border-radius: 100px; text-transform: uppercase;
+  }
+  .cmp.before .tag { background: rgba(255,255,255,0.1); color: var(--muted); }
+  .cmp.after .tag { background: var(--grad); color: #fff; }
+  .cmp .video { position: relative; aspect-ratio: 16/9; background: #000; }
+  .cmp .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .cmp .cmp-note {
+    padding: 10px 18px; font-size: 11.5px; color: var(--muted);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .cmp .open-btn {
+    flex-shrink: 0; display: inline-block; text-decoration: none;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+    color: #fff; padding: 5px 14px; border-radius: 100px;
+    background: var(--grad);
+  }
+  .cmp.before .open-btn { background: rgba(255,255,255,0.12); color: var(--soft); }
+  .compare-note { margin-top: 12px; font-size: 11.5px; color: var(--muted); }
+
+  /* ---------- 強みハイライト（マスターマインド） ---------- */
+  .highlight {
+    position: relative;
+    border: 1px solid rgba(107,184,224,0.4); border-radius: 12px;
+    background:
+      radial-gradient(ellipse 60% 80% at 12% 50%, rgba(123,142,200,0.16), transparent 70%),
+      linear-gradient(135deg, rgba(45,45,58,0.7), rgba(26,26,46,0.7));
+    padding: 30px 32px;
+  }
+  .highlight .hl-badge {
+    display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.2em;
+    color: #fff; padding: 3px 14px; border-radius: 100px;
+    background: var(--grad); margin-bottom: 14px; text-transform: uppercase;
+  }
+  .highlight h3 { font-size: 19px; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 10px; }
+  .highlight h3 .grad {
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .highlight p { font-size: 13px; color: var(--soft); line-height: 1.9; }
+  .highlight .hl-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+  .highlight .hl-meta span {
+    font-size: 11.5px; color: var(--soft);
+    border: 1px solid var(--line); border-radius: 100px; padding: 3px 14px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  /* ---------- セクション ---------- */
+  .sec { margin-bottom: 44px; }
+  .sec-title {
+    display: flex; align-items: baseline; gap: 14px;
+    margin-bottom: 18px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sec-title .no {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.2em;
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sec-title h2 { font-size: 19px; font-weight: 700; letter-spacing: 0.05em; }
+  .sec-title .en { font-size: 10px; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; margin-left: auto; }
+
+  /* ---------- 行アイテム ---------- */
+  .rows {
+    background: linear-gradient(135deg, rgba(45,45,58,0.55), rgba(26,26,46,0.55));
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+  }
+  .row {
+    display: grid; grid-template-columns: minmax(220px, 46%) 1fr 84px; align-items: center;
+    column-gap: 16px;
+    padding: 9px 18px; border-bottom: 1px solid var(--line);
+    font-size: 13.5px; line-height: 1.6;
+  }
+  .row:nth-child(even of .row) { background: rgba(255,255,255,0.025); }
+  .row:last-child { border-bottom: none; }
+  .row .item { color: var(--text); font-weight: 500; }
+  .row .desc { font-size: 11.5px; color: var(--muted); }
+  .row .mark { text-align: center; font-size: 12px; color: var(--blue); font-weight: 600; }
+  .row .mark.unlimited {
+    background: var(--grad-soft); border: 1px solid rgba(107,184,224,0.3);
+    border-radius: 100px; padding: 1px 0; font-size: 11px;
+    background-clip: padding-box;
+  }
+  .rows .group-head {
+    padding: 7px 18px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--soft); background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* ---------- チェックリスト（大量項目用・2カラム） ---------- */
+  .checklist {
+    background: linear-gradient(135deg, rgba(45,45,58,0.55), rgba(26,26,46,0.55));
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 22px;
+    display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; row-gap: 0;
+  }
+  .checklist .ck {
+    font-size: 12.5px; color: var(--text); line-height: 1.55;
+    padding: 5px 0 5px 20px; position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .checklist .ck::before {
+    content: "✓"; position: absolute; left: 0; top: 5px;
+    color: var(--blue); font-weight: 700; font-size: 11px;
+  }
+  .checklist .ck .pill {
+    display: inline-block; margin-left: 6px; padding: 0 8px;
+    font-size: 10px; font-weight: 700; border-radius: 100px;
+    background: var(--grad-soft); border: 1px solid rgba(107,184,224,0.3); color: var(--blue);
+  }
+  .sub-head {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: var(--soft);
+    margin: 16px 0 8px; padding-left: 12px; border-left: 2px solid var(--purple);
+  }
+  .sub-head:first-of-type { margin-top: 0; }
+  @media (max-width: 640px) {
+    .checklist { grid-template-columns: 1fr; padding: 12px 16px; }
+  }
+
+  /* ---------- サクセスパス ---------- */
+  .path { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .path-step {
+    background: linear-gradient(135deg, rgba(45,45,58,0.55), rgba(26,26,46,0.55));
+    border: 1px solid var(--line); border-radius: 10px; padding: 20px 18px;
+    position: relative;
+  }
+  .path-step .days {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 8px;
+  }
+  .path-step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; line-height: 1.5; }
+  .path-step p { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  .path-note { margin-top: 12px; font-size: 11.5px; color: var(--muted); }
+
+  /* ---------- オファーカード ---------- */
+  .offer {
+    margin-top: 56px;
+    border: 1px solid rgba(107,184,224,0.35); border-radius: 14px;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(123,142,200,0.14), transparent 70%),
+      linear-gradient(135deg, rgba(45,45,58,0.7), rgba(26,26,46,0.7));
+    padding: 48px 40px; text-align: center;
+  }
+  .offer .label {
+    font-size: 11px; letter-spacing: 0.4em; color: var(--muted);
+    text-transform: uppercase; margin-bottom: 10px; font-weight: 600;
+  }
+  .offer .name { font-size: 20px; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 30px; }
+  .offer .price {
+    font-size: clamp(44px, 8vw, 64px); font-weight: 700; line-height: 1.2;
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: 0.02em;
+  }
+  .offer .tax { font-size: 14px; color: var(--muted); margin-top: 4px; }
+  .offer .terms {
+    display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 26px;
+  }
+  .offer .terms span {
+    font-size: 13px; color: var(--soft);
+    border: 1px solid var(--line); border-radius: 100px; padding: 6px 20px;
+    background: rgba(255,255,255,0.03);
+  }
+  .offer .terms b { color: var(--text); font-weight: 700; }
+
+  .conds {
+    margin-top: 36px; padding-top: 30px; border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; text-align: left;
+  }
+  .cond h5 {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.2em;
+    color: var(--blue); margin-bottom: 10px;
+  }
+  .cond ul { list-style: none; }
+  .cond li {
+    font-size: 13px; color: var(--soft); padding: 3px 0 3px 16px; position: relative;
+  }
+  .cond li::before { content: "・"; position: absolute; left: 0; color: var(--muted); }
+  .cond .note { font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+
+  footer { text-align: center; margin-top: 56px; color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 0.25em; }
+
+  @media (max-width: 640px) {
+    body { padding: 36px 16px 60px; }
+    .offer { padding: 36px 22px; }
+    .row { grid-template-columns: 1fr 76px; padding: 10px 16px; }
+    .row .desc { display: none; }
+    .highlight { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= ヘッダー ================= -->
+  <div class="head">
+    <div class="label">Masterpiece Inner Circle</div>
+    <h1>マスターピース <span class="grad">インナーサークル</span></h1>
+    <p class="sub">あなたの全価値を1本の傑作に統合し、集客を「消費」から「資産」へ</p>
+    <div class="gold-line"></div>
+  </div>
+
+  <!-- ================= サクセスパス（3STEP） ================= -->
+  <div class="sec">
+    <div class="steps-head">
+      <span class="badge">この企画であなたが進むサクセスパス</span>
+    </div>
+    <div class="steps3">
+      <div class="step3">
+        <div class="step-no">STEP#1</div>
+        <div class="step-card">世界観×シナリオの<br>統合設計で<br>唯一無二の企画に</div>
+        <p class="step-sub">世界観ガイドライン策定＋売れ続けるシナリオ台本</p>
+      </div>
+      <div class="step3">
+        <div class="step-no">STEP#2</div>
+        <div class="step-card">シネマティック<br>撮影＆編集で<br>マスターピース完成</div>
+        <p class="step-sub">スタジオ撮影・編集込み／最短30日で完成</p>
+      </div>
+      <div class="step3">
+        <div class="step-no">STEP#3</div>
+        <div class="step-card">全集客の受け皿として<br>運用し24時間365日<br>売れ続ける資産に</div>
+        <p class="step-sub">広告・SNS・紹介すべての導線の中枢に設置</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= シネマティック比較 ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <h2>シネマティックと通常動画の違い</h2>
+      <span class="en">Comparison</span>
+    </div>
+    <div class="compare">
+      <div class="cmp before">
+        <div class="cmp-label"><span class="tag">Before</span>通常のウェビナー動画</div>
+        <div class="video">
+          <iframe src="https://drive.google.com/file/d/1SqK4MSCZ7WXnTDgTkCf9dzgK-98l6DaP/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+        <div class="cmp-note"><span>HTWF構築講座（2023年制作・従来型）</span><a class="open-btn" href="https://drive.google.com/file/d/1SqK4MSCZ7WXnTDgTkCf9dzgK-98l6DaP/view" target="_blank" rel="noopener">▶ Driveで開く</a></div>
+      </div>
+      <div class="cmp after">
+        <div class="cmp-label"><span class="tag">After</span>シネマティック</div>
+        <div class="video">
+          <iframe src="https://drive.google.com/file/d/1tFckjaXvbtSevF73oWr32Tn1LU10Z35M/preview" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+        <div class="cmp-note"><span>超速100Xゲームプランウェビナー（2026年・シネマティックスタジオ制作）</span><a class="open-btn" href="https://drive.google.com/file/d/1tFckjaXvbtSevF73oWr32Tn1LU10Z35M/view" target="_blank" rel="noopener">▶ Driveで開く</a></div>
+      </div>
+    </div>
+    <p class="compare-note">※ 再生にはGoogle Driveの閲覧権限が必要です（社内アカウントでログインした状態で提示してください）</p>
+  </div>
+
+  <!-- ================= 1. マスターピース制作 ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <span class="no">01</span>
+      <h2>マスターピース制作｜シナリオ × 撮影 × 編集</h2>
+      <span class="en">Production</span>
+    </div>
+    <div class="rows">
+      <div class="group-head">世界観 × 売れ続けるシナリオ</div>
+      <div class="row"><span class="item">売れ続ける動画集客の初期設計</span><span class="desc">商品・顧客・ストーリー素材の洗い出し</span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">台本シナリオ初期設計</span><span class="desc">売れる構造のたたき台を先に作成</span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">売れ続ける台本シナリオの添削</span><span class="desc"></span><span class="mark unlimited">無制限</span></div>
+      <div class="row"><span class="item">ウェビナースライド添削</span><span class="desc"></span><span class="mark unlimited">無制限</span></div>
+      <div class="group-head">シネマティック撮影</div>
+      <div class="row"><span class="item">シネマティック映像演出添削</span><span class="desc">感動演出／映像の見え方</span><span class="mark unlimited">無制限</span></div>
+      <div class="row"><span class="item">プレゼンテーション撮影設計・構図設計</span><span class="desc">目線／背景／照明／カメラ位置</span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">カメラ3台体制での撮影</span><span class="desc"></span><span class="mark">◯</span></div>
+      <div class="group-head">編集・仕上げ</div>
+      <div class="row"><span class="item">DaVinci Resolve動画編集</span><span class="desc">撮影素材＋スライド合成</span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">シネマティック・オープニングムービー</span><span class="desc"></span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">カラーグレーディングLUT</span><span class="desc">シネマティックルック再現用</span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">エフェクトテンプレート</span><span class="desc"></span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">BGM選定</span><span class="desc">5〜7種類</span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">最終品質チェック</span><span class="desc">売れる構造 × 映像品質の両面で確認</span><span class="mark">◯</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 2. スタジオ環境 ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <span class="no">02</span>
+      <h2>シネマティックスタジオ環境</h2>
+      <span class="en">Studio</span>
+    </div>
+    <div class="rows">
+      <div class="row"><span class="item">シネマティックスタジオ使用権</span><span class="desc">月1回以上の共同スタジオ撮影会を想定</span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">シネマティックスタジオセットアップ</span><span class="desc">運営側で用意するメイン撮影環境</span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">大賀スタジオ（バックアップ）</span><span class="desc">緊急時・補助撮影環境</span><span class="mark">◯</span></div>
+      <div class="row"><span class="item">シネマティック環境の提供と撮影支援</span><span class="desc">撮影・編集アシスト</span><span class="mark">◯</span></div>
+    </div>
+  </div>
+
+  <!-- ================= 3. 30日サクセスパス ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <span class="no">03</span>
+      <h2>30日サクセスパス</h2>
+      <span class="en">Success Path</span>
+    </div>
+    <div class="path">
+      <div class="path-step">
+        <div class="days">DAY 1–7</div>
+        <h4>ビジネスデザイン設計＋台本たたき</h4>
+        <p>素材提出・49質問整理。AIが70%まで構築</p>
+      </div>
+      <div class="path-step">
+        <div class="days">DAY 8–14</div>
+        <h4>大賀添削＋映像演出設計＋スライド</h4>
+        <p>売れる構造と見え方を接続</p>
+      </div>
+      <div class="path-step">
+        <div class="days">DAY 15–21</div>
+        <h4>シネマティックスタジオ撮影</h4>
+        <p>カメラ3台体制での本番撮影</p>
+      </div>
+      <div class="path-step">
+        <div class="days">DAY 22–30</div>
+        <h4>編集 → 完成納品</h4>
+        <p>OP／BGM／カラーグレーディング → 納品</p>
+      </div>
+    </div>
+    <p class="path-note">※ 30日は最速で進めた場合の目安。台本の3割カスタム・撮影参加・確認戻しなど、ご本人のコミットが前提です。</p>
+  </div>
+
+  <!-- ================= 4. マスターマインド（強み） ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <span class="no">04</span>
+      <h2>毎月オフラインのマスターマインド型セッション</h2>
+      <span class="en">Mastermind</span>
+    </div>
+    <div class="highlight">
+      <span class="hl-badge">このオファーの強み</span>
+      <h3>大賀・億超え起業家たちと<span class="grad">毎月、直接会って</span>事業を前進させる</h3>
+      <p>オンライン教材や添削だけでは届かない「経営の現場」を毎月持てる、インナーサークルの中核。N対N形式で、参加者同士の実例・数字・意思決定をその場で共有し、翌月のアクションまで落とし込みます。</p>
+      <div class="hl-meta">
+        <span>月1回開催</span>
+        <span>オフライン</span>
+        <span>N対N マスターマインド形式</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 5. コンプリート講座 ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <span class="no">05</span>
+      <h2>累計23億の売上アップ実績｜ファネルマーケティングコンプリート講座</h2>
+      <span class="en">Courses</span>
+    </div>
+    <div class="checklist">
+      <div class="ck">月商7桁→8桁→億単位をつくるSNSマーケ講座<span class="pill">全11シリーズ</span></div>
+      <div class="ck">累計20億の売上貢献したハイチケットファネル®構築講座</div>
+      <div class="ck">1本動画で個別面談を自動ゲットするウェビナー制作講座</div>
+      <div class="ck">商品単価10倍で高利益化するハイチケットビジネス開発講座</div>
+      <div class="ck">12ステップでどんな商品も売れるクロージング習得講座</div>
+      <div class="ck">月10万から始めるインスタ広告攻略講座</div>
+      <div class="ck">毎日新規リストが集まる勝ちクリエイティブ制作講座</div>
+      <div class="ck">累計1万リストを集めた高登録オプトインLPのつくり方講座</div>
+      <div class="ck">売上が2倍〜10倍変わるA/Bテスト運用講座</div>
+      <div class="ck">フォロワーとリストを収益化するチャレンジローンチ講座</div>
+      <div class="ck">参加費55万円の億ファネル継承合宿のオンライン版</div>
+      <div class="ck">バックステージPASS／朝礼ハイライト</div>
+    </div>
+  </div>
+
+  <!-- ================= 6. 超速実践テンプレート ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <span class="no">06</span>
+      <h2>最速4日・平均29日でファネル運用開始できる超速実践テンプレート</h2>
+      <span class="en">Templates</span>
+    </div>
+    <div class="checklist">
+      <div class="ck">60分で購入希望者に変えるプレゼン台本テンプレート</div>
+      <div class="ck">丸パクリOK！Canvaウェビナースライドテンプレート</div>
+      <div class="ck">ライブも自動化もできるセールス動画構成テンプレート</div>
+      <div class="ck">売れる商品コンセプトをつくるビジネスデザインテンプレート</div>
+      <div class="ck">ダウンロードしてすぐ使えるセールスファネルテンプレート</div>
+      <div class="ck">LINE自動化メッセージシナリオテンプレート</div>
+      <div class="ck">マネして売れるハイチケットオファーテンプレート</div>
+      <div class="ck">読むだけで売れるクロージング台本Canvaテンプレート</div>
+      <div class="ck">平均登録率15%で新規リストを集めるLPテンプレート</div>
+      <div class="ck">優良顧客を安く集める勝ち画像クリエイティブ参考テンプレート</div>
+      <div class="ck">広告で影響力を拡大する動画クリエイティブ参考テンプレート</div>
+      <div class="ck">チャレンジローンチ1Dayモデル構成テンプレート</div>
+      <div class="ck">チャレンジローンチ3Dayモデル構成テンプレート</div>
+      <div class="ck">マネして実践チャレンジローンチCanvaスライドテンプレート</div>
+      <div class="ck">成約率10%でフロント商品を自動売りしたLP構成テンプレート</div>
+      <div class="ck">購入者の35%が追加購入したアップセルLPの構成テンプレート</div>
+      <div class="ck">低単価とサブスク自動売りで1億売ったファネルテンプレート</div>
+      <div class="ck">15分でフロント商品を販売するセールス動画の台本テンプレート</div>
+      <div class="ck">コピペで使えるセールス動画のCanvaスライドテンプレート</div>
+      <div class="ck">マネして売れるアップセルVSLのCanvaスライドテンプレート</div>
+    </div>
+  </div>
+
+  <!-- ================= 7. AIメンター＆ツール ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <span class="no">07</span>
+      <h2>累計23億のノウハウを搭載｜24時間365日対応のAIメンター＆ツール</h2>
+      <span class="en">AI Mentor &amp; Tools</span>
+    </div>
+    <div class="checklist">
+      <div class="ck">AXファネル®無制限利用権利<span class="pill">無制限</span></div>
+      <div class="ck">コミュニティ「AIファネルホルダー®」</div>
+      <div class="ck">AIファネルメンター使い放題<span class="pill">無制限</span></div>
+      <div class="ck">リリース予定のAXファネル先行利用権利</div>
+    </div>
+  </div>
+
+  <!-- ================= 8. 安心サポート環境 ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <span class="no">08</span>
+      <h2>売れる仕組みが100%完成できる安心サポート環境</h2>
+      <span class="en">Support</span>
+    </div>
+    <div class="checklist">
+      <div class="ck">LINEオープンチャットコミュニティ</div>
+      <div class="ck">ファネル構築サポートグルコン<span class="pill">月2回</span></div>
+      <div class="ck">ライティング添削グルコン<span class="pill">月1回</span></div>
+      <div class="ck">Meta広告スタートグルコン<span class="pill">月1回</span></div>
+      <div class="ck">ファネルホルダー交流会（オンライン／オフライン）</div>
+      <div class="ck">コミュニティメンバー限定の非公開イベントご招待</div>
+      <div class="ck">SFCサクセスチームのサポート</div>
+    </div>
+  </div>
+
+  <!-- ================= 9. 無制限添削＆グループコンサルティング ================= -->
+  <div class="sec">
+    <div class="sec-title">
+      <span class="no">09</span>
+      <h2>大賀＆億越え起業家たちと一緒に運用｜無制限添削＆グループコンサルティング</h2>
+      <span class="en">Consulting</span>
+    </div>
+    <p class="sub-head">毎週のグルコンでも、グルチャでも、CSチームとでも、いつでも何度でも相談OK</p>
+    <div class="checklist">
+      <div class="ck">SFCプレミアムグルコン特別参加（毎週金曜9:00〜11:00）<span class="pill">毎週開催</span></div>
+      <div class="ck">疑問解消グループチャットサポート（LINE）<span class="pill">無制限</span></div>
+      <div class="ck">SFCサクセスチームのマンツーマンサポート<span class="pill">無制限</span></div>
+      <div class="ck">SFC合同オフ会の特別参加権利</div>
+      <div class="ck">年1回のリトリート合宿</div>
+    </div>
+    <p class="sub-head">オファー設計から広告運用・CS体制まで、ビジネスのすべてを何度でも相談OK</p>
+    <div class="checklist">
+      <div class="ck">売れるオファー開発＆価格設定の無制限アドバイス</div>
+      <div class="ck">商品コンセプト設計の無制限添削＆アドバイス</div>
+      <div class="ck">サクセスパス開発の無制限相談OK</div>
+      <div class="ck">個別面談クロージング技術の習得＆スクリプト添削アドバイス</div>
+      <div class="ck">プレゼン台本＆スライド作成の添削無制限アドバイス</div>
+      <div class="ck">ファネル設計の相談何度でも、何本でもOK</div>
+      <div class="ck">メルマガ＆LINE自動化コンサルティング</div>
+      <div class="ck">UTAGEシステムの構築サポート無制限</div>
+      <div class="ck">Meta広告の初期設定サポート</div>
+      <div class="ck">広告コンセプト設計の無制限＆何個でも添削アドバイス</div>
+      <div class="ck">クリエイティブの審査チェックサポート</div>
+      <div class="ck">オプトLPのコピーライティング添削アドバイス</div>
+      <div class="ck">広告運用＆A/Bテストの分析改善アドバイス</div>
+      <div class="ck">SNSフォロワーのマネタイズ導線</div>
+      <div class="ck">メルマガLINEリストの最大化施策</div>
+      <div class="ck">顧客リストのLTV最大化施策</div>
+      <div class="ck">顧客を成功に導くCS体制構築</div>
+      <div class="ck">売れてヒマになった後のステージのあり方相談</div>
+    </div>
+  </div>
+
+  <!-- ================= オファー ================= -->
+  <div class="offer">
+    <div class="label">Offer</div>
+    <div class="name">マスターピース インナーサークル</div>
+    <div class="price">¥6,600,000</div>
+    <div class="tax">（税込）</div>
+    <div class="terms">
+      <span>契約期間 <b>1年間</b></span>
+      <span>お支払い <b>2〜3分割可</b></span>
+    </div>
+    <div class="conds">
+      <div class="cond">
+        <h5>ご参加の前提条件</h5>
+        <ul>
+          <li>年商3,000万円以上の達成</li>
+          <li>SNS総フォロワー3万人以上</li>
+          <li>300人以上への販売実績</li>
+        </ul>
+        <p class="note">※ いずれかを満たし、既存の商品・サービスをお持ちであること</p>
+      </div>
+      <div class="cond">
+        <h5>確認事項</h5>
+        <ul>
+          <li>お申し込み後のキャンセル・返金はありません</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>MASTERPIECE INNER CIRCLE — 面談提示用</footer>
+
+</div>
+</body>
+</html>
