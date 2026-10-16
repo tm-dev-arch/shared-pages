@@ -23,6 +23,13 @@
        URLパラメータ  ?downsell=1 （例：?plan=htf&downsell=1）
        キーボード      4 = ダウンセルの表示／非表示（表示時はカードまでスクロール）
        歯車メニュー    「ダウンセル」の行で切替
+
+  v5 (2026-10-16) 森さん要望：ダウンセルだけを提案するパターン（運用プログラム・SFCを出さない）
+   - 表示プランに「ダウンセルのみ」を追加。比較表（01〜07）・運用プログラムとSFCの価格カード・
+     サクセスパスのタブ・振込割引と売上保証の条件行を隠し、超速AIファネルホルダー®︎のカードだけを出す
+   - 出し方：URLパラメータ ?plan=aifh／キーボード 5／歯車メニュー「ダウンセルのみ」
+   - v4 のキー4（ダウンセルの追加表示）はそのまま。「ダウンセルのみ」の間は追加表示の切替を無効にする
+   - 修正：v4 で歯車メニューの「ダウンセル」を押すと表示プランが「両方」に戻っていた不具合を直した
 -->
 <html lang="ja">
 <head>
@@ -136,6 +143,20 @@
   #panel-offer.only-sfc .cards { grid-template-columns: minmax(0, 480px); justify-content: center; }
   #panel-offer.only-htf .card[data-plan="sfc"],
   #panel-offer.only-sfc .card[data-plan="htf"] { display: none; }
+
+  /* ダウンセルのみ（運用プログラム・SFCを提案しないパターン） */
+  #panel-offer.only-aifh .toolbar,
+  #panel-offer.only-aifh .plan-head,
+  #panel-offer.only-aifh details.sec,
+  #panel-offer.only-aifh .cards,
+  #panel-offer.only-aifh .ds-label,
+  #panel-offer.only-aifh .trow[data-terms="main"] { display: none; }
+  #panel-offer.only-aifh .offer-sec { margin-top: 10px; }
+  #panel-offer.only-aifh .downsell { display: block; margin-top: 0; }
+  #panel-offer.only-aifh .terms { max-width: 860px; margin-left: auto; margin-right: auto; }
+  .tabs.only-aifh .tab-row { visibility: hidden; }
+  .pt-item:disabled { opacity: .35; cursor: default; }
+  .pt-item:disabled:hover { color: var(--soft); background: transparent; }
 
   /* ---------- ヘッダー ---------- */
   .head { text-align: center; margin: 26px 0 30px; }
@@ -568,9 +589,10 @@
         <button type="button" class="pt-item" data-plan="both">両方を表示<em>1</em></button>
         <button type="button" class="pt-item" data-plan="htf">運用プログラムのみ<em>2</em></button>
         <button type="button" class="pt-item" data-plan="sfc">SFC顧問のみ<em>3</em></button>
+        <button type="button" class="pt-item" data-plan="aifh">ダウンセルのみ<em>5</em></button>
         <div class="pt-sep"></div>
-        <button type="button" class="pt-item" id="dsToggle">ダウンセル<span class="ds-state">非表示</span><em>4</em></button>
-        <div class="pt-note">URLに ?plan=htf / ?plan=sfc を付けて開くと、最初から1プランだけで表示されます。&downsell=1 を足すとダウンセルも最初から表示されます。</div>
+        <button type="button" class="pt-item" id="dsToggle">ダウンセルを追加<span class="ds-state">非表示</span><em>4</em></button>
+        <div class="pt-note">URLに ?plan=htf / ?plan=sfc / ?plan=aifh を付けて開くと、最初から1プランだけで表示されます。&downsell=1 を足すとダウンセルも最初から表示されます。</div>
       </div>
     </div>
   </nav>
@@ -893,9 +915,9 @@
       </div>
 
       <div class="terms">
-        <div class="trow"><dt>お支払い</dt><dd>表示金額はすべて税込です。銀行振込でのお申し込みには振込割引を適用し、一括または2分割の場合はさらに割引を適用します</dd></div>
+        <div class="trow" data-terms="main"><dt>お支払い</dt><dd>表示金額はすべて税込です。銀行振込でのお申し込みには振込割引を適用し、一括または2分割の場合はさらに割引を適用します</dd></div>
         <div class="trow"><dt>確認事項</dt><dd>申し込み後のキャンセル・返金なし</dd></div>
-        <div class="trow"><dt>売上保証条件</dt><dd>プログラムの内容を実践して期間内の売上が保証金額未満の場合：無制限サポート延長</dd></div>
+        <div class="trow" data-terms="main"><dt>売上保証条件</dt><dd>プログラムの内容を実践して期間内の売上が保証金額未満の場合：無制限サポート延長</dd></div>
       </div>
     </div>
 
@@ -1086,11 +1108,14 @@
     var path = document.getElementById('panel-path');
     var trigger = document.getElementById('planTrigger');
     var menu = document.getElementById('planMenu');
-    var PLANS = ['both', 'htf', 'sfc'];
+    var dsToggle = document.getElementById('dsToggle');
+    var dsBlock = document.getElementById('downsell');
+    var PLANS = ['both', 'htf', 'sfc', 'aifh'];
     var SUB = {
       both: 'ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム',
       htf: 'ハイチケットファネル®運用プログラム',
-      sfc: 'Strategic Funnel® CLUB 顧問プログラム'
+      sfc: 'Strategic Funnel® CLUB 顧問プログラム',
+      aifh: '超速AIファネルホルダー®︎'
     };
 
     function closeMenu() {
@@ -1103,8 +1128,15 @@
       if (PLANS.indexOf(plan) < 0) { plan = 'both'; }
       offer.classList.toggle('only-htf', plan === 'htf');
       offer.classList.toggle('only-sfc', plan === 'sfc');
+      offer.classList.toggle('only-aifh', plan === 'aifh');
+      nav.classList.toggle('only-aifh', plan === 'aifh');
       path.classList.toggle('hide-sfc', plan === 'htf');
-      document.querySelectorAll('.pt-item').forEach(function (b) {
+      // ダウンセルのみの時は、サクセスパス（運用プログラム・SFC用）を開かせない
+      if (plan === 'aifh' && !offer.classList.contains('active')) {
+        document.querySelector('.tab[data-panel="offer"]').click();
+      }
+      dsToggle.disabled = plan === 'aifh';
+      document.querySelectorAll('.pt-item[data-plan]').forEach(function (b) {
         b.classList.toggle('active', b.getAttribute('data-plan') === plan);
       });
       document.querySelectorAll('[data-sub]').forEach(function (el) {
@@ -1124,18 +1156,16 @@
     menu.addEventListener('click', function (e) { e.stopPropagation(); });
     document.addEventListener('click', closeMenu);
 
-    document.querySelectorAll('.pt-item').forEach(function (btn) {
+    document.querySelectorAll('.pt-item[data-plan]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         applyPlan(btn.getAttribute('data-plan'));
         closeMenu();
       });
     });
 
-    // ---- ダウンセル（超速AIファネルホルダー®︎）の表示切替。表示プランとは独立 ----
-    var dsToggle = document.getElementById('dsToggle');
-    var dsBlock = document.getElementById('downsell');
-
+    // ---- ダウンセル（超速AIファネルホルダー®︎）の追加表示。表示プランとは独立 ----
     function applyDownsell(on, scroll) {
+      if (offer.classList.contains('only-aifh')) { return; }
       offer.classList.toggle('show-downsell', on);
       dsToggle.classList.toggle('on', on);
       dsToggle.querySelector('.ds-state').textContent = on ? '表示中' : '非表示';
@@ -1151,7 +1181,7 @@
       closeMenu();
     });
 
-    // キーボード：1=両方 / 2=運用プログラムのみ / 3=SFC顧問のみ / 4=ダウンセル表示切替（Escでメニューを閉じる）
+    // キーボード：1=両方 / 2=運用プログラムのみ / 3=SFC顧問のみ / 5=ダウンセルのみ / 4=ダウンセル追加表示の切替（Escでメニューを閉じる）
     document.addEventListener('keydown', function (e) {
       if (e.metaKey || e.ctrlKey || e.altKey) { return; }
       if (e.key === 'Escape') { closeMenu(); return; }
@@ -1160,13 +1190,13 @@
         closeMenu();
         return;
       }
-      var i = ['1', '2', '3'].indexOf(e.key);
-      if (i < 0) { return; }
-      applyPlan(PLANS[i]);
+      var KEYS = { '1': 'both', '2': 'htf', '3': 'sfc', '5': 'aifh' };
+      if (!KEYS[e.key]) { return; }
+      applyPlan(KEYS[e.key]);
       closeMenu();
     });
 
-    // URLパラメータ（?plan=both|htf|sfc・&downsell=1）で初期表示を指定できる
+    // URLパラメータ（?plan=both|htf|sfc|aifh・&downsell=1）で初期表示を指定できる
     var param = (location.search.match(/[?&]plan=([a-z]+)/) || [])[1];
     applyPlan(param || 'both');
     applyDownsell(/[?&]downsell=1(&|$)/.test(location.search), false);
