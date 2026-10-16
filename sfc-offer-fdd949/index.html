@@ -57,6 +57,22 @@
      スクロール位置で今の段階が光る。押すとその場所へ移動（4 は契約情報の項目カードを出す）
    - プレゼンモード：文字を2〜3割大きく・コントラストを上げ・◯をチェックマークに。キー 8／歯車メニュー／&present=1
    - 文言・価格・項目は変えていない
+
+  v10 (2026-10-16) 森さん要望：SFA（運用プログラム）と SFC の違いがわかるようにし、SFC の成果を見せる（案A・案B）
+   - 案A：07 の冒頭に「運用プログラムと SFC の違い」の比較（大賀との接点の回数・相談できるまでの時間・売上保証・一緒に進める顧問生）。
+     数字はすべてこの表とカードにすでに載っている事実から（朝礼 月〜木＋金曜グルコン／保証 1,000万・2,000万／加入条件）
+   - 案B：07 の直後に「SFC の成果」ブロック（運用プログラムのみの表示では出さない）
+       ・同じ人が SFA／サブスクから SFC に移って変わったこと（有城さん・宮邉さん・みさっきーさん）
+       ・朝礼で直したら数字が動いた例（宮邉さん・白井さん・河本さん）
+       ・SFC 顧問生の成果（実績SSOT ✅ の顧客の声と、顧問先の最高月商更新率 93%）
+   - 出典（2026-10-16 調査・クライアントの掲載承諾は森さん確認済み）
+       有城：SFA 期間の累計 1,300万＝Slack #funnel_クローザー 2026-05-05／SFC 移行 2026-05-05（メンバー管理DB）／9月月商 1,100万＝朝礼 2026-10-02
+       宮邉：入会前 3〜4ヶ月で400万・月平均1,000万近く・8桁2回目＝朝礼 2026-03-30／入会後 約1ヶ月半で累計1,400万＝Drive 2025/11/25 成形文・朝礼シート（「月商」と「累計」の表記ゆれがあるため「累計」を採用）／
+             FB→視聴完了率 10%→23%＝朝礼 2025-11-06→11-19
+       みさっきー：SFC 入会 2025-10-01／単価 30〜50万→200万＝朝礼 2025-11-13／広告費16万・16日で420万＝朝礼 2025-11-17
+       白井：07-13 FB（ムーブメント型の訴求）→08-06 1件目の面談で1,100万プラン（過去最高550万）＝朝礼 2026-07-13〜08-06
+       河本：「What が曖昧」の指摘→オファーを作り直した直後に220万（初の200万超え）＝朝礼 2026-10-13
+       顧客の声・93%＝Notion 実績SSOT 382a911603e181be97cdc20ef5bec8bf（顧客の声13名は全員 SFC 在籍時の成果）
 -->
 <html lang="ja">
 <head>
@@ -804,6 +820,94 @@
   html.present .grow .gn { font-size: 13.5px; }
   html.present .bar { font-size: 11px; }
 
+  /* ---------- 案A：運用プログラムと SFC の違い（07 の冒頭） ---------- */
+  .sfc-diff {
+    border-left: 1px solid rgba(212,168,67,0.4); border-right: 1px solid rgba(212,168,67,0.4);
+    background: linear-gradient(180deg, rgba(212,168,67,0.08), rgba(212,168,67,0.02));
+    padding: 16px 16px 18px;
+  }
+  .sd-head { font-size: 11px; font-weight: 800; letter-spacing: .16em; color: var(--gold); margin-bottom: 10px; }
+  .sd-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .sd-item {
+    border: 1px solid rgba(212,168,67,0.3); border-radius: 9px; padding: 12px 12px 11px;
+    background: rgba(20,20,34,0.55); display: flex; flex-direction: column; gap: 6px;
+  }
+  .sd-label { font-size: 11px; font-weight: 700; color: var(--soft); letter-spacing: .03em; }
+  .sd-vs { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+  .sd-a { font-size: 13px; font-weight: 700; color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(255,255,255,0.25); }
+  .sd-arrow { font-size: 12px; color: var(--muted); }
+  .sd-b { font-size: 21px; font-weight: 800; color: var(--gold); line-height: 1.2; }
+  .sd-note { font-size: 11px; color: var(--muted); line-height: 1.6; }
+  .sec.diff .sfc-diff + .rows { border-top: 1px solid var(--line-soft); }
+
+  /* ---------- 案B：SFC の成果（07 の直後） ---------- */
+  .sfc-proof {
+    margin-top: 14px; border: 1px solid rgba(212,168,67,0.4); border-radius: 10px;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212,168,67,0.10), transparent 70%),
+      var(--card);
+    padding: 22px 20px 18px;
+  }
+  #panel-offer.only-htf .sfc-proof, #panel-offer.only-aifh .sfc-proof { display: none; }
+  .sp-title { text-align: center; margin-bottom: 16px; }
+  .sp-kicker { font-size: 10.5px; font-weight: 800; letter-spacing: .3em; color: var(--gold); text-transform: uppercase; }
+  .sp-title h2 { font-size: 18px; font-weight: 700; letter-spacing: .04em; margin-top: 4px; }
+  .sp-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .sp-case { border: 1px solid var(--line); border-radius: 10px; background: rgba(20,20,34,0.55); padding: 14px 14px 12px; }
+  .sp-who { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .sp-who b { font-size: 15px; font-weight: 700; color: #fff; }
+  .sp-who span { font-size: 11px; color: var(--muted); }
+  .sp-ba em { display: block; font-style: normal; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; color: var(--muted); margin-bottom: 2px; }
+  .sp-before strong { font-size: 15px; font-weight: 700; color: var(--soft); }
+  .sp-arrow { color: var(--gold); font-size: 14px; line-height: 1; padding: 6px 0 4px 2px; }
+  .sp-after em { color: var(--gold); }
+  .sp-after strong { display: block; font-size: 22px; font-weight: 800; line-height: 1.25; color: var(--gold); }
+  .sp-after small { display: block; font-size: 11px; color: var(--soft); line-height: 1.6; margin-top: 4px; }
+  .sp-sub {
+    display: flex; align-items: center; gap: 12px; margin: 20px 0 10px;
+    font-size: 12px; font-weight: 800; letter-spacing: .12em; color: var(--soft);
+  }
+  .sp-sub::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .sp-fbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .sp-fb { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: rgba(255,255,255,0.025); }
+  .sp-fb-who { font-size: 13.5px; font-weight: 700; margin-bottom: 8px; }
+  .sp-fb-step { font-size: 12px; line-height: 1.65; color: var(--soft); padding: 4px 0; }
+  .sp-fb-step b { color: var(--gold); font-weight: 800; }
+  .sp-tag {
+    display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: .06em; margin-right: 6px;
+    color: var(--blue); border: 1px solid rgba(107,184,224,0.45); border-radius: 100px; padding: 0 7px; vertical-align: 1px;
+  }
+  .sp-tag.res { color: var(--gold); border-color: rgba(212,168,67,0.55); }
+  .sp-voices { display: grid; grid-template-columns: 150px repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .sp-stat {
+    grid-row: span 2; border-radius: 10px; border: 1px solid rgba(212,168,67,0.5);
+    background: rgba(212,168,67,0.08); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 12px;
+  }
+  .sp-stat b { font-size: 40px; font-weight: 800; color: var(--gold); line-height: 1.1; }
+  .sp-stat b small { font-size: 20px; }
+  .sp-stat span { font-size: 11px; color: var(--soft); line-height: 1.5; margin-top: 4px; }
+  .sp-voice { border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; background: rgba(255,255,255,0.025); }
+  .sp-voice b { display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 2px; }
+  .sp-voice span { font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  .sp-note { font-size: 10.5px; color: var(--muted); text-align: right; margin-top: 10px; }
+
+  html.present .sd-label { font-size: 13px; }
+  html.present .sd-a { font-size: 15px; }
+  html.present .sd-b { font-size: 25px; }
+  html.present .sd-note { font-size: 12.5px; }
+  html.present .sp-title h2 { font-size: 22px; }
+  html.present .sp-who b { font-size: 17px; }
+  html.present .sp-ba em { font-size: 12px; }
+  html.present .sp-before strong { font-size: 17px; }
+  html.present .sp-after strong { font-size: 26px; }
+  html.present .sp-after small, html.present .sp-voice span { font-size: 13px; }
+  html.present .sp-sub { font-size: 14px; }
+  html.present .sp-fb-who { font-size: 15.5px; }
+  html.present .sp-fb-step { font-size: 14px; }
+  html.present .sp-voice b { font-size: 14.5px; }
+  html.present .sp-stat b { font-size: 46px; }
+  html.present .sp-stat span { font-size: 13px; }
+
   @media (max-width: 820px) {
     :root { --colw: 104px; }
     body { padding: 0 14px 60px; }
@@ -833,6 +937,15 @@
     .ov-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
     .ov-tile { min-height: 96px; padding: 12px 11px 10px; }
     .ov-tile .ov-title { font-size: 12px; }
+    .sd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .sd-b { font-size: 17px; }
+    .sp-cases, .sp-fbs { grid-template-columns: 1fr; }
+    .sp-voices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sp-stat { grid-row: auto; grid-column: 1 / -1; flex-direction: row; gap: 12px; }
+    .sfc-proof { padding: 18px 14px 14px; }
+    html.present .sd-b { font-size: 18px; }
+    html.present .plan .pname { font-size: 12px; }
+    html.present .sp-after strong { font-size: 22px; }
     html.present .row .c.ok::after { font-size: 16px; }
     html.present { --colw: 104px; }
     html.present .row { font-size: 13px; padding: 8px 12px; }
@@ -1087,6 +1200,32 @@
           <span class="chev">▼</span>
         </div>
       </summary>
+      <!-- 案A：運用プログラムと SFC の違い（数字はこの表とカードに載っている事実だけ） -->
+      <div class="sfc-diff">
+        <div class="sd-head">運用プログラムと SFC の違い</div>
+        <div class="sd-grid">
+          <div class="sd-item">
+            <div class="sd-label">朝礼・グルコンに参加できる回数</div>
+            <div class="sd-vs"><span class="sd-a">週1回</span><span class="sd-arrow">→</span><span class="sd-b">週5回</span></div>
+            <div class="sd-note">金曜グルコンに加えて、月〜木の大賀フルコミ朝礼で直接FB</div>
+          </div>
+          <div class="sd-item">
+            <div class="sd-label">詰まった時に相談できるまで</div>
+            <div class="sd-vs"><span class="sd-a">次の金曜</span><span class="sd-arrow">→</span><span class="sd-b">翌朝</span></div>
+            <div class="sd-note">直したものを翌朝また見せられるので、改善が止まらない</div>
+          </div>
+          <div class="sd-item">
+            <div class="sd-label">売上保証</div>
+            <div class="sd-vs"><span class="sd-a">1,000万</span><span class="sd-arrow">→</span><span class="sd-b">2,000万</span></div>
+            <div class="sd-note">実践して期間内に届かなければ、無制限でサポートを延長</div>
+          </div>
+          <div class="sd-item">
+            <div class="sd-label">一緒に進める顧問生</div>
+            <div class="sd-vs"><span class="sd-a">条件なし</span><span class="sd-arrow">→</span><span class="sd-b">年商1,500万+</span></div>
+            <div class="sd-note">同じ朝礼に、年商1,500万以上の起業家だけが集まる</div>
+          </div>
+        </div>
+      </div>
       <div class="rows">
         <div class="row"><span class="item">Strategic Funnel®︎ CLUB入会権利／1年</span><span class="c no">ー</span><span class="c">◯</span></div>
         <div class="row"><span class="item">大賀フルコミ朝礼FB（平日／月〜木 8:45〜9:15）</span><span class="c no">ー</span><span class="c">◯</span></div>
@@ -1096,6 +1235,72 @@
         <div class="row"><span class="item">SFC限定リトリート合宿</span><span class="c no">ー</span><span class="c">◯</span></div>
       </div>
     </details>
+
+    <!-- 案B：SFC の成果（運用プログラムのみ・ダウンセルのみの表示では出さない）。出典は冒頭コメントの v10 節 -->
+    <section class="sfc-proof" data-plan="sfc">
+      <div class="sp-title">
+        <span class="sp-kicker">SFC Results</span>
+        <h2>同じ人が SFC に移って、こう変わりました</h2>
+      </div>
+
+      <div class="sp-cases">
+        <div class="sp-case">
+          <div class="sp-who"><b>有城さん</b><span>親子関係サポート</span></div>
+          <div class="sp-ba">
+            <div class="sp-before"><em>運用プログラム（SFA）の約1年3ヶ月</em><strong>累計 1,300万円</strong></div>
+            <div class="sp-arrow">↓</div>
+            <div class="sp-after"><em>SFC に移って5ヶ月</em><strong>月商 1,100万円</strong><small>月1,000万円を突破／広告の ROAS 500〜600%で安定</small></div>
+          </div>
+        </div>
+        <div class="sp-case">
+          <div class="sp-who"><b>宮邉さん</b><span>介護・医療の採用コンサル</span></div>
+          <div class="sp-ba">
+            <div class="sp-before"><em>SFC 入会前</em><strong>3〜4ヶ月で 400万円</strong></div>
+            <div class="sp-arrow">↓</div>
+            <div class="sp-after"><em>SFC 入会から約1ヶ月半</em><strong>累計 1,400万円</strong><small>その後は月平均 1,000万円近く・8桁は2回目</small></div>
+          </div>
+        </div>
+        <div class="sp-case">
+          <div class="sp-who"><b>みさっきーさん</b><span>教員向けキャリア支援</span></div>
+          <div class="sp-ba">
+            <div class="sp-before"><em>SFC 入会前</em><strong>商品単価 30〜50万円</strong></div>
+            <div class="sp-arrow">↓</div>
+            <div class="sp-after"><em>SFC 入会から約1ヶ月半</em><strong>単価 200万円</strong><small>広告費16万円・16日間で 420万円の成約</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp-sub">朝礼で直したら、数字がすぐ動いた</div>
+      <div class="sp-fbs">
+        <div class="sp-fb">
+          <div class="sp-fb-who">宮邉さん</div>
+          <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>ウェビナーの追加した部分だけを撮り直す</div>
+          <div class="sp-fb-step"><span class="sp-tag res">約2週間後</span>ウェビナーの視聴完了率 <b>10% → 23%</b></div>
+        </div>
+        <div class="sp-fb">
+          <div class="sp-fb-who">白井さん</div>
+          <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>「一緒に増やしていく」ムーブメント型の訴求に変える</div>
+          <div class="sp-fb-step"><span class="sp-tag res">約3週間後</span>1件目の個別面談で <b>1,100万円</b>のプランが成約（それまでの最高は550万円）</div>
+        </div>
+        <div class="sp-fb">
+          <div class="sp-fb-who">河本さん</div>
+          <div class="sp-fb-step"><span class="sp-tag">FB</span>「What が曖昧」という指摘を受けて、オファーを作り直す</div>
+          <div class="sp-fb-step"><span class="sp-tag res">直後</span>初めて200万円を超える <b>220万円</b>の成約</div>
+        </div>
+      </div>
+
+      <div class="sp-sub">SFC 顧問生の成果</div>
+      <div class="sp-voices">
+        <div class="sp-stat"><b>93<small>%</small></b><span>顧問先の<br>最高月商更新率</span></div>
+        <div class="sp-voice"><b>みゆさん</b><span>最高月商 1,680万円（それまでの最高月収 600万円の2.8倍）</span></div>
+        <div class="sp-voice"><b>ともかさん</b><span>参加1年で累計 7,300万円、1年後には売上1億5,000万円</span></div>
+        <div class="sp-voice"><b>今田さん</b><span>初回ウェビナーで 1,200万円（それまでの最高月商の2.4倍）</span></div>
+        <div class="sp-voice"><b>俊介さん</b><span>最高月商8桁を4ヶ月連続で更新</span></div>
+        <div class="sp-voice"><b>澤さん</b><span>年商2億円を達成</span></div>
+        <div class="sp-voice"><b>リオナさん</b><span>最高月商 1,200万円、年商は参加前の3倍</span></div>
+      </div>
+      <p class="sp-note">※個人の実績であり、成果を保証するものではありません</p>
+    </section>
 
     <!-- 価格 -->
     <div class="offer-sec">
