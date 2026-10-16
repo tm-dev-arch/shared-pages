@@ -44,6 +44,12 @@
    - 説明文の根拠：#funnel_クローザー の面談報告（デポジット1万円を面談内でカード決済・本決済から差し引き・返金不可を説明）
    - 出し方：URLパラメータ &deposit=1／キーボード 6／歯車メニュー「デポジット決済」
    - 「ダウンセルのみ」（?plan=aifh）の間は出さない（運用プログラム・SFC 用のため）
+
+  v8 (2026-10-16) 森さん要望：契約時の入力項目を出して、Zoom チャットで送って入力してもらう
+   - 「ご契約情報の入力項目」カードを追加（会社名〜再商談の日程の10項目）。既定は非表示・どの表示プランでも出せる
+   - 「項目をコピー」で、案内文つきの項目一覧をコピー → Zoom チャットに貼り、お客さんに埋めて返信してもらう
+   - 出し方：URLパラメータ &contract=1／キーボード 7／歯車メニュー「契約情報の項目」
+   - 入力された内容はこのページでは受け取らない・保存しない（個人情報を公開リポジトリのページに載せないため）
 -->
 <html lang="ja">
 <head>
@@ -482,6 +488,32 @@
   .ds-btn.blue { color: #fff; background: var(--grad); box-shadow: 0 6px 18px -8px rgba(107,184,224,.8); }
   .ds-copy.done.blue { color: var(--blue); border-color: rgba(107,184,224,0.55); }
 
+  /* 契約情報の入力項目（Zoom チャットで送る用）：既定は非表示 */
+  .contract { display: none; margin-top: 30px; scroll-margin-top: calc(var(--tabh) + 120px); }
+  #panel-offer.show-contract .contract { display: block; animation: dsIn .35s ease-out; }
+  #panel-offer.only-aifh .contract .ds-label { display: flex; }
+  .card.ct {
+    max-width: 860px; margin: 0 auto;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 260px); gap: 26px; align-items: center;
+    border-color: rgba(255,255,255,0.18);
+  }
+  .ct-list {
+    margin: 0; padding: 14px 18px; border-radius: 8px;
+    border: 1px solid var(--line); background: rgba(255,255,255,0.03);
+    font-family: inherit; font-size: 13px; line-height: 2; color: var(--text);
+    white-space: pre-wrap;
+  }
+  .ct-side { text-align: center; }
+  .ct-side .ds-apply-head { margin-bottom: 6px; }
+  .ct-side p { font-size: 12px; color: var(--soft); line-height: 1.7; margin-bottom: 14px; }
+  .ct-copy {
+    font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: .06em;
+    color: #fff; background: var(--grad); border: none; border-radius: 100px;
+    padding: 10px 28px; cursor: pointer; transition: filter .15s;
+  }
+  .ct-copy:hover { filter: brightness(1.08); }
+  .ct-copy.done { background: rgba(107,184,224,0.18); color: var(--blue); box-shadow: inset 0 0 0 1px rgba(107,184,224,0.5); }
+
   /* 歯車メニュー内のダウンセル切替 */
   .pt-sep { height: 1px; background: var(--line); margin: 4px 4px; }
   .pt-item .ds-state { margin-left: auto; font-size: 9.5px; font-weight: 700; color: var(--muted); }
@@ -648,6 +680,7 @@
     .card.ds { grid-template-columns: 1fr; gap: 6px; padding: 24px 18px; }
     .ds-apply { flex-direction: column; text-align: center; padding: 18px 14px; margin-top: 10px; }
     .card.dp { grid-template-columns: 1fr; gap: 10px; padding: 24px 18px; }
+    .card.ct { grid-template-columns: 1fr; gap: 16px; padding: 24px 18px; }
     .ds-apply-actions { justify-content: center; }
     .diff-badge { display: none; }
     .g-head, .grow { grid-template-columns: 150px 1fr; }
@@ -677,7 +710,8 @@
         <div class="pt-sep"></div>
         <button type="button" class="pt-item" id="dsToggle">ダウンセルを追加<span class="ds-state">非表示</span><em>4</em></button>
         <button type="button" class="pt-item" id="dpToggle">デポジット決済<span class="ds-state">非表示</span><em>6</em></button>
-        <div class="pt-note">URLに ?plan=htf / ?plan=sfc / ?plan=aifh を付けて開くと、最初から1プランだけで表示されます。&downsell=1 でダウンセル、&deposit=1 でデポジット決済も最初から表示されます。</div>
+        <button type="button" class="pt-item" id="ctToggle">契約情報の項目<span class="ds-state">非表示</span><em>7</em></button>
+        <div class="pt-note">URLに ?plan=htf / ?plan=sfc / ?plan=aifh を付けて開くと、最初から1プランだけで表示されます。&downsell=1 でダウンセル、&deposit=1 でデポジット決済、&contract=1 で契約情報の項目も最初から表示されます。</div>
       </div>
     </div>
   </nav>
@@ -1041,6 +1075,28 @@
         </div>
       </div>
 
+      <!-- 契約情報の入力項目：Zoom チャットで送ってお客さんに埋めてもらう（既定は非表示・&contract=1 / キー7 / 歯車メニューで表示） -->
+      <div class="contract" id="contract">
+        <div class="ds-label">ご契約手続き</div>
+        <div class="card ct">
+          <pre class="ct-list" id="ctList">会社名：
+会社名の振り仮名：
+代表者名：
+電話番号：
+住所：
+メールアドレス：
+契約プラン：
+支払い方法：
+決済日：
+再商談の日程：</pre>
+          <div class="ct-side">
+            <div class="ds-apply-head">ご契約情報の入力</div>
+            <p>Zoomのチャットに項目をお送りします。各項目をご入力のうえ、そのままチャットで返信してください</p>
+            <button type="button" class="ct-copy" id="ctCopy">項目をコピー</button>
+          </div>
+        </div>
+      </div>
+
       <div class="terms">
         <div class="trow" data-terms="main"><dt>お支払い</dt><dd>表示金額はすべて税込です。銀行振込でのお申し込みには振込割引を適用し、一括または2分割の場合はさらに割引を適用します</dd></div>
         <div class="trow"><dt>確認事項</dt><dd>申し込み後のキャンセル・返金なし</dd></div>
@@ -1240,6 +1296,8 @@
     var dsBlock = document.getElementById('downsell');
     var dpToggle = document.getElementById('dpToggle');
     var dpBlock = document.getElementById('deposit');
+    var ctToggle = document.getElementById('ctToggle');
+    var ctBlock = document.getElementById('contract');
     var PLANS = ['both', 'htf', 'sfc', 'aifh'];
     var SUB = {
       both: 'ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム',
@@ -1329,6 +1387,46 @@
       closeMenu();
     });
 
+    // ---- 契約情報の入力項目（Zoom チャットで送る用）。どの表示プランでも出せる ----
+    function applyContract(on, scroll) {
+      offer.classList.toggle('show-contract', on);
+      ctToggle.classList.toggle('on', on);
+      ctToggle.querySelector('.ds-state').textContent = on ? '表示中' : '非表示';
+      if (on && scroll) {
+        if (!offer.classList.contains('active')) { document.querySelector('.tab[data-panel="offer"]').click(); }
+        ctBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    ctToggle.addEventListener('click', function () {
+      applyContract(!offer.classList.contains('show-contract'), true);
+      closeMenu();
+    });
+
+    // 「項目をコピー」：案内文つきの項目一覧をコピーする（Zoom チャットに貼る）
+    var ctCopy = document.getElementById('ctCopy');
+    var ctText = 'ご契約情報のご入力をお願いします！\n各項目の「：」のあとにご入力いただき、このチャットに返信してください\n\n' +
+      document.getElementById('ctList').textContent.trim();
+    function ctDone() {
+      ctCopy.textContent = 'コピーしました';
+      ctCopy.classList.add('done');
+      setTimeout(function () { ctCopy.textContent = '項目をコピー'; ctCopy.classList.remove('done'); }, 2000);
+    }
+    function ctFallback() {
+      var ta = document.createElement('textarea');
+      ta.value = ctText; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); ctDone(); } catch (e) { window.prompt('この内容をコピーしてください', ctText); }
+      document.body.removeChild(ta);
+    }
+    ctCopy.addEventListener('click', function () {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(ctText).then(ctDone, ctFallback);
+      } else {
+        ctFallback();
+      }
+    });
+
     // キーボード：1=両方 / 2=運用プログラムのみ / 3=SFC顧問のみ / 5=ダウンセルのみ / 4=ダウンセル追加表示 / 6=デポジット決済（Escでメニューを閉じる）
     document.addEventListener('keydown', function (e) {
       if (e.metaKey || e.ctrlKey || e.altKey) { return; }
@@ -1343,6 +1441,11 @@
         closeMenu();
         return;
       }
+      if (e.key === '7') {
+        applyContract(!offer.classList.contains('show-contract'), true);
+        closeMenu();
+        return;
+      }
       var KEYS = { '1': 'both', '2': 'htf', '3': 'sfc', '5': 'aifh' };
       if (!KEYS[e.key]) { return; }
       applyPlan(KEYS[e.key]);
@@ -1354,6 +1457,7 @@
     applyPlan(param || 'both');
     applyDownsell(/[?&]downsell=1(&|$)/.test(location.search), false);
     applyDeposit(/[?&]deposit=1(&|$)/.test(location.search), false);
+    applyContract(/[?&]contract=1(&|$)/.test(location.search), false);
 
     // セクション一括開閉（オファー表）
     document.getElementById('openAll').addEventListener('click', function () {
