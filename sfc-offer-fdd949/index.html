@@ -50,6 +50,13 @@
    - 「項目をコピー」で、案内文つきの項目一覧をコピー → Zoom チャットに貼り、お客さんに埋めて返信してもらう
    - 出し方：URLパラメータ &contract=1／キーボード 7／歯車メニュー「契約情報の項目」
    - 入力された内容はこのページでは受け取らない・保存しない（個人情報を公開リポジトリのページに載せないため）
+
+  v9 (2026-10-16) 森さん要望：説明しながら見せる時に、視覚的にわかりやすくする（案2・3・4）
+   - 全体の地図：オファー表の冒頭に7セクションのタイル（項目数・両プラン共通／SFCだけ）。押すとそのセクションだけ開いて移動
+   - 進行バー：上部のタブを「1 提供内容 → 2 サクセスパス → 3 価格・お支払い → 4 ご契約手続き」に置き換え。
+     スクロール位置で今の段階が光る。押すとその場所へ移動（4 は契約情報の項目カードを出す）
+   - プレゼンモード：文字を2〜3割大きく・コントラストを上げ・◯をチェックマークに。キー 8／歯車メニュー／&present=1
+   - 文言・価格・項目は変えていない
 -->
 <html lang="ja">
 <head>
@@ -666,6 +673,137 @@
 
   footer { text-align: center; margin-top: 48px; color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 0.25em; }
 
+  /* ---------- 進行バー（今どの段階の話か）：タブの代わりに上部に出す ---------- */
+  .tab-row { display: none; }
+  .steps { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: nowrap; }
+  .step {
+    font-family: inherit; display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 700; letter-spacing: .05em; white-space: nowrap;
+    color: var(--muted); background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line); border-radius: 100px;
+    padding: 6px 16px 6px 7px; cursor: pointer; transition: all .2s;
+  }
+  .step .n {
+    width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10.5px; font-weight: 800; color: var(--muted);
+    border: 1px solid var(--line); background: rgba(255,255,255,0.04);
+  }
+  .step:hover { color: #fff; border-color: rgba(107,184,224,0.45); }
+  .step.done { color: var(--soft); }
+  .step.done .n { color: #fff; background: rgba(107,184,224,0.35); border-color: transparent; }
+  .step.active { color: #fff; background: var(--grad); border-color: transparent; box-shadow: 0 6px 18px -8px rgba(123,142,200,.9); }
+  .step.active .n { color: #2a2a44; background: #fff; border-color: transparent; }
+  .step-sep { width: 18px; height: 1px; background: var(--line); flex-shrink: 0; }
+  .step .s-short { display: none; }
+  .tabs.only-aifh .steps { visibility: hidden; }
+
+  /* ---------- 全体の地図（7セクションのタイル） ---------- */
+  .overview { margin: 0 0 26px; }
+  .ov-summary {
+    display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap;
+    margin-bottom: 14px; text-align: center;
+  }
+  .ov-total { font-size: 13px; color: var(--soft); font-weight: 600; letter-spacing: .04em; }
+  .ov-total b {
+    font-size: 34px; font-weight: 800; margin-right: 4px; vertical-align: -4px;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .ov-legend { display: flex; gap: 14px; font-size: 11.5px; color: var(--soft); }
+  .ov-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .ov-legend .lg-common { background: rgba(107,184,224,0.75); }
+  .ov-legend .lg-sfc { background: var(--gold); }
+  .ov-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .ov-tile {
+    font-family: inherit; text-align: left; cursor: pointer; position: relative;
+    display: flex; flex-direction: column; gap: 6px; min-height: 108px;
+    padding: 14px 14px 12px; border-radius: 10px; color: var(--text);
+    border: 1px solid var(--line); border-top: 3px solid rgba(107,184,224,0.75);
+    background: var(--card); transition: transform .15s, border-color .15s, background .15s;
+  }
+  .ov-tile:hover { transform: translateY(-2px); border-color: rgba(107,184,224,0.55); background: linear-gradient(135deg, rgba(58,58,80,0.7), rgba(34,34,58,0.7)); }
+  .ov-tile .ov-no { font-size: 10.5px; font-weight: 800; letter-spacing: .16em; color: var(--blue); }
+  .ov-tile .ov-title { font-size: 13px; font-weight: 700; line-height: 1.5; flex: 1; }
+  .ov-tile .ov-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .ov-tile .ov-count { font-size: 12px; font-weight: 700; color: var(--soft); }
+  .ov-tile .ov-count b { font-size: 18px; color: #fff; margin-right: 2px; }
+  .ov-tile .ov-tag {
+    font-size: 9.5px; font-weight: 800; letter-spacing: .06em; white-space: nowrap;
+    color: var(--blue); border: 1px solid rgba(107,184,224,0.45); border-radius: 100px; padding: 0 8px;
+  }
+  .ov-tile.ov-sfc { border-top-color: var(--gold); border-color: rgba(212,168,67,0.4); background: linear-gradient(135deg, rgba(212,168,67,0.10), rgba(26,26,46,0.6)); }
+  .ov-tile.ov-sfc .ov-no { color: var(--gold); }
+  .ov-tile.ov-sfc .ov-tag { color: var(--gold); border-color: rgba(212,168,67,0.55); }
+  .ov-tile.ov-sfc:hover { border-color: rgba(212,168,67,0.7); }
+  .ov-hint { text-align: center; font-size: 11px; color: var(--muted); margin-top: 10px; }
+  #panel-offer.only-htf .ov-tile.ov-sfc { display: none; }
+  #panel-offer.only-htf .ov-tag, #panel-offer.only-sfc .ov-tag,
+  #panel-offer.only-htf .ov-legend, #panel-offer.only-sfc .ov-legend { display: none; }
+  #panel-offer.only-aifh .overview { display: none; }
+  details.sec { scroll-margin-top: calc(var(--tabh) + 90px); }
+  .sec.flash .sec-head { box-shadow: 0 0 0 2px rgba(107,184,224,0.7); transition: box-shadow .3s; }
+  .sec.diff.flash .sec-head { box-shadow: 0 0 0 2px rgba(212,168,67,0.8); }
+
+  /* ---------- プレゼンモード（画面共有で読める大きさ・コントラスト） ---------- */
+  html.present {
+    --muted: #b9b7ca; --soft: #e2e0ec;
+    --line: rgba(255,255,255,0.16); --line-soft: rgba(255,255,255,0.10);
+    --colw: 210px;
+  }
+  html.present .wrap { max-width: 1120px; }
+  html.present .head h1 { font-size: clamp(26px, 4vw, 38px); }
+  html.present .head .sub { font-size: 16px; }
+  html.present .step { font-size: 14px; padding: 7px 18px 7px 8px; }
+  html.present .step .n { width: 22px; height: 22px; font-size: 11.5px; }
+  html.present .ov-tile .ov-title { font-size: 15px; }
+  html.present .ov-tile .ov-count { font-size: 13.5px; }
+  html.present .ov-tile .ov-count b { font-size: 21px; }
+  html.present .ov-total { font-size: 15px; }
+  html.present .ov-total b { font-size: 40px; }
+  html.present .ov-legend { font-size: 13px; }
+  html.present .plan .pname { font-size: 16.5px; }
+  html.present .plan-head .spacer span { font-size: 14px; }
+  html.present .sec-head { padding: 13px 18px; }
+  html.present .sec-head h2 { font-size: 16.5px; }
+  html.present .sec-head .no { font-size: 13px; }
+  html.present .sec-head .count, html.present .diff-badge { font-size: 12px; }
+  html.present .sec-note { font-size: 13.5px; }
+  html.present .row { font-size: 15.5px; padding: 9px 18px; }
+  html.present .row .item.indent { font-size: 15px; }
+  html.present .row .c { font-size: 15px; }
+  html.present .row .c .pill { font-size: 12.5px; padding: 2px 12px; }
+  html.present .row .c.ok { font-size: 0; }
+  html.present .row .c.ok::after { content: "✓"; font-size: 19px; font-weight: 800; line-height: 1; }
+  html.present .row .c.no { font-size: 15px; }
+  html.present .card .cname { font-size: 18px; }
+  html.present .card .cguard { font-size: 13.5px; }
+  html.present .card .cprice { font-size: 44px; }
+  html.present .card .ctax { font-size: 13px; }
+  html.present .payrow .pname { font-size: 14px; }
+  html.present .payrow .pnote { font-size: 12.5px; }
+  html.present .payrow .pamt { font-size: 18px; }
+  html.present .payrow.best .pamt { font-size: 21px; }
+  html.present .payrow .poff { font-size: 12px; }
+  html.present .card .prow { font-size: 14px; grid-template-columns: 110px 1fr; }
+  html.present .paybox .phead { font-size: 12px; }
+  html.present .terms .trow { font-size: 14.5px; grid-template-columns: 130px 1fr; }
+  html.present .ds-label { font-size: 13.5px; }
+  html.present .ds-inc li, html.present .dp-points li { font-size: 14.5px; }
+  html.present .ds-inc li span { font-size: 12.5px; }
+  html.present .ds-inc .ds-bonus p, html.present .ds-note { font-size: 13px; }
+  html.present .ds-apply-head { font-size: 17px; }
+  html.present .ds-apply-body p, html.present .ct-side p { font-size: 13.5px; }
+  html.present .ct-list { font-size: 15.5px; }
+  html.present .fblock h3 { font-size: 23px; }
+  html.present .fb-meta { font-size: 14.5px; }
+  html.present .fblock li { font-size: 15px; }
+  html.present .fblock li em { font-size: 12px; }
+  html.present .flow-entry .fe-title { font-size: 20px; }
+  html.present .flow-entry .fe-sub, html.present .flow-support p { font-size: 14px; }
+  html.present .flow-arrow span { font-size: 13px; }
+  html.present .grow .gn { font-size: 13.5px; }
+  html.present .bar { font-size: 11px; }
+
   @media (max-width: 820px) {
     :root { --colw: 104px; }
     body { padding: 0 14px 60px; }
@@ -686,6 +824,21 @@
     .g-head, .grow { grid-template-columns: 150px 1fr; }
     .grow .gn { font-size: 10.5px; padding: 5px 8px; }
     .gantt-wrap { padding: 12px 10px 18px; }
+    .steps { gap: 4px; }
+    .step { font-size: 11px; padding: 5px 9px 5px 5px; gap: 5px; }
+    .step .n { width: 17px; height: 17px; font-size: 9.5px; }
+    .step .s-long { display: none; }
+    .step .s-short { display: inline; }
+    .step-sep { width: 6px; }
+    .ov-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .ov-tile { min-height: 96px; padding: 12px 11px 10px; }
+    .ov-tile .ov-title { font-size: 12px; }
+    html.present .row .c.ok::after { font-size: 16px; }
+    html.present { --colw: 104px; }
+    html.present .row { font-size: 13px; padding: 8px 12px; }
+    html.present .step { font-size: 11px; padding: 5px 9px 5px 5px; }
+    html.present .step .n { width: 17px; height: 17px; font-size: 9.5px; }
+    html.present .ov-tile .ov-title { font-size: 12.5px; }
   }
 </style>
 </head>
@@ -697,6 +850,16 @@
     <div class="tab-row">
       <button type="button" class="tab active" data-panel="offer">オファー表</button>
       <button type="button" class="tab" data-panel="path">サクセスパス</button>
+    </div>
+    <!-- 進行バー：今どの段階の話かを示す。押すとその場所へ移動する -->
+    <div class="steps" id="steps">
+      <button type="button" class="step" data-step="content"><span class="n">1</span><span class="s-long">提供内容</span><span class="s-short">内容</span></button>
+      <span class="step-sep"></span>
+      <button type="button" class="step" data-step="path"><span class="n">2</span><span class="s-long">サクセスパス</span><span class="s-short">パス</span></button>
+      <span class="step-sep"></span>
+      <button type="button" class="step" data-step="price"><span class="n">3</span><span class="s-long">価格・お支払い</span><span class="s-short">価格</span></button>
+      <span class="step-sep"></span>
+      <button type="button" class="step" data-step="contract"><span class="n">4</span><span class="s-long">ご契約手続き</span><span class="s-short">契約</span></button>
     </div>
     <div class="plan-tool">
       <button type="button" class="pt-trigger" id="planTrigger" aria-haspopup="true" aria-expanded="false"
@@ -711,7 +874,9 @@
         <button type="button" class="pt-item" id="dsToggle">ダウンセルを追加<span class="ds-state">非表示</span><em>4</em></button>
         <button type="button" class="pt-item" id="dpToggle">デポジット決済<span class="ds-state">非表示</span><em>6</em></button>
         <button type="button" class="pt-item" id="ctToggle">契約情報の項目<span class="ds-state">非表示</span><em>7</em></button>
-        <div class="pt-note">URLに ?plan=htf / ?plan=sfc / ?plan=aifh を付けて開くと、最初から1プランだけで表示されます。&downsell=1 でダウンセル、&deposit=1 でデポジット決済、&contract=1 で契約情報の項目も最初から表示されます。</div>
+        <div class="pt-sep"></div>
+        <button type="button" class="pt-item" id="prToggle">プレゼンモード<span class="ds-state">オフ</span><em>8</em></button>
+        <div class="pt-note">URLに ?plan=htf / ?plan=sfc / ?plan=aifh を付けて開くと、最初から1プランだけで表示されます。&downsell=1 でダウンセル、&deposit=1 でデポジット決済、&contract=1 で契約情報の項目、&present=1 でプレゼンモードも最初から有効になります。</div>
       </div>
     </div>
   </nav>
@@ -724,6 +889,24 @@
       <h1>本日の1on1セッション限定<span class="grad">SPオファー</span></h1>
       <p class="sub" data-sub="offer">ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム</p>
       <div class="gold-line"></div>
+    </div>
+
+    <!-- 全体の地図：7セクションを1画面で見せる。タイルを押すとそのセクションだけ開いて移動する -->
+    <div class="overview" id="overview">
+      <div class="ov-summary">
+        <div class="ov-total">提供内容は全<b id="ovTotal">72</b>項目</div>
+        <div class="ov-legend"><span><i class="lg-common"></i>両プラン共通 <span id="ovCommon">66</span>項目</span><span><i class="lg-sfc"></i>SFCだけ 6項目</span></div>
+      </div>
+      <div class="ov-grid">
+        <button type="button" class="ov-tile" data-sec="0"><span class="ov-no">01</span><span class="ov-title">ファネルマーケティング<br>コンプリート講座</span><span class="ov-foot"><span class="ov-count"><b>12</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
+        <button type="button" class="ov-tile" data-sec="1"><span class="ov-no">02</span><span class="ov-title">超速実践テンプレート</span><span class="ov-foot"><span class="ov-count"><b>20</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
+        <button type="button" class="ov-tile" data-sec="2"><span class="ov-no">03</span><span class="ov-title">24時間365日対応の<br>AIメンター＆ツール</span><span class="ov-foot"><span class="ov-count"><b>4</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
+        <button type="button" class="ov-tile" data-sec="3"><span class="ov-no">04</span><span class="ov-title">安心サポート環境</span><span class="ov-foot"><span class="ov-count"><b>7</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
+        <button type="button" class="ov-tile" data-sec="4"><span class="ov-no">05</span><span class="ov-title">SFCサクセスチームの<br>無制限添削＆グルコン</span><span class="ov-foot"><span class="ov-count"><b>5</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
+        <button type="button" class="ov-tile" data-sec="5"><span class="ov-no">06</span><span class="ov-title">ビジネスのすべてを<br>何度でも相談OK</span><span class="ov-foot"><span class="ov-count"><b>18</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
+        <button type="button" class="ov-tile ov-sfc" data-sec="6"><span class="ov-no">07</span><span class="ov-title">Strategic Funnel® CLUB<br>大賀顧問プログラム</span><span class="ov-foot"><span class="ov-count"><b>6</b>項目</span><span class="ov-tag">SFCだけ</span></span></button>
+      </div>
+      <div class="ov-hint">タイルを押すと、そのセクションの中身を開きます</div>
     </div>
 
     <div class="toolbar">
@@ -1332,7 +1515,10 @@
         var suffix = (el.getAttribute('data-sub') === 'path' && plan === 'both') ? ' 共通' : '';
         el.textContent = SUB[plan] + suffix;
       });
+      // 全体の地図の合計：運用プログラムのみの時は SFC だけの 07 を数えない
+      document.getElementById('ovTotal').textContent = plan === 'htf' ? '66' : '72';
       syncTabHeight();
+      if (typeof updateSteps === 'function') { updateSteps(); }
     }
 
     trigger.addEventListener('click', function (e) {
@@ -1403,6 +1589,78 @@
       closeMenu();
     });
 
+    // ---- 全体の地図：タイルを押すと、そのセクションだけ開いて移動する ----
+    var secs = document.querySelectorAll('#panel-offer details.sec');
+    document.querySelectorAll('.ov-tile').forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        var target = secs[Number(tile.getAttribute('data-sec'))];
+        if (!target) { return; }
+        secs.forEach(function (d) { d.open = (d === target); });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.classList.add('flash');
+        setTimeout(function () { target.classList.remove('flash'); }, 1600);
+      });
+    });
+
+    // ---- 進行バー：今どの段階の話かを光らせる。押すとその場所へ移動する ----
+    var stepBtns = document.querySelectorAll('.step');
+    var STEP_ORDER = ['content', 'path', 'price', 'contract'];
+    var offerSec = document.querySelector('.offer-sec');
+    function currentStep() {
+      if (path.classList.contains('active')) { return 'path'; }
+      // 判定線：固定ヘッダーの少し下。そこより上に来たブロックを「今話している所」とみなす
+      var line = nav.offsetHeight + 220;
+      var atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+      var hasContract = offer.classList.contains('show-contract');
+      // ページ末尾まで来たら、それ以上スクロールできないので最後のブロックを今の段階にする
+      if (hasContract && (ctBlock.getBoundingClientRect().top < line || atBottom)) { return 'contract'; }
+      if (offerSec.getBoundingClientRect().top < line || (atBottom && window.scrollY > 0)) { return 'price'; }
+      return 'content';
+    }
+    function updateSteps() {
+      var cur = STEP_ORDER.indexOf(currentStep());
+      stepBtns.forEach(function (b) {
+        var i = STEP_ORDER.indexOf(b.getAttribute('data-step'));
+        b.classList.toggle('active', i === cur);
+        b.classList.toggle('done', i < cur);
+      });
+    }
+    window.addEventListener('scroll', updateSteps, { passive: true });
+    window.addEventListener('resize', updateSteps);
+    document.querySelectorAll('.tab').forEach(function (b) { b.addEventListener('click', function () { setTimeout(updateSteps, 0); }); });
+
+    stepBtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var step = b.getAttribute('data-step');
+        if (step === 'path') { document.querySelector('.tab[data-panel="path"]').click(); return; }
+        if (!offer.classList.contains('active')) { document.querySelector('.tab[data-panel="offer"]').click(); }
+        if (step === 'content') { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        if (step === 'price') { offerSec.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        if (step === 'contract') {
+          if (offer.classList.contains('show-contract')) { ctBlock.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          else { applyContract(true, true); }
+        }
+      });
+    });
+    offerSec.style.scrollMarginTop = 'calc(var(--tabh) + 90px)';
+
+    // ---- プレゼンモード：画面共有で読める大きさ・コントラストにする ----
+    document.querySelectorAll('.row .c').forEach(function (c) {
+      if (c.textContent.trim() === '◯') { c.classList.add('ok'); }
+    });
+    var prToggle = document.getElementById('prToggle');
+    function applyPresent(on) {
+      document.documentElement.classList.toggle('present', on);
+      prToggle.classList.toggle('on', on);
+      prToggle.querySelector('.ds-state').textContent = on ? 'オン' : 'オフ';
+      syncTabHeight();
+      updateSteps();
+    }
+    prToggle.addEventListener('click', function () {
+      applyPresent(!document.documentElement.classList.contains('present'));
+      closeMenu();
+    });
+
     // 「項目をコピー」：案内文つきの項目一覧をコピーする（Zoom チャットに貼る）
     var ctCopy = document.getElementById('ctCopy');
     var ctText = 'ご契約情報のご入力をお願いします！\n各項目の「：」のあとにご入力いただき、このチャットに返信してください\n\n' +
@@ -1446,6 +1704,11 @@
         closeMenu();
         return;
       }
+      if (e.key === '8') {
+        applyPresent(!document.documentElement.classList.contains('present'));
+        closeMenu();
+        return;
+      }
       var KEYS = { '1': 'both', '2': 'htf', '3': 'sfc', '5': 'aifh' };
       if (!KEYS[e.key]) { return; }
       applyPlan(KEYS[e.key]);
@@ -1458,6 +1721,8 @@
     applyDownsell(/[?&]downsell=1(&|$)/.test(location.search), false);
     applyDeposit(/[?&]deposit=1(&|$)/.test(location.search), false);
     applyContract(/[?&]contract=1(&|$)/.test(location.search), false);
+    applyPresent(/[?&]present=1(&|$)/.test(location.search));
+    updateSteps();
 
     // セクション一括開閉（オファー表）
     document.getElementById('openAll').addEventListener('click', function () {
