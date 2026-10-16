@@ -30,6 +30,13 @@
    - 出し方：URLパラメータ ?plan=aifh／キーボード 5／歯車メニュー「ダウンセルのみ」
    - v4 のキー4（ダウンセルの追加表示）はそのまま。「ダウンセルのみ」の間は追加表示の切替を無効にする
    - 修正：v4 で歯車メニューの「ダウンセル」を押すと表示プランが「両方」に戻っていた不具合を直した
+
+  v6 (2026-10-16) 森さん要望：お客さんにその場で決済リンクを渡せるようにする
+   - ダウンセルのカード下部に決済ページへの導線を追加（URL = utg.strategicfunnelclub.com/p/axfunnelholder_kobemenoffer）
+       QRコード        画面共有中にお客さんがスマホのカメラで読み取る（qrcodejs 1.0.0 を cdnjs から読込）
+       決済ページボタン お客さんが自分の端末でこのページを開いている時
+       リンクをコピー   Zoom チャットなどに貼る用
+   - QR が描けない時（CDN 不通など）はボタンとコピーだけで使える
 -->
 <html lang="ja">
 <head>
@@ -401,6 +408,43 @@
   .ds-inc .ds-bonus p { font-size: 12px; color: var(--soft); line-height: 1.7; margin-top: 3px; }
   .ds-note { font-size: 10.5px; color: var(--muted); line-height: 1.6; margin-top: 10px; }
 
+  /* 決済リンク（QR・ボタン・コピー） */
+  .ds-apply {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; gap: 22px;
+    padding: 18px 20px; border-radius: 10px;
+    border: 1px solid rgba(212,168,67,0.45);
+    background: linear-gradient(90deg, rgba(212,168,67,0.12), rgba(155,123,184,0.08));
+  }
+  .ds-qr {
+    flex-shrink: 0; width: 132px; height: 132px; padding: 8px;
+    background: #fff; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ds-qr img, .ds-qr canvas { display: block; width: 116px !important; height: 116px !important; }
+  .ds-qr .ds-qr-fallback { font-size: 10px; color: #555; text-align: center; line-height: 1.5; }
+  .ds-apply-body { flex: 1; min-width: 0; }
+  .ds-apply-head { font-size: 15px; font-weight: 700; letter-spacing: .06em; color: #fff; margin-bottom: 4px; }
+  .ds-apply-body p { font-size: 12px; color: var(--soft); line-height: 1.7; margin-bottom: 12px; }
+  .ds-apply-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .ds-btn {
+    display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .06em;
+    color: #2b2410; text-decoration: none;
+    background: linear-gradient(90deg, #e3bc5c, #d4a843);
+    border-radius: 100px; padding: 9px 26px;
+    box-shadow: 0 6px 18px -8px rgba(212,168,67,.8);
+    transition: filter .15s;
+  }
+  .ds-btn:hover { filter: brightness(1.08); }
+  .ds-copy {
+    font-family: inherit; font-size: 12px; font-weight: 700; letter-spacing: .04em;
+    color: var(--soft); background: rgba(255,255,255,0.05);
+    border: 1px solid var(--line); border-radius: 100px;
+    padding: 8px 20px; cursor: pointer; transition: all .15s;
+  }
+  .ds-copy:hover { color: #fff; border-color: rgba(212,168,67,0.55); }
+  .ds-copy.done { color: var(--gold); border-color: rgba(212,168,67,0.55); }
+
   /* 歯車メニュー内のダウンセル切替 */
   .pt-sep { height: 1px; background: var(--line); margin: 4px 4px; }
   .pt-item .ds-state { margin-left: auto; font-size: 9.5px; font-weight: 700; color: var(--muted); }
@@ -565,6 +609,8 @@
     .plan .pname .nb { white-space: normal; }
     .cards { grid-template-columns: 1fr; }
     .card.ds { grid-template-columns: 1fr; gap: 6px; padding: 24px 18px; }
+    .ds-apply { flex-direction: column; text-align: center; padding: 18px 14px; margin-top: 10px; }
+    .ds-apply-actions { justify-content: center; }
     .diff-badge { display: none; }
     .g-head, .grow { grid-template-columns: 150px 1fr; }
     .grow .gn { font-size: 10.5px; padding: 5px 8px; }
@@ -911,6 +957,19 @@
             </div>
             <p class="ds-note">※売上保証の対象外です。月払いプランは年間費用の分割払いのため、月単位での解約はできません。</p>
           </div>
+
+          <!-- その場で決済リンクを渡す：QR（画面共有中にスマホで読み取り）／ボタン（相手が自分で開いた時）／コピー（Zoomチャットに貼る） -->
+          <div class="ds-apply">
+            <div class="ds-qr" id="dsQr" aria-label="決済ページのQRコード"></div>
+            <div class="ds-apply-body">
+              <div class="ds-apply-head">お申し込みはこちら</div>
+              <p>スマホのカメラでQRコードを読み取るか、下のボタンから決済ページを開いてください。ページ下部のフォームでプランを選んでお申し込みいただけます</p>
+              <div class="ds-apply-actions">
+                <a class="ds-btn" id="dsPayLink" href="https://utg.strategicfunnelclub.com/p/axfunnelholder_kobemenoffer" target="_blank" rel="noopener">決済ページを開く</a>
+                <button type="button" class="ds-copy" id="dsCopy">リンクをコピー</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1077,6 +1136,7 @@
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
   (function () {
     var nav = document.querySelector('.tabs');
@@ -1207,6 +1267,37 @@
     });
     document.getElementById('closeAll').addEventListener('click', function () {
       document.querySelectorAll('#panel-offer details.sec').forEach(function (d) { d.open = false; });
+    });
+
+    // ---- 決済リンク（ダウンセル）：QR・コピー ----
+    var payUrl = document.getElementById('dsPayLink').href;
+    var qrBox = document.getElementById('dsQr');
+    try {
+      new QRCode(qrBox, { text: payUrl, width: 232, height: 232, colorDark: '#111111', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+      qrBox.removeAttribute('title');
+    } catch (err) {
+      qrBox.innerHTML = '<div class="ds-qr-fallback">QRコードを<br>表示できません<br>ボタンかコピーで<br>お渡しください</div>';
+    }
+
+    var copyBtn = document.getElementById('dsCopy');
+    function copyDone() {
+      copyBtn.textContent = 'コピーしました';
+      copyBtn.classList.add('done');
+      setTimeout(function () { copyBtn.textContent = 'リンクをコピー'; copyBtn.classList.remove('done'); }, 2000);
+    }
+    function copyFallback() {
+      var ta = document.createElement('textarea');
+      ta.value = payUrl; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); copyDone(); } catch (e) { window.prompt('このリンクをコピーしてください', payUrl); }
+      document.body.removeChild(ta);
+    }
+    copyBtn.addEventListener('click', function () {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(payUrl).then(copyDone, copyFallback);
+      } else {
+        copyFallback();
+      }
     });
   })();
 </script>
