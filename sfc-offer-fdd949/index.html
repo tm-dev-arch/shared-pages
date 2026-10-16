@@ -37,6 +37,13 @@
        決済ページボタン お客さんが自分の端末でこのページを開いている時
        リンクをコピー   Zoom チャットなどに貼る用
    - QR が描けない時（CDN 不通など）はボタンとコピーだけで使える
+
+  v7 (2026-10-16) 森さん要望：運用プログラム・SFC でその場の決済が難しい人向けに、デポジット決済をすぐ出せるようにする
+   - 価格カードの下に「デポジット決済（1万円・カード）」のカードを追加。既定は非表示
+   - 決済リンク = checkout.gopay.jp（Strategic Funnel CLUB・合計 ¥10,000・カード決済 2026-10-16取得）
+   - 説明文の根拠：#funnel_クローザー の面談報告（デポジット1万円を面談内でカード決済・本決済から差し引き・返金不可を説明）
+   - 出し方：URLパラメータ &deposit=1／キーボード 6／歯車メニュー「デポジット決済」
+   - 「ダウンセルのみ」（?plan=aifh）の間は出さない（運用プログラム・SFC 用のため）
 -->
 <html lang="ja">
 <head>
@@ -369,7 +376,7 @@
   }
 
   /* ダウンセル（超速AIファネルホルダー®︎）：既定は非表示。提示者が必要な時だけ出す */
-  .downsell { display: none; margin-top: 30px; scroll-margin-top: calc(var(--tabh) + 100px); }
+  .downsell { display: none; margin-top: 30px; scroll-margin-top: calc(var(--tabh) + 120px); }
   #panel-offer.show-downsell .downsell { display: block; animation: dsIn .35s ease-out; }
   @keyframes dsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
   .ds-label {
@@ -444,6 +451,36 @@
   }
   .ds-copy:hover { color: #fff; border-color: rgba(212,168,67,0.55); }
   .ds-copy.done { color: var(--gold); border-color: rgba(212,168,67,0.55); }
+
+  /* デポジット決済（運用プログラム・SFC 用）：既定は非表示 */
+  .deposit { display: none; margin-top: 30px; scroll-margin-top: calc(var(--tabh) + 120px); }
+  #panel-offer.show-deposit .deposit { display: block; animation: dsIn .35s ease-out; }
+  #panel-offer.only-aifh .deposit { display: none !important; }
+  .card.dp {
+    max-width: 860px; margin: 0 auto;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; align-items: center;
+    border-color: rgba(107,184,224,0.45);
+    background:
+      radial-gradient(ellipse 70% 60% at 0% 0%, rgba(107,184,224,0.10), transparent 70%),
+      linear-gradient(135deg, rgba(45,45,58,0.6), rgba(26,26,46,0.6));
+  }
+  .card.dp .cprice { margin-top: 10px; }
+  .dp-points { list-style: none; border-top: 1px solid var(--line); margin-top: 4px; }
+  .dp-points li {
+    display: flex; gap: 10px; align-items: baseline;
+    font-size: 12.5px; line-height: 1.65; color: var(--text);
+    padding: 7px 0; border-bottom: 1px solid var(--line-soft);
+  }
+  .dp-points li:last-child { border-bottom: none; }
+  .dp-points li::before { content: "◯"; font-size: 10px; color: var(--blue); flex-shrink: 0; }
+  .ds-apply.dp-apply {
+    grid-column: auto; flex-direction: column; text-align: center; gap: 14px;
+    border-color: rgba(107,184,224,0.45);
+    background: linear-gradient(135deg, rgba(107,184,224,0.12), rgba(155,123,184,0.10));
+  }
+  .dp-apply .ds-apply-actions { justify-content: center; }
+  .ds-btn.blue { color: #fff; background: var(--grad); box-shadow: 0 6px 18px -8px rgba(107,184,224,.8); }
+  .ds-copy.done.blue { color: var(--blue); border-color: rgba(107,184,224,0.55); }
 
   /* 歯車メニュー内のダウンセル切替 */
   .pt-sep { height: 1px; background: var(--line); margin: 4px 4px; }
@@ -610,6 +647,7 @@
     .cards { grid-template-columns: 1fr; }
     .card.ds { grid-template-columns: 1fr; gap: 6px; padding: 24px 18px; }
     .ds-apply { flex-direction: column; text-align: center; padding: 18px 14px; margin-top: 10px; }
+    .card.dp { grid-template-columns: 1fr; gap: 10px; padding: 24px 18px; }
     .ds-apply-actions { justify-content: center; }
     .diff-badge { display: none; }
     .g-head, .grow { grid-template-columns: 150px 1fr; }
@@ -638,7 +676,8 @@
         <button type="button" class="pt-item" data-plan="aifh">ダウンセルのみ<em>5</em></button>
         <div class="pt-sep"></div>
         <button type="button" class="pt-item" id="dsToggle">ダウンセルを追加<span class="ds-state">非表示</span><em>4</em></button>
-        <div class="pt-note">URLに ?plan=htf / ?plan=sfc / ?plan=aifh を付けて開くと、最初から1プランだけで表示されます。&downsell=1 を足すとダウンセルも最初から表示されます。</div>
+        <button type="button" class="pt-item" id="dpToggle">デポジット決済<span class="ds-state">非表示</span><em>6</em></button>
+        <div class="pt-note">URLに ?plan=htf / ?plan=sfc / ?plan=aifh を付けて開くと、最初から1プランだけで表示されます。&downsell=1 でダウンセル、&deposit=1 でデポジット決済も最初から表示されます。</div>
       </div>
     </div>
   </nav>
@@ -911,6 +950,35 @@
         </div>
       </div>
 
+      <!-- デポジット決済：運用プログラム・SFC でその場の決済が難しい人向け（既定は非表示・&deposit=1 / キー6 / 歯車メニューで表示） -->
+      <div class="deposit" id="deposit">
+        <div class="ds-label">本日その場でのお支払いが難しい方へ</div>
+        <div class="card dp">
+          <div>
+            <div class="cname">デポジット決済</div>
+            <div class="cprice">¥10,000</div>
+            <div class="ctax">カード決済</div>
+            <ul class="dp-points">
+              <li>本日はデポジット1万円のカード決済で、お申し込みを確定できます</li>
+              <li>お支払い済みのデポジットは、本決済の金額から差し引きます</li>
+              <li>残りのお支払いは、面談でお約束した期日までにお願いします</li>
+              <li>デポジットは返金できません</li>
+            </ul>
+          </div>
+          <div class="ds-apply dp-apply">
+            <div class="ds-qr" id="dpQr" aria-label="デポジット決済ページのQRコード"></div>
+            <div class="ds-apply-body">
+              <div class="ds-apply-head">デポジットのお支払いはこちら</div>
+              <p>スマホのカメラでQRコードを読み取るか、下のボタンから決済ページを開いてください</p>
+              <div class="ds-apply-actions">
+                <a class="ds-btn blue" id="dpPayLink" href="https://checkout.gopay.jp/info/11ef87a7-e171-61da-943f-1362b1ae4b80/information/card/card-0?secret=JQVsrWnxTR" target="_blank" rel="noopener">デポジット決済ページを開く</a>
+                <button type="button" class="ds-copy blue" id="dpCopy">リンクをコピー</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- ダウンセル：超速AIファネルホルダー®︎（既定は非表示・?downsell=1 / キー4 / 歯車メニューで表示） -->
       <div class="downsell" id="downsell">
         <div class="ds-label">自分のペースで進める年間プログラム</div>
@@ -1170,6 +1238,8 @@
     var menu = document.getElementById('planMenu');
     var dsToggle = document.getElementById('dsToggle');
     var dsBlock = document.getElementById('downsell');
+    var dpToggle = document.getElementById('dpToggle');
+    var dpBlock = document.getElementById('deposit');
     var PLANS = ['both', 'htf', 'sfc', 'aifh'];
     var SUB = {
       both: 'ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム',
@@ -1196,6 +1266,7 @@
         document.querySelector('.tab[data-panel="offer"]').click();
       }
       dsToggle.disabled = plan === 'aifh';
+      dpToggle.disabled = plan === 'aifh';
       document.querySelectorAll('.pt-item[data-plan]').forEach(function (b) {
         b.classList.toggle('active', b.getAttribute('data-plan') === plan);
       });
@@ -1241,12 +1312,34 @@
       closeMenu();
     });
 
-    // キーボード：1=両方 / 2=運用プログラムのみ / 3=SFC顧問のみ / 5=ダウンセルのみ / 4=ダウンセル追加表示の切替（Escでメニューを閉じる）
+    // ---- デポジット決済（運用プログラム・SFC 用）の表示。ダウンセルのみの間は出さない ----
+    function applyDeposit(on, scroll) {
+      if (offer.classList.contains('only-aifh')) { return; }
+      offer.classList.toggle('show-deposit', on);
+      dpToggle.classList.toggle('on', on);
+      dpToggle.querySelector('.ds-state').textContent = on ? '表示中' : '非表示';
+      if (on && scroll) {
+        if (!offer.classList.contains('active')) { document.querySelector('.tab[data-panel="offer"]').click(); }
+        dpBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    dpToggle.addEventListener('click', function () {
+      applyDeposit(!offer.classList.contains('show-deposit'), true);
+      closeMenu();
+    });
+
+    // キーボード：1=両方 / 2=運用プログラムのみ / 3=SFC顧問のみ / 5=ダウンセルのみ / 4=ダウンセル追加表示 / 6=デポジット決済（Escでメニューを閉じる）
     document.addEventListener('keydown', function (e) {
       if (e.metaKey || e.ctrlKey || e.altKey) { return; }
       if (e.key === 'Escape') { closeMenu(); return; }
       if (e.key === '4') {
         applyDownsell(!offer.classList.contains('show-downsell'), true);
+        closeMenu();
+        return;
+      }
+      if (e.key === '6') {
+        applyDeposit(!offer.classList.contains('show-deposit'), true);
         closeMenu();
         return;
       }
@@ -1256,10 +1349,11 @@
       closeMenu();
     });
 
-    // URLパラメータ（?plan=both|htf|sfc|aifh・&downsell=1）で初期表示を指定できる
+    // URLパラメータ（?plan=both|htf|sfc|aifh・&downsell=1・&deposit=1）で初期表示を指定できる
     var param = (location.search.match(/[?&]plan=([a-z]+)/) || [])[1];
     applyPlan(param || 'both');
     applyDownsell(/[?&]downsell=1(&|$)/.test(location.search), false);
+    applyDeposit(/[?&]deposit=1(&|$)/.test(location.search), false);
 
     // セクション一括開閉（オファー表）
     document.getElementById('openAll').addEventListener('click', function () {
@@ -1269,36 +1363,40 @@
       document.querySelectorAll('#panel-offer details.sec').forEach(function (d) { d.open = false; });
     });
 
-    // ---- 決済リンク（ダウンセル）：QR・コピー ----
-    var payUrl = document.getElementById('dsPayLink').href;
-    var qrBox = document.getElementById('dsQr');
-    try {
-      new QRCode(qrBox, { text: payUrl, width: 232, height: 232, colorDark: '#111111', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
-      qrBox.removeAttribute('title');
-    } catch (err) {
-      qrBox.innerHTML = '<div class="ds-qr-fallback">QRコードを<br>表示できません<br>ボタンかコピーで<br>お渡しください</div>';
-    }
-
-    var copyBtn = document.getElementById('dsCopy');
-    function copyDone() {
-      copyBtn.textContent = 'コピーしました';
-      copyBtn.classList.add('done');
-      setTimeout(function () { copyBtn.textContent = 'リンクをコピー'; copyBtn.classList.remove('done'); }, 2000);
-    }
-    function copyFallback() {
-      var ta = document.createElement('textarea');
-      ta.value = payUrl; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
-      document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); copyDone(); } catch (e) { window.prompt('このリンクをコピーしてください', payUrl); }
-      document.body.removeChild(ta);
-    }
-    copyBtn.addEventListener('click', function () {
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(payUrl).then(copyDone, copyFallback);
-      } else {
-        copyFallback();
+    // ---- 決済リンク（ダウンセル・デポジット共通）：QR・コピー ----
+    function setupPay(linkId, qrId, copyId) {
+      var payUrl = document.getElementById(linkId).href;
+      var qrBox = document.getElementById(qrId);
+      try {
+        new QRCode(qrBox, { text: payUrl, width: 232, height: 232, colorDark: '#111111', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+        qrBox.removeAttribute('title');
+      } catch (err) {
+        qrBox.innerHTML = '<div class="ds-qr-fallback">QRコードを<br>表示できません<br>ボタンかコピーで<br>お渡しください</div>';
       }
-    });
+
+      var copyBtn = document.getElementById(copyId);
+      function copyDone() {
+        copyBtn.textContent = 'コピーしました';
+        copyBtn.classList.add('done');
+        setTimeout(function () { copyBtn.textContent = 'リンクをコピー'; copyBtn.classList.remove('done'); }, 2000);
+      }
+      function copyFallback() {
+        var ta = document.createElement('textarea');
+        ta.value = payUrl; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); copyDone(); } catch (e) { window.prompt('このリンクをコピーしてください', payUrl); }
+        document.body.removeChild(ta);
+      }
+      copyBtn.addEventListener('click', function () {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(payUrl).then(copyDone, copyFallback);
+        } else {
+          copyFallback();
+        }
+      });
+    }
+    setupPay('dsPayLink', 'dsQr', 'dsCopy');
+    setupPay('dpPayLink', 'dpQr', 'dpCopy');
   })();
 </script>
 </body>
