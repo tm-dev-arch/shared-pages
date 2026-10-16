@@ -1,4 +1,29 @@
 <!DOCTYPE html>
+<!--
+  SFC顧問プログラム / ハイチケットファネル(R)運用プログラム オファー表
+  v3 (2026-08-21)
+  ベース = 森さん版（https://tm-dev-arch.github.io/shared-pages/sfc-offer-fdd949/ 2026-08-21取得）
+  ※文言・項目・価格表記はすべて森さん版のまま。AI鈴木が追加したのは下記の表示切替機能のみ。
+
+  追加機能：表示プラン切替（SFC / SFAのワンオファー提示に対応）
+   - 「両方を表示 / 運用プログラムのみ / SFC顧問のみ」を切り替えると、比較列・価格カード・
+     SFC限定セクション（07）・「2プランの違いはここ」バッジを1プラン分だけに絞れる
+   - サクセスパスも連動（運用プログラムのみ＝SFC限定項目を非表示）。
+     v2までサクセスパス内にあった表示プランボタンは、この切替に統合して削除
+   - 操作系はクライアントに見せない設計：
+       URLパラメータ  ?plan=both / ?plan=htf / ?plan=sfc （画面共有前に指定＝操作ゼロ）
+       キーボード      1 = 両方 / 2 = 運用プログラムのみ / 3 = SFC顧問のみ
+       歯車アイコン    タブバー右端の小さな⚙（不透明度30%）→ メニュー。Esc・外クリックで閉じる
+
+  v4 (2026-10-16) 鈴木さん要望：超速AIファネルホルダー®︎をダウンセルとして追加
+   - 価格カードの下に「超速AIファネルホルダー®︎」カードを追加。既定では非表示で、必要な時だけ出す
+   - 価格・中身は単独販売ページ（utg.strategicfunnelclub.com/p/axfunnelholder_kobemenoffer 2026-10-16取得）のまま
+   - 比較表（01〜07）には列を足さない。中身はカード内に5項目＋3大ボーナスで完結させる
+   - 出し方（表示プラン切替とは独立。どのプラン表示でも併用できる）：
+       URLパラメータ  ?downsell=1 （例：?plan=htf&downsell=1）
+       キーボード      4 = ダウンセルの表示／非表示（表示時はカードまでスクロール）
+       歯車メニュー    「ダウンセル」の行で切替
+-->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -36,9 +61,10 @@
   /* ---------- タブ切替 ---------- */
   .tabs {
     position: sticky; top: 0; z-index: 40;
-    display: flex; gap: 8px; justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     background: var(--bg); padding: 11px 0 12px;
   }
+  .tab-row { display: flex; gap: 8px; justify-content: center; }
   .tab {
     font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: .06em;
     color: var(--muted); background: rgba(255,255,255,0.045);
@@ -49,6 +75,67 @@
   .tab.active { color: #fff; background: var(--grad); border-color: transparent; }
   .panel { display: none; }
   .panel.active { display: block; }
+
+  /* ---------- 表示プラン切替（提示者用・目立たせない） ---------- */
+  .plan-tool { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+  .pt-trigger {
+    font-family: inherit; font-size: 12px; line-height: 1;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); background: transparent;
+    border: 1px solid var(--line-soft);
+    opacity: .32; cursor: pointer; transition: opacity .15s, color .15s, border-color .15s;
+  }
+  /* 提示者がマウスを上部に持っていったときだけ、はっきり見えるようにする */
+  .tabs:hover .pt-trigger { opacity: .85; }
+  .tabs .pt-trigger:hover,
+  .tabs .pt-trigger:focus-visible,
+  .tabs .pt-trigger.open { opacity: 1; color: #fff; border-color: rgba(107,184,224,0.45); }
+  .pt-menu {
+    position: absolute; right: 0; top: 30px; z-index: 60;
+    display: grid; gap: 2px; min-width: 196px; padding: 6px;
+    border: 1px solid var(--line); border-radius: 10px;
+    background: linear-gradient(135deg, rgba(48,48,64,0.99), rgba(28,28,48,0.99));
+    box-shadow: 0 18px 40px -14px rgba(0,0,0,0.95);
+  }
+  .pt-menu[hidden] { display: none; }
+  .pt-menu .pt-head {
+    font-size: 9.5px; letter-spacing: .18em; color: var(--muted);
+    font-weight: 800; padding: 3px 8px 5px;
+  }
+  .pt-item {
+    font-family: inherit; font-size: 12px; font-weight: 600; letter-spacing: .02em;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 6px 9px; border-radius: 6px; cursor: pointer;
+    color: var(--soft); background: transparent; border: none; text-align: left;
+    transition: background .12s, color .12s;
+  }
+  .pt-item:hover { color: #fff; background: rgba(255,255,255,0.07); }
+  .pt-item.active { color: #fff; background: var(--grad-soft); box-shadow: inset 0 0 0 1px rgba(107,184,224,0.32); }
+  .pt-item em {
+    font-style: normal; font-size: 9.5px; font-weight: 700; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; flex-shrink: 0;
+  }
+  .pt-note { font-size: 9.5px; color: var(--muted); line-height: 1.6; padding: 4px 9px 2px; }
+
+  /* 単一プラン表示（ワンオファー提示用） */
+  #panel-offer.only-htf .plan-head,
+  #panel-offer.only-htf .row,
+  #panel-offer.only-sfc .plan-head,
+  #panel-offer.only-sfc .row { grid-template-columns: 1fr var(--colw); }
+  #panel-offer.only-htf .plan-head > *:nth-child(3),
+  #panel-offer.only-htf .row > *:nth-child(3),
+  #panel-offer.only-sfc .plan-head > *:nth-child(2),
+  #panel-offer.only-sfc .row > *:nth-child(2) { display: none; }
+  #panel-offer.only-htf .sec[data-plan="sfc"] { display: none; }
+  #panel-offer.only-htf .diff-badge,
+  #panel-offer.only-sfc .diff-badge { display: none; }
+  #panel-offer.only-htf .sec.diff .sec-head .count,
+  #panel-offer.only-sfc .sec.diff .sec-head .count { margin-left: auto; }
+  #panel-offer.only-htf .cards,
+  #panel-offer.only-sfc .cards { grid-template-columns: minmax(0, 480px); justify-content: center; }
+  #panel-offer.only-htf .card[data-plan="sfc"],
+  #panel-offer.only-sfc .card[data-plan="htf"] { display: none; }
 
   /* ---------- ヘッダー ---------- */
   .head { text-align: center; margin: 26px 0 30px; }
@@ -253,6 +340,51 @@
     display: block; font-size: 10px; font-weight: 700; color: var(--gold); white-space: nowrap;
   }
 
+  /* ダウンセル（超速AIファネルホルダー®︎）：既定は非表示。提示者が必要な時だけ出す */
+  .downsell { display: none; margin-top: 30px; scroll-margin-top: calc(var(--tabh) + 100px); }
+  #panel-offer.show-downsell .downsell { display: block; animation: dsIn .35s ease-out; }
+  @keyframes dsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .ds-label {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: .14em; color: var(--soft);
+  }
+  .ds-label::before, .ds-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .card.ds {
+    max-width: 860px; margin: 0 auto;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px;
+    border-color: rgba(212,168,67,0.38);
+    background:
+      radial-gradient(ellipse 70% 60% at 0% 0%, rgba(212,168,67,0.08), transparent 70%),
+      linear-gradient(135deg, rgba(45,45,58,0.6), rgba(26,26,46,0.6));
+  }
+  .card.ds .cguard { color: var(--gold); border-color: rgba(212,168,67,0.4); background: rgba(212,168,67,0.08); }
+  .card.ds .paybox { margin-bottom: 14px; }
+  .card.ds .payrow.best .pamt { color: var(--gold); }
+  .card.ds .payrow.best { background: rgba(212,168,67,0.08); }
+  .ds-inc .phead { margin-bottom: 4px; }
+  .ds-inc ul { list-style: none; }
+  .ds-inc li {
+    display: flex; gap: 10px; align-items: baseline;
+    font-size: 12.5px; line-height: 1.6; padding: 7px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .ds-inc li:last-child { border-bottom: none; }
+  .ds-inc li::before { content: "◯"; font-size: 10px; color: var(--gold); flex-shrink: 0; }
+  .ds-inc li b { display: block; font-weight: 600; color: var(--text); }
+  .ds-inc li span { display: block; font-size: 11px; color: var(--muted); }
+  .ds-inc .ds-bonus {
+    margin-top: 10px; padding: 10px 14px; border-radius: 8px;
+    border: 1px solid rgba(212,168,67,0.35); background: rgba(212,168,67,0.06);
+  }
+  .ds-inc .ds-bonus b { font-size: 11px; letter-spacing: .1em; color: var(--gold); }
+  .ds-inc .ds-bonus p { font-size: 12px; color: var(--soft); line-height: 1.7; margin-top: 3px; }
+  .ds-note { font-size: 10.5px; color: var(--muted); line-height: 1.6; margin-top: 10px; }
+
+  /* 歯車メニュー内のダウンセル切替 */
+  .pt-sep { height: 1px; background: var(--line); margin: 4px 4px; }
+  .pt-item .ds-state { margin-left: auto; font-size: 9.5px; font-weight: 700; color: var(--muted); }
+  .pt-item.on .ds-state { color: var(--gold); }
+
   .terms {
     margin-top: 20px; border: 1px solid var(--line); border-radius: 10px;
     background: var(--card); padding: 18px 22px;
@@ -262,21 +394,6 @@
   .terms .trow dd { color: var(--soft); }
 
   /* ---------- サクセスパス ---------- */
-  /* プラン別表示フィルタ */
-  .plan-filter {
-    display: flex; align-items: center; justify-content: center;
-    gap: 8px; flex-wrap: wrap; margin: 14px 0 4px;
-  }
-  .plan-filter .pf-label { font-size: 10.5px; letter-spacing: .2em; color: var(--muted); font-weight: 800; margin-right: 4px; }
-  .plan-filter .pf {
-    font-family: inherit; font-size: 11.5px; font-weight: 700; letter-spacing: .04em;
-    color: var(--muted); background: rgba(255,255,255,0.045);
-    border: 1px solid var(--line); border-radius: 100px;
-    padding: 5px 18px; cursor: pointer; transition: all .15s;
-  }
-  .plan-filter .pf:hover { color: #fff; border-color: rgba(107,184,224,0.45); }
-  .plan-filter .pf.active { color: #fff; background: var(--grad); border-color: transparent; }
-
   .sfc-tag {
     display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: .08em;
     color: var(--gold); border: 1px solid rgba(212,168,67,.55); border-radius: 100px;
@@ -426,6 +543,7 @@
     .plan .pname { font-size: 11px; }
     .plan .pname .nb { white-space: normal; }
     .cards { grid-template-columns: 1fr; }
+    .card.ds { grid-template-columns: 1fr; gap: 6px; padding: 24px 18px; }
     .diff-badge { display: none; }
     .g-head, .grow { grid-template-columns: 150px 1fr; }
     .grow .gn { font-size: 10.5px; padding: 5px 8px; }
@@ -438,8 +556,23 @@
 
   <!-- ========== タブ ========== -->
   <nav class="tabs">
-    <button type="button" class="tab active" data-panel="offer">オファー表</button>
-    <button type="button" class="tab" data-panel="path">サクセスパス</button>
+    <div class="tab-row">
+      <button type="button" class="tab active" data-panel="offer">オファー表</button>
+      <button type="button" class="tab" data-panel="path">サクセスパス</button>
+    </div>
+    <div class="plan-tool">
+      <button type="button" class="pt-trigger" id="planTrigger" aria-haspopup="true" aria-expanded="false"
+              aria-label="表示プランを切り替える" title="表示プラン（1 / 2 / 3 キーでも切替）">⚙</button>
+      <div class="pt-menu" id="planMenu" hidden>
+        <div class="pt-head">表示プラン</div>
+        <button type="button" class="pt-item" data-plan="both">両方を表示<em>1</em></button>
+        <button type="button" class="pt-item" data-plan="htf">運用プログラムのみ<em>2</em></button>
+        <button type="button" class="pt-item" data-plan="sfc">SFC顧問のみ<em>3</em></button>
+        <div class="pt-sep"></div>
+        <button type="button" class="pt-item" id="dsToggle">ダウンセル<span class="ds-state">非表示</span><em>4</em></button>
+        <div class="pt-note">URLに ?plan=htf / ?plan=sfc を付けて開くと、最初から1プランだけで表示されます。&downsell=1 を足すとダウンセルも最初から表示されます。</div>
+      </div>
+    </div>
   </nav>
 
   <!-- ==================== オファー表 ==================== -->
@@ -448,7 +581,7 @@
     <div class="head">
       <div class="label">Special Offer</div>
       <h1>本日の1on1セッション限定<span class="grad">SPオファー</span></h1>
-      <p class="sub">ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム</p>
+      <p class="sub" data-sub="offer">ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム</p>
       <div class="gold-line"></div>
     </div>
 
@@ -620,7 +753,7 @@
     </details>
 
     <!-- 07 SFC CLUB（差分） -->
-    <details class="sec diff" open>
+    <details class="sec diff" data-plan="sfc" open>
       <summary>
         <div class="sec-head">
           <span class="no">07</span>
@@ -647,7 +780,7 @@
       </div>
 
       <div class="cards">
-        <div class="card">
+        <div class="card" data-plan="htf">
           <div class="cname">ハイチケットファネル®︎<br>運用プログラム</div>
           <span class="cguard">売上1000万保証</span>
           <div class="cprice">¥2,625,000</div>
@@ -678,7 +811,7 @@
           </dl>
         </div>
 
-        <div class="card premium">
+        <div class="card premium" data-plan="sfc">
           <div class="cname">SFC<br>- 顧問プログラム -</div>
           <span class="cguard">売上2000万保証</span>
           <div class="cprice">¥6,300,000</div>
@@ -710,6 +843,55 @@
         </div>
       </div>
 
+      <!-- ダウンセル：超速AIファネルホルダー®︎（既定は非表示・?downsell=1 / キー4 / 歯車メニューで表示） -->
+      <div class="downsell" id="downsell">
+        <div class="ds-label">自分のペースで進める年間プログラム</div>
+        <div class="card ds" data-plan="aifh">
+          <div>
+            <div class="cname">超速AIファネルホルダー®︎</div>
+            <span class="cguard">12ヶ月の年間プログラム</span>
+            <div class="cprice">¥396,000</div>
+            <div class="ctax">定価（年間）／税込</div>
+
+            <div class="paybox">
+              <div class="phead">お支払い方法</div>
+              <div class="payrow">
+                <div><span class="pname">月払い・年間継続プラン</span><span class="pnote">月々33,000円×12回（年間契約）</span></div>
+                <div class="pamt">¥33,000<span class="poff" style="color:var(--muted)">／月</span></div>
+              </div>
+              <div class="payrow best">
+                <div><span class="pname">年間一括・特別割引プラン</span><span class="pnote">最もお得な条件</span></div>
+                <div class="pamt">¥330,000<span class="poff">定価より −66,000円</span></div>
+              </div>
+            </div>
+
+            <dl>
+              <div class="prow"><dt>期間</dt><dd>1年間（12ヶ月）</dd></div>
+              <div class="prow"><dt>期間終了後</dt><dd>年間契約として自動更新（継続する限り価格据え置き）</dd></div>
+              <div class="prow"><dt>加入条件</dt><dd>ー</dd></div>
+            </dl>
+          </div>
+
+          <div class="ds-inc">
+            <div class="paybox" style="margin:0">
+              <div class="phead">含まれる内容</div>
+            </div>
+            <ul>
+              <li><div><b>月商8桁ファネル継承オールインワンプログラム</b><span>5大フレームワーク・全6STEP・125本以上の実装カリキュラム</span></div></li>
+              <li><div><b>ハイチケットファネル®︎超速構築テンプレート集</b><span>実際に売れたファネルの設計図を埋めるだけで初稿ができる</span></div></li>
+              <li><div><b>AXファネルへの先行アクセス（1年間）</b><span>AIメンターに24時間相談・添削／開発ロードマップへの先行アクセス</span></div></li>
+              <li><div><b>売れ続けるシナリオ実装 徹底サポートグルコン（月4回）</b><span>ファネル構築 月2回／ファネルライティング 月1回／Meta広告設定 月1回</span></div></li>
+              <li><div><b>ファネルホルダー®︎実践コミュニティ</b><span>市場全体で上位1%のマーケ事業者が集まる場</span></div></li>
+            </ul>
+            <div class="ds-bonus">
+              <b>先行メンバー限定・3大ボーナス</b>
+              <p>SFCバックステージPASS（厳選200本）／億サブスクファネル継承合宿・完全収録版／超速8桁セッション</p>
+            </div>
+            <p class="ds-note">※売上保証の対象外です。月払いプランは年間費用の分割払いのため、月単位での解約はできません。</p>
+          </div>
+        </div>
+      </div>
+
       <div class="terms">
         <div class="trow"><dt>お支払い</dt><dd>表示金額はすべて税込です。銀行振込でのお申し込みには振込割引を適用し、一括または2分割の場合はさらに割引を適用します</dd></div>
         <div class="trow"><dt>確認事項</dt><dd>申し込み後のキャンセル・返金なし</dd></div>
@@ -725,18 +907,12 @@
     <div class="head">
       <div class="label">Success Path</div>
       <h1>13週間の<span class="grad">サクセスパス</span></h1>
-      <p class="sub">ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム 共通</p>
+      <p class="sub" data-sub="path">ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム 共通</p>
       <div class="gold-line"></div>
     </div>
 
     <div class="path-badge-wrap">
       <span class="path-badge">この企画であなたが進むサクセスパス</span>
-    </div>
-
-    <div class="plan-filter">
-      <span class="pf-label">表示プラン</span>
-      <button type="button" class="pf active" data-plan="sfc">SFC顧問プログラム</button>
-      <button type="button" class="pf" data-plan="htf">ハイチケットファネル®運用プログラム</button>
     </div>
 
     <div class="flow">
@@ -880,38 +1056,129 @@
 </div>
 
 <script>
-  // タブ切替
-  document.querySelectorAll('.tab').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var target = btn.getAttribute('data-panel');
-      document.querySelectorAll('.tab').forEach(function (b) {
-        b.classList.toggle('active', b === btn);
-      });
-      document.querySelectorAll('.panel').forEach(function (p) {
-        p.classList.toggle('active', p.id === 'panel-' + target);
-      });
-      window.scrollTo(0, 0);
-    });
-  });
+  (function () {
+    var nav = document.querySelector('.tabs');
 
-  // サクセスパスのプラン別表示フィルタ
-  document.querySelectorAll('.pf').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var plan = btn.getAttribute('data-plan');
-      document.querySelectorAll('.pf').forEach(function (b) {
-        b.classList.toggle('active', b === btn);
-      });
-      document.getElementById('panel-path').classList.toggle('hide-sfc', plan === 'htf');
-    });
-  });
+    // 固定ヘッダーのオフセットにタブバーの実高さを反映
+    function syncTabHeight() {
+      document.documentElement.style.setProperty('--tabh', nav.offsetHeight + 'px');
+    }
+    syncTabHeight();
+    window.addEventListener('resize', syncTabHeight);
 
-  // セクション一括開閉（オファー表）
-  document.getElementById('openAll').addEventListener('click', function () {
-    document.querySelectorAll('#panel-offer details.sec').forEach(function (d) { d.open = true; });
-  });
-  document.getElementById('closeAll').addEventListener('click', function () {
-    document.querySelectorAll('#panel-offer details.sec').forEach(function (d) { d.open = false; });
-  });
+    // タブ切替
+    document.querySelectorAll('.tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.getAttribute('data-panel');
+        document.querySelectorAll('.tab').forEach(function (b) {
+          b.classList.toggle('active', b === btn);
+        });
+        document.querySelectorAll('.panel').forEach(function (p) {
+          p.classList.toggle('active', p.id === 'panel-' + target);
+        });
+        window.scrollTo(0, 0);
+      });
+    });
+
+    // ---- 表示プラン切替（オファー表・サクセスパス共通） ----
+    // 操作系は右上の歯車のみ。キーボード 1/2/3 と URL ?plan= でも切替できる
+    var offer = document.getElementById('panel-offer');
+    var path = document.getElementById('panel-path');
+    var trigger = document.getElementById('planTrigger');
+    var menu = document.getElementById('planMenu');
+    var PLANS = ['both', 'htf', 'sfc'];
+    var SUB = {
+      both: 'ハイチケットファネル®運用プログラム ／ Strategic Funnel® CLUB 顧問プログラム',
+      htf: 'ハイチケットファネル®運用プログラム',
+      sfc: 'Strategic Funnel® CLUB 顧問プログラム'
+    };
+
+    function closeMenu() {
+      menu.hidden = true;
+      trigger.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    function applyPlan(plan) {
+      if (PLANS.indexOf(plan) < 0) { plan = 'both'; }
+      offer.classList.toggle('only-htf', plan === 'htf');
+      offer.classList.toggle('only-sfc', plan === 'sfc');
+      path.classList.toggle('hide-sfc', plan === 'htf');
+      document.querySelectorAll('.pt-item').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-plan') === plan);
+      });
+      document.querySelectorAll('[data-sub]').forEach(function (el) {
+        var suffix = (el.getAttribute('data-sub') === 'path' && plan === 'both') ? ' 共通' : '';
+        el.textContent = SUB[plan] + suffix;
+      });
+      syncTabHeight();
+    }
+
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = menu.hidden;
+      menu.hidden = !open;
+      trigger.classList.toggle('open', open);
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.addEventListener('click', function (e) { e.stopPropagation(); });
+    document.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('.pt-item').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        applyPlan(btn.getAttribute('data-plan'));
+        closeMenu();
+      });
+    });
+
+    // ---- ダウンセル（超速AIファネルホルダー®︎）の表示切替。表示プランとは独立 ----
+    var dsToggle = document.getElementById('dsToggle');
+    var dsBlock = document.getElementById('downsell');
+
+    function applyDownsell(on, scroll) {
+      offer.classList.toggle('show-downsell', on);
+      dsToggle.classList.toggle('on', on);
+      dsToggle.querySelector('.ds-state').textContent = on ? '表示中' : '非表示';
+      if (on && scroll) {
+        // オファー表タブにいなければ切り替えてからスクロール
+        if (!offer.classList.contains('active')) { document.querySelector('.tab[data-panel="offer"]').click(); }
+        dsBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    dsToggle.addEventListener('click', function () {
+      applyDownsell(!offer.classList.contains('show-downsell'), true);
+      closeMenu();
+    });
+
+    // キーボード：1=両方 / 2=運用プログラムのみ / 3=SFC顧問のみ / 4=ダウンセル表示切替（Escでメニューを閉じる）
+    document.addEventListener('keydown', function (e) {
+      if (e.metaKey || e.ctrlKey || e.altKey) { return; }
+      if (e.key === 'Escape') { closeMenu(); return; }
+      if (e.key === '4') {
+        applyDownsell(!offer.classList.contains('show-downsell'), true);
+        closeMenu();
+        return;
+      }
+      var i = ['1', '2', '3'].indexOf(e.key);
+      if (i < 0) { return; }
+      applyPlan(PLANS[i]);
+      closeMenu();
+    });
+
+    // URLパラメータ（?plan=both|htf|sfc・&downsell=1）で初期表示を指定できる
+    var param = (location.search.match(/[?&]plan=([a-z]+)/) || [])[1];
+    applyPlan(param || 'both');
+    applyDownsell(/[?&]downsell=1(&|$)/.test(location.search), false);
+
+    // セクション一括開閉（オファー表）
+    document.getElementById('openAll').addEventListener('click', function () {
+      document.querySelectorAll('#panel-offer details.sec').forEach(function (d) { d.open = true; });
+    });
+    document.getElementById('closeAll').addEventListener('click', function () {
+      document.querySelectorAll('#panel-offer details.sec').forEach(function (d) { d.open = false; });
+    });
+  })();
 </script>
 </body>
 </html>
