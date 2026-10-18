@@ -84,6 +84,13 @@
 
   v14 (2026-10-18) 森さん指示「サクセスパスだけで大丈夫」
    - 成果ブロック（SFA の実績・SFC の成果）をオファー表から外し、サクセスパスのタブの末尾だけに置く（複製の JS は削除）
+
+  v15 (2026-10-18) 森さん指示：SFA 集計の「22人・グルコンで成果を発表した会員（うち17人が成約）」の表現を変える
+   - 人数の欄をやめ、「8,602万円・成約の合計」「132件・成約の数」に。注記から「グルコンと会員グループで発表」を外した
+
+  v16 (2026-10-18) 森さん指示：期間と人数を入れる（1年か5年かで意味が変わるため）
+   - 集計期間の帯「2025年5月〜2026年10月（約1年5ヶ月）」を追加
+   - 8,602万円・132件は「会員17人」（成約を報告した SFA 会員）の分と明記
 -->
 <html lang="ja">
 <head>
@@ -880,6 +887,12 @@
   .sa-stat b small { font-size: 15px; margin-left: 2px; }
   .sa-stat span { display: block; font-size: 11px; color: var(--soft); line-height: 1.55; margin-top: 4px; }
   .sa-src { font-size: 10.5px; color: var(--muted); text-align: center; margin: 4px 0 14px; }
+  .sa-period {
+    width: fit-content; margin: 0 auto 10px; padding: 3px 16px; border-radius: 100px;
+    font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--blue);
+    border: 1px solid rgba(107,184,224,0.45); background: rgba(107,184,224,0.08);
+  }
+  html.present .sa-period { font-size: 14px; }
   html.present .sa-stat b { font-size: 36px; }
   html.present .sa-stat span { font-size: 13px; }
   html.present .sa-src { font-size: 12px; }
@@ -1602,13 +1615,14 @@
           <span class="sp-kicker">Program Results</span>
           <h2>運用プログラムでも、ここまで成果が出ています</h2>
         </div>
+        <div class="sa-period">集計期間　2025年5月〜2026年10月（約1年5ヶ月）</div>
         <div class="sa-stats">
-          <div class="sa-stat"><b>22<small>人</small></b><span>グルコンで成果を発表した会員<br>（うち17人が成約）</span></div>
-          <div class="sa-stat"><b>132<small>件</small></b><span>報告された成約<br>（合計 8,602万円）</span></div>
+          <div class="sa-stat"><b>8,602<small>万円</small></b><span>約1年5ヶ月で、会員17人が<br>報告した成約の合計</span></div>
+          <div class="sa-stat"><b>132<small>件</small></b><span>同じ期間に17人が<br>報告した成約の数</span></div>
           <div class="sa-stat"><b>約52<small>日</small></b><span>入会から初成約まで<br>（中央値）</span></div>
           <div class="sa-stat"><b>1,000<small>%</small></b><span>広告 ROAS の<br>中央値</span></div>
         </div>
-        <p class="sa-src">2025年5月〜2026年10月にグルコンと会員グループで発表された、運用プログラム在籍中の成果を集計（金額は本人の申告）</p>
+        <p class="sa-src">運用プログラム在籍中に報告された成果を集計（金額は本人の申告）</p>
         <div class="sa-grid">
           <div class="sp-voice"><b>根本さん</b><span>「500万円で止まっていた」状態から、7月の売上 2,300万円で初の月商8桁</span></div>
           <div class="sp-voice"><b>田口さん</b><span>広告の運用を始めて1ヶ月で、広告費31万円から 120万円の売上（黒字化）</span></div>
