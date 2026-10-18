@@ -77,6 +77,13 @@
    - 宮邉さん・みさっきーさんは最初から SFC（SFA／サブスクから移った人ではない）。見出しを「SFC に入って、こう変わりました」に
    - 河本さんの事例を外し、今田さん（2プラン設計の FB → LPだけで5名・600万）に差し替え
    - 06 の直後に「運用プログラムでも、ここまで成果が出ています」（SFA の実績6名）を追加。SFC顧問のみ・ダウンセルのみの表示では出さない
+
+  v13 (2026-10-18) 森さん要望
+   - 成果ブロック（SFA の実績・SFC の成果）をサクセスパスのタブの末尾にも出す。オファー表のブロックを開いた時に複製するので、直すのはオファー表側だけでよい
+   - SFA の実績に、グルコンの成果発表の集計値を追加（SFA 期間の成果だけ・名簿で SFC 会員を除外）
+
+  v14 (2026-10-18) 森さん指示「サクセスパスだけで大丈夫」
+   - 成果ブロック（SFA の実績・SFC の成果）をオファー表から外し、サクセスパスのタブの末尾だけに置く（複製の JS は削除）
 -->
 <html lang="ja">
 <head>
@@ -864,7 +871,24 @@
   }
   .sfa-proof .sp-kicker { color: var(--blue); }
   .sa-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .sa-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 8px; }
+  .sa-stat {
+    border: 1px solid rgba(107,184,224,0.45); border-radius: 10px; background: rgba(107,184,224,0.08);
+    text-align: center; padding: 14px 10px 12px;
+  }
+  .sa-stat b { display: block; font-size: 30px; font-weight: 800; line-height: 1.15; color: var(--blue); }
+  .sa-stat b small { font-size: 15px; margin-left: 2px; }
+  .sa-stat span { display: block; font-size: 11px; color: var(--soft); line-height: 1.55; margin-top: 4px; }
+  .sa-src { font-size: 10.5px; color: var(--muted); text-align: center; margin: 4px 0 14px; }
+  html.present .sa-stat b { font-size: 36px; }
+  html.present .sa-stat span { font-size: 13px; }
+  html.present .sa-src { font-size: 12px; }
   #panel-offer.only-sfc .sfa-proof, #panel-offer.only-aifh .sfa-proof { display: none; }
+
+  /* サクセスパスの末尾に複製した成果ブロック */
+  .path-results { margin-top: 38px; }
+  .path-results .pr-title { border-radius: 8px; border-bottom: 1px solid var(--line); }
+  #panel-path.only-htf .sfc-proof, #panel-path.only-sfc .sfa-proof { display: none; }
   .sp-title { text-align: center; margin-bottom: 16px; }
   .sp-kicker { font-size: 10.5px; font-weight: 800; letter-spacing: .3em; color: var(--gold); text-transform: uppercase; }
   .sp-title h2 { font-size: 18px; font-weight: 700; letter-spacing: .04em; margin-top: 4px; }
@@ -957,6 +981,8 @@
     .sd-b { font-size: 17px; }
     .sp-cases, .sp-fbs { grid-template-columns: 1fr; }
     .sa-grid { grid-template-columns: 1fr; }
+    .sa-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sa-stat b { font-size: 24px; }
     .sfa-proof { padding: 18px 14px 14px; }
     .sp-voices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .sp-stat { grid-row: auto; grid-column: 1 / -1; flex-direction: row; gap: 12px; }
@@ -1206,23 +1232,6 @@
       </div>
     </details>
 
-    <!-- 運用プログラム（SFA）の実績（SFC顧問のみ・ダウンセルのみの表示では出さない）。出典はローカルの出典メモ -->
-    <section class="sfa-proof" data-plan="htf">
-      <div class="sp-title">
-        <span class="sp-kicker">Program Results</span>
-        <h2>運用プログラムでも、ここまで成果が出ています</h2>
-      </div>
-      <div class="sa-grid">
-        <div class="sp-voice"><b>根本さん</b><span>「500万円で止まっていた」状態から、7月の売上 2,300万円で初の月商8桁</span></div>
-        <div class="sp-voice"><b>まさきさん</b><span>集客14日間のチャレンジで、広告費86万円から 1,268万円の売上（ROAS 1,600%）</span></div>
-        <div class="sp-voice"><b>ユウさん</b><span>広告なし・インスタだけで、11月の売上 2,000万円</span></div>
-        <div class="sp-voice"><b>舟橋さん</b><span>入会時は年商約800万円 → 1年後に月商1,000万円を突破</span></div>
-        <div class="sp-voice"><b>リオンさん</b><span>広告費7万円で 150万円の売上。広告を始めて約半年で約900万円</span></div>
-        <div class="sp-voice"><b>中田さん</b><span>海外に滞在している間に6件・341万円の成約。直近2週間の ROAS 1,700%</span></div>
-      </div>
-      <p class="sp-note">※個人の実績であり、成果を保証するものではありません</p>
-    </section>
-
     <!-- 07 SFC CLUB（差分） -->
     <details class="sec diff" data-plan="sfc" open>
       <summary>
@@ -1243,80 +1252,6 @@
         <div class="row"><span class="item">SFC限定リトリート合宿</span><span class="c no">ー</span><span class="c">◯</span></div>
       </div>
     </details>
-
-    <!-- 案B：SFC の成果（運用プログラムのみ・ダウンセルのみの表示では出さない）。出典は冒頭コメントの v10 節 -->
-    <section class="sfc-proof" data-plan="sfc">
-      <div class="sp-title">
-        <span class="sp-kicker">SFC Results</span>
-        <h2>SFC に入って、こう変わりました</h2>
-      </div>
-
-      <div class="sp-cases">
-        <div class="sp-case">
-          <div class="sp-who"><b>有城さん</b><span>親子関係サポート</span></div>
-          <div class="sp-ba">
-            <div class="sp-before"><em>運用プログラム（SFA）の約1年3ヶ月</em><strong>累計 1,300万円</strong></div>
-            <div class="sp-arrow">↓</div>
-            <div class="sp-after"><em>SFC に移って5ヶ月</em><strong>月商 1,100万円</strong><small>月1,000万円を突破／広告の ROAS 500〜600%で安定</small></div>
-          </div>
-        </div>
-        <div class="sp-case">
-          <div class="sp-who"><b>宮邉さん</b><span>介護・医療の採用コンサル</span></div>
-          <div class="sp-ba">
-            <div class="sp-before"><em>SFC 入会前</em><strong>3〜4ヶ月で 400万円</strong></div>
-            <div class="sp-arrow">↓</div>
-            <div class="sp-after"><em>SFC 入会から約1ヶ月半</em><strong>累計 1,400万円</strong><small>その後は月平均 1,000万円近く・8桁は2回目</small></div>
-          </div>
-        </div>
-        <div class="sp-case">
-          <div class="sp-who"><b>みさっきーさん</b><span>教員向けキャリア支援</span></div>
-          <div class="sp-ba">
-            <div class="sp-before"><em>入会時の商品単価</em><strong>30〜50万円</strong></div>
-            <div class="sp-arrow">↓</div>
-            <div class="sp-after"><em>SFC 入会から約1ヶ月半</em><strong>単価 200万円</strong><small>広告費16万円・16日間で 420万円の成約</small></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sp-sub">朝礼で直したら、数字がすぐ動いた</div>
-      <div class="sp-fbs">
-        <div class="sp-fb">
-          <div class="sp-fb-who">宮邉さん</div>
-          <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>ウェビナーの追加した部分だけを撮り直す</div>
-          <div class="sp-fb-step"><span class="sp-tag res">約2週間後</span>ウェビナーの視聴完了率 <b>10% → 23%</b></div>
-        </div>
-        <div class="sp-fb">
-          <div class="sp-fb-who">白井さん</div>
-          <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>「一緒に増やしていく」ムーブメント型の訴求に変える</div>
-          <div class="sp-fb-step"><span class="sp-tag res">約3週間後</span>1件目の個別面談で <b>1,100万円</b>のプランが成約（それまでの最高は550万円）</div>
-        </div>
-        <div class="sp-fb">
-          <div class="sp-fb-who">今田さん</div>
-          <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>80万円（保証なし）と120万円（成果保証つき）の2プランに分ける</div>
-          <div class="sp-fb-step"><span class="sp-tag res">1週間後</span>LPだけで5名が申込み、全員が120万円プランを選んで <b>600万円</b></div>
-        </div>
-      </div>
-
-      <div class="sp-sub">SFC 顧問生の成果</div>
-      <div class="sp-voices">
-        <div class="sp-stat"><b>93<small>%</small></b><span>顧問先の<br>最高月商更新率</span></div>
-        <div class="sp-voice"><b>ともかさん</b><span>ハイチケット化して1年で年間1億円（それまでの5〜6年分）</span></div>
-        <div class="sp-voice"><b>ようさん</b><span>開始7週間で 2,464万円の契約。入金は1年目1億円、2年目1.5億円</span></div>
-        <div class="sp-voice"><b>白井さん</b><span>1回のプロモーションで 1,529万円。1件目の面談で 1,100万円のプランが成約</span></div>
-        <div class="sp-voice"><b>澤さん</b><span>年商2億円を達成</span></div>
-        <div class="sp-voice"><b>みゆさん</b><span>最高月商 1,680万円（それまでの最高月収 600万円の2.8倍）</span></div>
-        <div class="sp-voice"><b>俊介さん</b><span>最高月商8桁を4ヶ月連続で更新</span></div>
-        <div class="sp-voice"><b>今田さん</b><span>初回ウェビナーで 1,200万円（それまでの最高月商の2.4倍）</span></div>
-        <div class="sp-voice"><b>リオナさん</b><span>最高月商 1,200万円、年商は参加前の3倍</span></div>
-        <div class="sp-voice"><b>ようこさん</b><span>「ファネルという言葉すら分からなかった」状態から、低単価とサブスクで 1,000万円＋初のハイチケット 240万円</span></div>
-        <div class="sp-voice"><b>さなえさん</b><span>入会約3ヶ月で初のハイチケット 220万円、約1年4ヶ月で 1,000万円の成約</span></div>
-        <div class="sp-voice"><b>かおるさん</b><span>120万円で出すつもりだった商品を 330万円で成約し、入会費用を回収</span></div>
-        <div class="sp-voice"><b>つっちーさん</b><span>代理店2社で失敗 → 自社ファネルで広告費92万円から1日 330万円の売上</span></div>
-        <div class="sp-voice"><b>マヒナさん</b><span>面談50連敗 → 5人連続で成約</span></div>
-        <div class="sp-voice"><b>じょーさん</b><span>広告を始めて5日で初成約、ROAS 1,300%</span></div>
-      </div>
-      <p class="sp-note">※個人の実績であり、成果を保証するものではありません</p>
-    </section>
 
     <!-- 価格 -->
     <div class="offer-sec">
@@ -1658,6 +1593,108 @@
       </div>
     </div>
 
+    <!-- このサクセスパスで出た成果：SFA の実績（運用プログラムのみ・両方の表示）と SFC の成果（SFC顧問のみ・両方の表示）。出典はローカルの出典メモ -->
+    <div class="path-results" id="pathResults">
+      <div class="g-title pr-title"><h2>🏆 このサクセスパスで出ている成果</h2></div>
+      <!-- 運用プログラム（SFA）の実績（SFC顧問のみ・ダウンセルのみの表示では出さない）。出典はローカルの出典メモ -->
+      <section class="sfa-proof" data-plan="htf">
+        <div class="sp-title">
+          <span class="sp-kicker">Program Results</span>
+          <h2>運用プログラムでも、ここまで成果が出ています</h2>
+        </div>
+        <div class="sa-stats">
+          <div class="sa-stat"><b>22<small>人</small></b><span>グルコンで成果を発表した会員<br>（うち17人が成約）</span></div>
+          <div class="sa-stat"><b>132<small>件</small></b><span>報告された成約<br>（合計 8,602万円）</span></div>
+          <div class="sa-stat"><b>約52<small>日</small></b><span>入会から初成約まで<br>（中央値）</span></div>
+          <div class="sa-stat"><b>1,000<small>%</small></b><span>広告 ROAS の<br>中央値</span></div>
+        </div>
+        <p class="sa-src">2025年5月〜2026年10月にグルコンと会員グループで発表された、運用プログラム在籍中の成果を集計（金額は本人の申告）</p>
+        <div class="sa-grid">
+          <div class="sp-voice"><b>根本さん</b><span>「500万円で止まっていた」状態から、7月の売上 2,300万円で初の月商8桁</span></div>
+          <div class="sp-voice"><b>田口さん</b><span>広告の運用を始めて1ヶ月で、広告費31万円から 120万円の売上（黒字化）</span></div>
+          <div class="sp-voice"><b>ユウさん</b><span>広告なし・インスタだけで、11月の売上 2,000万円</span></div>
+          <div class="sp-voice"><b>舟橋さん</b><span>入会時は年商約800万円 → 1年後に月商1,000万円を突破</span></div>
+          <div class="sp-voice"><b>リオンさん</b><span>広告費7万円で 150万円の売上。広告を始めて約半年で約900万円</span></div>
+          <div class="sp-voice"><b>中田さん</b><span>海外に滞在している間に6件・341万円の成約。直近2週間の ROAS 1,700%</span></div>
+        </div>
+        <p class="sp-note">※個人の実績であり、成果を保証するものではありません</p>
+      </section>
+
+      <!-- 案B：SFC の成果（運用プログラムのみ・ダウンセルのみの表示では出さない）。出典は冒頭コメントの v10 節 -->
+      <section class="sfc-proof" data-plan="sfc">
+        <div class="sp-title">
+          <span class="sp-kicker">SFC Results</span>
+          <h2>SFC に入って、こう変わりました</h2>
+        </div>
+
+        <div class="sp-cases">
+          <div class="sp-case">
+            <div class="sp-who"><b>有城さん</b><span>親子関係サポート</span></div>
+            <div class="sp-ba">
+              <div class="sp-before"><em>運用プログラム（SFA）の約1年3ヶ月</em><strong>累計 1,300万円</strong></div>
+              <div class="sp-arrow">↓</div>
+              <div class="sp-after"><em>SFC に移って5ヶ月</em><strong>月商 1,100万円</strong><small>月1,000万円を突破／広告の ROAS 500〜600%で安定</small></div>
+            </div>
+          </div>
+          <div class="sp-case">
+            <div class="sp-who"><b>宮邉さん</b><span>介護・医療の採用コンサル</span></div>
+            <div class="sp-ba">
+              <div class="sp-before"><em>SFC 入会前</em><strong>3〜4ヶ月で 400万円</strong></div>
+              <div class="sp-arrow">↓</div>
+              <div class="sp-after"><em>SFC 入会から約1ヶ月半</em><strong>累計 1,400万円</strong><small>その後は月平均 1,000万円近く・8桁は2回目</small></div>
+            </div>
+          </div>
+          <div class="sp-case">
+            <div class="sp-who"><b>みさっきーさん</b><span>教員向けキャリア支援</span></div>
+            <div class="sp-ba">
+              <div class="sp-before"><em>入会時の商品単価</em><strong>30〜50万円</strong></div>
+              <div class="sp-arrow">↓</div>
+              <div class="sp-after"><em>SFC 入会から約1ヶ月半</em><strong>単価 200万円</strong><small>広告費16万円・16日間で 420万円の成約</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sp-sub">朝礼で直したら、数字がすぐ動いた</div>
+        <div class="sp-fbs">
+          <div class="sp-fb">
+            <div class="sp-fb-who">宮邉さん</div>
+            <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>ウェビナーの追加した部分だけを撮り直す</div>
+            <div class="sp-fb-step"><span class="sp-tag res">約2週間後</span>ウェビナーの視聴完了率 <b>10% → 23%</b></div>
+          </div>
+          <div class="sp-fb">
+            <div class="sp-fb-who">白井さん</div>
+            <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>「一緒に増やしていく」ムーブメント型の訴求に変える</div>
+            <div class="sp-fb-step"><span class="sp-tag res">約3週間後</span>1件目の個別面談で <b>1,100万円</b>のプランが成約（それまでの最高は550万円）</div>
+          </div>
+          <div class="sp-fb">
+            <div class="sp-fb-who">今田さん</div>
+            <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>80万円（保証なし）と120万円（成果保証つき）の2プランに分ける</div>
+            <div class="sp-fb-step"><span class="sp-tag res">1週間後</span>LPだけで5名が申込み、全員が120万円プランを選んで <b>600万円</b></div>
+          </div>
+        </div>
+
+        <div class="sp-sub">SFC 顧問生の成果</div>
+        <div class="sp-voices">
+          <div class="sp-stat"><b>93<small>%</small></b><span>顧問先の<br>最高月商更新率</span></div>
+          <div class="sp-voice"><b>ともかさん</b><span>ハイチケット化して1年で年間1億円（それまでの5〜6年分）</span></div>
+          <div class="sp-voice"><b>ようさん</b><span>開始7週間で 2,464万円の契約。入金は1年目1億円、2年目1.5億円</span></div>
+          <div class="sp-voice"><b>白井さん</b><span>1回のプロモーションで 1,529万円。1件目の面談で 1,100万円のプランが成約</span></div>
+          <div class="sp-voice"><b>澤さん</b><span>年商2億円を達成</span></div>
+          <div class="sp-voice"><b>みゆさん</b><span>最高月商 1,680万円（それまでの最高月収 600万円の2.8倍）</span></div>
+          <div class="sp-voice"><b>俊介さん</b><span>最高月商8桁を4ヶ月連続で更新</span></div>
+          <div class="sp-voice"><b>今田さん</b><span>初回ウェビナーで 1,200万円（それまでの最高月商の2.4倍）</span></div>
+          <div class="sp-voice"><b>リオナさん</b><span>最高月商 1,200万円、年商は参加前の3倍</span></div>
+          <div class="sp-voice"><b>ようこさん</b><span>「ファネルという言葉すら分からなかった」状態から、低単価とサブスクで 1,000万円＋初のハイチケット 240万円</span></div>
+          <div class="sp-voice"><b>さなえさん</b><span>入会約3ヶ月で初のハイチケット 220万円、約1年4ヶ月で 1,000万円の成約</span></div>
+          <div class="sp-voice"><b>かおるさん</b><span>120万円で出すつもりだった商品を 330万円で成約し、入会費用を回収</span></div>
+          <div class="sp-voice"><b>つっちーさん</b><span>代理店2社で失敗 → 自社ファネルで広告費92万円から1日 330万円の売上</span></div>
+          <div class="sp-voice"><b>マヒナさん</b><span>面談50連敗 → 5人連続で成約</span></div>
+          <div class="sp-voice"><b>じょーさん</b><span>広告を始めて5日で初成約、ROAS 1,300%</span></div>
+        </div>
+        <p class="sp-note">※個人の実績であり、成果を保証するものではありません</p>
+      </section>
+    </div>
+
   </section>
 
   <footer>SPECIAL OFFER — 面談提示用</footer>
@@ -1723,6 +1760,8 @@
       offer.classList.toggle('only-aifh', plan === 'aifh');
       nav.classList.toggle('only-aifh', plan === 'aifh');
       path.classList.toggle('hide-sfc', plan === 'htf');
+      path.classList.toggle('only-htf', plan === 'htf');
+      path.classList.toggle('only-sfc', plan === 'sfc');
       // ダウンセルのみの時は、サクセスパス（運用プログラム・SFC用）を開かせない
       if (plan === 'aifh' && !offer.classList.contains('active')) {
         document.querySelector('.tab[data-panel="offer"]').click();
