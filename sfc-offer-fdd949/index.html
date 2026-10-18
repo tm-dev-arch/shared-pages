@@ -62,11 +62,21 @@
    - 案A：07 の冒頭に「運用プログラムと SFC の違い」の比較（大賀との接点の回数・相談できるまでの時間・売上保証・一緒に進める顧問生）。
      数字はすべてこの表とカードにすでに載っている事実から（朝礼 月〜木＋金曜グルコン／保証 1,000万・2,000万／加入条件）
    - 案B：07 の直後に「SFC の成果」ブロック（運用プログラムのみの表示では出さない）
-       ・同じ人が SFA／サブスクから SFC に移って変わったこと（有城さん・宮邉さん・みさっきーさん）
-       ・朝礼で直したら数字が動いた例（宮邉さん・白井さん・河本さん）
+       ・SFC に入って変わったこと（有城さん＝SFA から SFC に移った人、宮邉さん・みさっきーさん＝最初から SFC）
+       ・朝礼で直したら数字が動いた例（宮邉さん・白井さん・今田さん）
        ・SFC 顧問生の成果（実績SSOT ✅ の顧客の声と、顧問先の最高月商更新率 93%）
    - 出典は 2026-10-16 の調査（朝礼・グルコンの記録と実績SSOT）。クライアントの掲載承諾は森さん確認済み
      出典の詳細はローカルの出典メモにあり、公開ページには載せない
+
+  v11 (2026-10-16) 森さん指示
+   - 全体の地図の凡例「両プラン共通 66項目／SFCだけ 6項目」を削除
+   - 案A（07 冒頭の「運用プログラムと SFC の違い」）を削除
+   - 案B の成果を、Notion の顧客の声と会員LINE（SFC総合・SF&BMX）から拡充
+
+  v12 (2026-10-16) 森さん指示
+   - 宮邉さん・みさっきーさんは最初から SFC（SFA／サブスクから移った人ではない）。見出しを「SFC に入って、こう変わりました」に
+   - 河本さんの事例を外し、今田さん（2プラン設計の FB → LPだけで5名・600万）に差し替え
+   - 06 の直後に「運用プログラムでも、ここまで成果が出ています」（SFA の実績6名）を追加。SFC顧問のみ・ダウンセルのみの表示では出さない
 -->
 <html lang="ja">
 <head>
@@ -843,6 +853,18 @@
     padding: 22px 20px 18px;
   }
   #panel-offer.only-htf .sfc-proof, #panel-offer.only-aifh .sfc-proof { display: none; }
+
+  /* 運用プログラム（SFA）の実績（06 の直後・07 の前） */
+  .sfa-proof {
+    margin-top: 14px; border: 1px solid rgba(107,184,224,0.4); border-radius: 10px;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(107,184,224,0.10), transparent 70%),
+      var(--card);
+    padding: 22px 20px 18px;
+  }
+  .sfa-proof .sp-kicker { color: var(--blue); }
+  .sa-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  #panel-offer.only-sfc .sfa-proof, #panel-offer.only-aifh .sfa-proof { display: none; }
   .sp-title { text-align: center; margin-bottom: 16px; }
   .sp-kicker { font-size: 10.5px; font-weight: 800; letter-spacing: .3em; color: var(--gold); text-transform: uppercase; }
   .sp-title h2 { font-size: 18px; font-weight: 700; letter-spacing: .04em; margin-top: 4px; }
@@ -934,6 +956,8 @@
     .sd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
     .sd-b { font-size: 17px; }
     .sp-cases, .sp-fbs { grid-template-columns: 1fr; }
+    .sa-grid { grid-template-columns: 1fr; }
+    .sfa-proof { padding: 18px 14px 14px; }
     .sp-voices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .sp-stat { grid-row: auto; grid-column: 1 / -1; flex-direction: row; gap: 12px; }
     .sfc-proof { padding: 18px 14px 14px; }
@@ -1002,7 +1026,6 @@
     <div class="overview" id="overview">
       <div class="ov-summary">
         <div class="ov-total">提供内容は全<b id="ovTotal">72</b>項目</div>
-        <div class="ov-legend"><span><i class="lg-common"></i>両プラン共通 <span id="ovCommon">66</span>項目</span><span><i class="lg-sfc"></i>SFCだけ 6項目</span></div>
       </div>
       <div class="ov-grid">
         <button type="button" class="ov-tile" data-sec="0"><span class="ov-no">01</span><span class="ov-title">ファネルマーケティング<br>コンプリート講座</span><span class="ov-foot"><span class="ov-count"><b>12</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
@@ -1183,6 +1206,23 @@
       </div>
     </details>
 
+    <!-- 運用プログラム（SFA）の実績（SFC顧問のみ・ダウンセルのみの表示では出さない）。出典はローカルの出典メモ -->
+    <section class="sfa-proof" data-plan="htf">
+      <div class="sp-title">
+        <span class="sp-kicker">Program Results</span>
+        <h2>運用プログラムでも、ここまで成果が出ています</h2>
+      </div>
+      <div class="sa-grid">
+        <div class="sp-voice"><b>根本さん</b><span>「500万円で止まっていた」状態から、7月の売上 2,300万円で初の月商8桁</span></div>
+        <div class="sp-voice"><b>まさきさん</b><span>集客14日間のチャレンジで、広告費86万円から 1,268万円の売上（ROAS 1,600%）</span></div>
+        <div class="sp-voice"><b>ユウさん</b><span>広告なし・インスタだけで、11月の売上 2,000万円</span></div>
+        <div class="sp-voice"><b>舟橋さん</b><span>入会時は年商約800万円 → 1年後に月商1,000万円を突破</span></div>
+        <div class="sp-voice"><b>リオンさん</b><span>広告費7万円で 150万円の売上。広告を始めて約半年で約900万円</span></div>
+        <div class="sp-voice"><b>中田さん</b><span>海外に滞在している間に6件・341万円の成約。直近2週間の ROAS 1,700%</span></div>
+      </div>
+      <p class="sp-note">※個人の実績であり、成果を保証するものではありません</p>
+    </section>
+
     <!-- 07 SFC CLUB（差分） -->
     <details class="sec diff" data-plan="sfc" open>
       <summary>
@@ -1194,32 +1234,6 @@
           <span class="chev">▼</span>
         </div>
       </summary>
-      <!-- 案A：運用プログラムと SFC の違い（数字はこの表とカードに載っている事実だけ） -->
-      <div class="sfc-diff">
-        <div class="sd-head">運用プログラムと SFC の違い</div>
-        <div class="sd-grid">
-          <div class="sd-item">
-            <div class="sd-label">朝礼・グルコンに参加できる回数</div>
-            <div class="sd-vs"><span class="sd-a">週1回</span><span class="sd-arrow">→</span><span class="sd-b">週5回</span></div>
-            <div class="sd-note">金曜グルコンに加えて、月〜木の大賀フルコミ朝礼で直接FB</div>
-          </div>
-          <div class="sd-item">
-            <div class="sd-label">詰まった時に相談できるまで</div>
-            <div class="sd-vs"><span class="sd-a">次の金曜</span><span class="sd-arrow">→</span><span class="sd-b">翌朝</span></div>
-            <div class="sd-note">直したものを翌朝また見せられるので、改善が止まらない</div>
-          </div>
-          <div class="sd-item">
-            <div class="sd-label">売上保証</div>
-            <div class="sd-vs"><span class="sd-a">1,000万</span><span class="sd-arrow">→</span><span class="sd-b">2,000万</span></div>
-            <div class="sd-note">実践して期間内に届かなければ、無制限でサポートを延長</div>
-          </div>
-          <div class="sd-item">
-            <div class="sd-label">一緒に進める顧問生</div>
-            <div class="sd-vs"><span class="sd-a">条件なし</span><span class="sd-arrow">→</span><span class="sd-b">年商1,500万+</span></div>
-            <div class="sd-note">同じ朝礼に、年商1,500万以上の起業家だけが集まる</div>
-          </div>
-        </div>
-      </div>
       <div class="rows">
         <div class="row"><span class="item">Strategic Funnel®︎ CLUB入会権利／1年</span><span class="c no">ー</span><span class="c">◯</span></div>
         <div class="row"><span class="item">大賀フルコミ朝礼FB（平日／月〜木 8:45〜9:15）</span><span class="c no">ー</span><span class="c">◯</span></div>
@@ -1234,7 +1248,7 @@
     <section class="sfc-proof" data-plan="sfc">
       <div class="sp-title">
         <span class="sp-kicker">SFC Results</span>
-        <h2>同じ人が SFC に移って、こう変わりました</h2>
+        <h2>SFC に入って、こう変わりました</h2>
       </div>
 
       <div class="sp-cases">
@@ -1257,7 +1271,7 @@
         <div class="sp-case">
           <div class="sp-who"><b>みさっきーさん</b><span>教員向けキャリア支援</span></div>
           <div class="sp-ba">
-            <div class="sp-before"><em>SFC 入会前</em><strong>商品単価 30〜50万円</strong></div>
+            <div class="sp-before"><em>入会時の商品単価</em><strong>30〜50万円</strong></div>
             <div class="sp-arrow">↓</div>
             <div class="sp-after"><em>SFC 入会から約1ヶ月半</em><strong>単価 200万円</strong><small>広告費16万円・16日間で 420万円の成約</small></div>
           </div>
@@ -1277,21 +1291,29 @@
           <div class="sp-fb-step"><span class="sp-tag res">約3週間後</span>1件目の個別面談で <b>1,100万円</b>のプランが成約（それまでの最高は550万円）</div>
         </div>
         <div class="sp-fb">
-          <div class="sp-fb-who">河本さん</div>
-          <div class="sp-fb-step"><span class="sp-tag">FB</span>「What が曖昧」という指摘を受けて、オファーを作り直す</div>
-          <div class="sp-fb-step"><span class="sp-tag res">直後</span>初めて200万円を超える <b>220万円</b>の成約</div>
+          <div class="sp-fb-who">今田さん</div>
+          <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>80万円（保証なし）と120万円（成果保証つき）の2プランに分ける</div>
+          <div class="sp-fb-step"><span class="sp-tag res">1週間後</span>LPだけで5名が申込み、全員が120万円プランを選んで <b>600万円</b></div>
         </div>
       </div>
 
       <div class="sp-sub">SFC 顧問生の成果</div>
       <div class="sp-voices">
         <div class="sp-stat"><b>93<small>%</small></b><span>顧問先の<br>最高月商更新率</span></div>
-        <div class="sp-voice"><b>みゆさん</b><span>最高月商 1,680万円（それまでの最高月収 600万円の2.8倍）</span></div>
-        <div class="sp-voice"><b>ともかさん</b><span>参加1年で累計 7,300万円、1年後には売上1億5,000万円</span></div>
-        <div class="sp-voice"><b>今田さん</b><span>初回ウェビナーで 1,200万円（それまでの最高月商の2.4倍）</span></div>
-        <div class="sp-voice"><b>俊介さん</b><span>最高月商8桁を4ヶ月連続で更新</span></div>
+        <div class="sp-voice"><b>ともかさん</b><span>ハイチケット化して1年で年間1億円（それまでの5〜6年分）</span></div>
+        <div class="sp-voice"><b>ようさん</b><span>開始7週間で 2,464万円の契約。入金は1年目1億円、2年目1.5億円</span></div>
+        <div class="sp-voice"><b>白井さん</b><span>1回のプロモーションで 1,529万円。1件目の面談で 1,100万円のプランが成約</span></div>
         <div class="sp-voice"><b>澤さん</b><span>年商2億円を達成</span></div>
+        <div class="sp-voice"><b>みゆさん</b><span>最高月商 1,680万円（それまでの最高月収 600万円の2.8倍）</span></div>
+        <div class="sp-voice"><b>俊介さん</b><span>最高月商8桁を4ヶ月連続で更新</span></div>
+        <div class="sp-voice"><b>今田さん</b><span>初回ウェビナーで 1,200万円（それまでの最高月商の2.4倍）</span></div>
         <div class="sp-voice"><b>リオナさん</b><span>最高月商 1,200万円、年商は参加前の3倍</span></div>
+        <div class="sp-voice"><b>ようこさん</b><span>「ファネルという言葉すら分からなかった」状態から、低単価とサブスクで 1,000万円＋初のハイチケット 240万円</span></div>
+        <div class="sp-voice"><b>さなえさん</b><span>入会約3ヶ月で初のハイチケット 220万円、約1年4ヶ月で 1,000万円の成約</span></div>
+        <div class="sp-voice"><b>かおるさん</b><span>120万円で出すつもりだった商品を 330万円で成約し、入会費用を回収</span></div>
+        <div class="sp-voice"><b>つっちーさん</b><span>代理店2社で失敗 → 自社ファネルで広告費92万円から1日 330万円の売上</span></div>
+        <div class="sp-voice"><b>マヒナさん</b><span>面談50連敗 → 5人連続で成約</span></div>
+        <div class="sp-voice"><b>じょーさん</b><span>広告を始めて5日で初成約、ROAS 1,300%</span></div>
       </div>
       <p class="sp-note">※個人の実績であり、成果を保証するものではありません</p>
     </section>
