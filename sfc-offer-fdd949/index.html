@@ -91,6 +91,12 @@
   v16 (2026-10-18) 森さん指示：期間と人数を入れる（1年か5年かで意味が変わるため）
    - 集計期間の帯「2025年5月〜2026年10月（約1年5ヶ月）」を追加
    - 8,602万円・132件は「会員17人」（成約を報告した SFA 会員）の分と明記
+
+  v17 (2026-10-19) 森さん指示：1人あたりが弱く見えるので、集計の4欄を上限とスピードに差し替え
+   - 約52日（入会から初成約・中央値）／ROAS 中央値1,000%／成約の累計が1,000万円を超えた会員4人／最高月商2,300万円
+   - 内訳と計算はローカルの出典メモ
+
+  v18 (2026-10-19) 森さん指示：「成約の累計が1,000万円を超えた会員4人」は、売上保証の水準を4名しかクリアしていないように読めるので削除。3欄（約52日・ROAS 1,000%・最高月商2,300万）に
 -->
 <html lang="ja">
 <head>
@@ -878,7 +884,7 @@
   }
   .sfa-proof .sp-kicker { color: var(--blue); }
   .sa-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-  .sa-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 8px; }
+  .sa-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 8px; }
   .sa-stat {
     border: 1px solid rgba(107,184,224,0.45); border-radius: 10px; background: rgba(107,184,224,0.08);
     text-align: center; padding: 14px 10px 12px;
@@ -995,6 +1001,7 @@
     .sp-cases, .sp-fbs { grid-template-columns: 1fr; }
     .sa-grid { grid-template-columns: 1fr; }
     .sa-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sa-stat:last-child { grid-column: 1 / -1; }
     .sa-stat b { font-size: 24px; }
     .sfa-proof { padding: 18px 14px 14px; }
     .sp-voices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1617,10 +1624,9 @@
         </div>
         <div class="sa-period">集計期間　2025年5月〜2026年10月（約1年5ヶ月）</div>
         <div class="sa-stats">
-          <div class="sa-stat"><b>8,602<small>万円</small></b><span>約1年5ヶ月で、会員17人が<br>報告した成約の合計</span></div>
-          <div class="sa-stat"><b>132<small>件</small></b><span>同じ期間に17人が<br>報告した成約の数</span></div>
           <div class="sa-stat"><b>約52<small>日</small></b><span>入会から初成約まで<br>（中央値）</span></div>
           <div class="sa-stat"><b>1,000<small>%</small></b><span>広告 ROAS の<br>中央値</span></div>
+          <div class="sa-stat"><b>2,300<small>万円</small></b><span>会員が報告した<br>最高月商</span></div>
         </div>
         <p class="sa-src">運用プログラム在籍中に報告された成果を集計（金額は本人の申告）</p>
         <div class="sa-grid">
