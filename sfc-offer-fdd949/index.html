@@ -96,6 +96,10 @@
    - 約52日（入会から初成約・中央値）／ROAS 中央値1,000%／成約の累計が1,000万円を超えた会員4人／最高月商2,300万円
    - 内訳と計算はローカルの出典メモ
 
+  v19 (2026-10-19) 鈴木さん提案（森さん了承）
+   - 契約情報の入力項目から「再商談の日程」を外す（決済が前提のため）
+   - 「ご契約手続き」に「1 初回オンボーディングの日程調整」（鈴木さんの TimeRex 予約リンク・QR・ボタン・コピー）を追加。予約した日をクローザーが「決済日」に入れて「2 ご契約情報の入力」の項目を渡す
+
   v18 (2026-10-19) 森さん指示：「成約の累計が1,000万円を超えた会員4人」は、売上保証の水準を4名しかクリアしていないように読めるので削除。3欄（約52日・ROAS 1,000%・最高月商2,300万）に
 -->
 <html lang="ja">
@@ -551,6 +555,16 @@
     white-space: pre-wrap;
   }
   .ct-side { text-align: center; }
+  .ds-apply.ct-book {
+    max-width: 860px; margin: 0 auto 12px;
+    border-color: rgba(107,184,224,0.45);
+    background: linear-gradient(90deg, rgba(107,184,224,0.12), rgba(155,123,184,0.08));
+  }
+  .ct-stepno {
+    display: inline-flex; align-items: center; justify-content: center; vertical-align: 2px;
+    width: 20px; height: 20px; border-radius: 50%; margin-right: 8px;
+    font-size: 11px; font-weight: 800; color: #2a2a44; background: var(--blue);
+  }
   .ct-side .ds-apply-head { margin-bottom: 6px; }
   .ct-side p { font-size: 12px; color: var(--soft); line-height: 1.7; margin-bottom: 14px; }
   .ct-copy {
@@ -1437,6 +1451,18 @@
       <!-- 契約情報の入力項目：Zoom チャットで送ってお客さんに埋めてもらう（既定は非表示・&contract=1 / キー7 / 歯車メニューで表示） -->
       <div class="contract" id="contract">
         <div class="ds-label">ご契約手続き</div>
+        <!-- 初回オンボーディングの日程調整：鈴木さんの予約リンクでその場で予約してもらい、予約した日をクローザーが「決済日」に入れて項目を渡す（鈴木さん提案・森さん了承） -->
+        <div class="ds-apply ct-book">
+          <div class="ds-qr" id="bkQr" aria-label="初回オンボーディングの予約ページのQRコード"></div>
+          <div class="ds-apply-body">
+            <div class="ds-apply-head"><span class="ct-stepno">1</span>初回オンボーディングの日程調整</div>
+            <p>QRコードかボタンから、初回オンボーディングの日程をご予約ください。ご予約いただいた日を決済日として、ご契約情報の項目をお送りします</p>
+            <div class="ds-apply-actions">
+              <a class="ds-btn blue" id="bkPayLink" href="https://timerex.net/s/suzukihiro_45b6_d57d/43d4f0c4/" target="_blank" rel="noopener">予約ページを開く</a>
+              <button type="button" class="ds-copy blue" id="bkCopy">リンクをコピー</button>
+            </div>
+          </div>
+        </div>
         <div class="card ct">
           <pre class="ct-list" id="ctList">会社名：
 会社名の振り仮名：
@@ -1446,10 +1472,9 @@
 メールアドレス：
 契約プラン：
 支払い方法：
-決済日：
-再商談の日程：</pre>
+決済日：</pre>
           <div class="ct-side">
-            <div class="ds-apply-head">ご契約情報の入力</div>
+            <div class="ds-apply-head"><span class="ct-stepno">2</span>ご契約情報の入力</div>
             <p>Zoomのチャットに項目をお送りします。各項目をご入力のうえ、そのままチャットで返信してください</p>
             <button type="button" class="ct-copy" id="ctCopy">項目をコピー</button>
           </div>
@@ -2046,6 +2071,7 @@
     }
     setupPay('dsPayLink', 'dsQr', 'dsCopy');
     setupPay('dpPayLink', 'dpQr', 'dpCopy');
+    setupPay('bkPayLink', 'bkQr', 'bkCopy');
   })();
 </script>
 </body>
