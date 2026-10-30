@@ -13,7 +13,7 @@
    - 操作系はクライアントに見せない設計：
        URLパラメータ  ?plan=both / ?plan=htf / ?plan=sfc （画面共有前に指定＝操作ゼロ）
        キーボード      1 = 両方 / 2 = 運用プログラムのみ / 3 = SFC顧問のみ
-       歯車アイコン    タブバー右端の⚙（v20 で 34px・不透明度75%に拡大）→ メニュー。Esc・外クリックで閉じる
+       歯車アイコン    タブバー右端の⚙（v20 で 42px・青枠つきに拡大）→ メニュー。Esc・外クリックで閉じる
 
   v4 (2026-10-16) 鈴木さん要望：超速AIファネルホルダー®︎をダウンセルとして追加
    - 価格カードの下に「超速AIファネルホルダー®︎」カードを追加。既定では非表示で、必要な時だけ出す
@@ -98,7 +98,7 @@
 
   v20 (2026-10-30) 森さん指示
    - 05 から「SFCサクセスチームのマンツーマンサポート」の行を削除。05 は 4項目・全体は 71項目（運用プログラムのみ 65項目）
-   - 右上の歯車を見やすく：26px→34px・不透明度 32%→75%・文字色を soft に・薄い背景と枠線を付けた。メニューの位置も 8px 下げた
+   - 右上の歯車を見やすく：26px→42px・常時不透明・白文字・青系の背景と枠線（ホバーで濃くなる）。メニューの位置も合わせて下げた
 
   v19 (2026-10-19) 鈴木さん提案（森さん了承）
    - 契約情報の入力項目から「再商談の日程」を外す（決済が前提のため）
@@ -161,20 +161,19 @@
   /* ---------- 表示プラン切替（提示者用・目立たせない） ---------- */
   .plan-tool { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
   .pt-trigger {
-    font-family: inherit; font-size: 17px; line-height: 1;
-    width: 34px; height: 34px; border-radius: 50%;
+    font-family: inherit; font-size: 22px; line-height: 1;
+    width: 42px; height: 42px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    color: var(--soft); background: rgba(255,255,255,0.06);
-    border: 1px solid var(--line);
-    opacity: .75; cursor: pointer; transition: opacity .15s, color .15s, border-color .15s;
+    color: #fff; background: rgba(107,184,224,0.18);
+    border: 1px solid rgba(107,184,224,0.55);
+    opacity: 1; cursor: pointer; transition: background .15s, border-color .15s;
   }
-  /* 提示者がマウスを上部に持っていったときは、さらにはっきり見えるようにする */
-  .tabs:hover .pt-trigger { opacity: .95; }
+  .tabs:hover .pt-trigger { background: rgba(107,184,224,0.28); }
   .tabs .pt-trigger:hover,
   .tabs .pt-trigger:focus-visible,
-  .tabs .pt-trigger.open { opacity: 1; color: #fff; border-color: rgba(107,184,224,0.45); }
+  .tabs .pt-trigger.open { color: #fff; background: rgba(107,184,224,0.32); border-color: rgba(107,184,224,0.9); }
   .pt-menu {
-    position: absolute; right: 0; top: 38px; z-index: 60;
+    position: absolute; right: 0; top: 46px; z-index: 60;
     display: grid; gap: 2px; min-width: 196px; padding: 6px;
     border: 1px solid var(--line); border-radius: 10px;
     background: linear-gradient(135deg, rgba(48,48,64,0.99), rgba(28,28,48,0.99));
