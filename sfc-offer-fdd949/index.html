@@ -13,7 +13,7 @@
    - 操作系はクライアントに見せない設計：
        URLパラメータ  ?plan=both / ?plan=htf / ?plan=sfc （画面共有前に指定＝操作ゼロ）
        キーボード      1 = 両方 / 2 = 運用プログラムのみ / 3 = SFC顧問のみ
-       歯車アイコン    タブバー右端の小さな⚙（不透明度30%）→ メニュー。Esc・外クリックで閉じる
+       歯車アイコン    タブバー右端の⚙（v20 で 34px・不透明度75%に拡大）→ メニュー。Esc・外クリックで閉じる
 
   v4 (2026-10-16) 鈴木さん要望：超速AIファネルホルダー®︎をダウンセルとして追加
    - 価格カードの下に「超速AIファネルホルダー®︎」カードを追加。既定では非表示で、必要な時だけ出す
@@ -96,6 +96,10 @@
    - 約52日（入会から初成約・中央値）／ROAS 中央値1,000%／成約の累計が1,000万円を超えた会員4人／最高月商2,300万円
    - 内訳と計算はローカルの出典メモ
 
+  v20 (2026-10-30) 森さん指示
+   - 05 から「SFCサクセスチームのマンツーマンサポート」の行を削除。05 は 4項目・全体は 71項目（運用プログラムのみ 65項目）
+   - 右上の歯車を見やすく：26px→34px・不透明度 32%→75%・文字色を soft に・薄い背景と枠線を付けた。メニューの位置も 8px 下げた
+
   v19 (2026-10-19) 鈴木さん提案（森さん了承）
    - 契約情報の入力項目から「再商談の日程」を外す（決済が前提のため）
    - 「ご契約手続き」に「1 初回オンボーディングの日程調整」（鈴木さんの TimeRex 予約リンク・QR・ボタン・コピー）を追加。予約した日をクローザーが「決済日」に入れて「2 ご契約情報の入力」の項目を渡す
@@ -157,20 +161,20 @@
   /* ---------- 表示プラン切替（提示者用・目立たせない） ---------- */
   .plan-tool { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
   .pt-trigger {
-    font-family: inherit; font-size: 12px; line-height: 1;
-    width: 26px; height: 26px; border-radius: 50%;
+    font-family: inherit; font-size: 17px; line-height: 1;
+    width: 34px; height: 34px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    color: var(--muted); background: transparent;
-    border: 1px solid var(--line-soft);
-    opacity: .32; cursor: pointer; transition: opacity .15s, color .15s, border-color .15s;
+    color: var(--soft); background: rgba(255,255,255,0.06);
+    border: 1px solid var(--line);
+    opacity: .75; cursor: pointer; transition: opacity .15s, color .15s, border-color .15s;
   }
-  /* 提示者がマウスを上部に持っていったときだけ、はっきり見えるようにする */
-  .tabs:hover .pt-trigger { opacity: .85; }
+  /* 提示者がマウスを上部に持っていったときは、さらにはっきり見えるようにする */
+  .tabs:hover .pt-trigger { opacity: .95; }
   .tabs .pt-trigger:hover,
   .tabs .pt-trigger:focus-visible,
   .tabs .pt-trigger.open { opacity: 1; color: #fff; border-color: rgba(107,184,224,0.45); }
   .pt-menu {
-    position: absolute; right: 0; top: 30px; z-index: 60;
+    position: absolute; right: 0; top: 38px; z-index: 60;
     display: grid; gap: 2px; min-width: 196px; padding: 6px;
     border: 1px solid var(--line); border-radius: 10px;
     background: linear-gradient(135deg, rgba(48,48,64,0.99), rgba(28,28,48,0.99));
@@ -1085,14 +1089,14 @@
     <!-- 全体の地図：7セクションを1画面で見せる。タイルを押すとそのセクションだけ開いて移動する -->
     <div class="overview" id="overview">
       <div class="ov-summary">
-        <div class="ov-total">提供内容は全<b id="ovTotal">72</b>項目</div>
+        <div class="ov-total">提供内容は全<b id="ovTotal">71</b>項目</div>
       </div>
       <div class="ov-grid">
         <button type="button" class="ov-tile" data-sec="0"><span class="ov-no">01</span><span class="ov-title">ファネルマーケティング<br>コンプリート講座</span><span class="ov-foot"><span class="ov-count"><b>12</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
         <button type="button" class="ov-tile" data-sec="1"><span class="ov-no">02</span><span class="ov-title">超速実践テンプレート</span><span class="ov-foot"><span class="ov-count"><b>20</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
         <button type="button" class="ov-tile" data-sec="2"><span class="ov-no">03</span><span class="ov-title">24時間365日対応の<br>AIメンター＆ツール</span><span class="ov-foot"><span class="ov-count"><b>4</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
         <button type="button" class="ov-tile" data-sec="3"><span class="ov-no">04</span><span class="ov-title">安心サポート環境</span><span class="ov-foot"><span class="ov-count"><b>7</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
-        <button type="button" class="ov-tile" data-sec="4"><span class="ov-no">05</span><span class="ov-title">SFCサクセスチームの<br>無制限添削＆グルコン</span><span class="ov-foot"><span class="ov-count"><b>5</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
+        <button type="button" class="ov-tile" data-sec="4"><span class="ov-no">05</span><span class="ov-title">SFCサクセスチームの<br>無制限添削＆グルコン</span><span class="ov-foot"><span class="ov-count"><b>4</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
         <button type="button" class="ov-tile" data-sec="5"><span class="ov-no">06</span><span class="ov-title">ビジネスのすべてを<br>何度でも相談OK</span><span class="ov-foot"><span class="ov-count"><b>18</b>項目</span><span class="ov-tag">両プラン共通</span></span></button>
         <button type="button" class="ov-tile ov-sfc" data-sec="6"><span class="ov-no">07</span><span class="ov-title">Strategic Funnel® CLUB<br>大賀顧問プログラム</span><span class="ov-foot"><span class="ov-count"><b>6</b>項目</span><span class="ov-tag">SFCだけ</span></span></button>
       </div>
@@ -1219,7 +1223,7 @@
         <div class="sec-head">
           <span class="no">05</span>
           <h2>億越え起業家たちと一緒に運用｜SFCサクセスチームの無制限添削＆グループコンサルティング</h2>
-          <span class="count">5項目</span>
+          <span class="count">4項目</span>
           <span class="chev">▼</span>
         </div>
       </summary>
@@ -1227,7 +1231,6 @@
       <div class="rows">
         <div class="row"><span class="item">SFCサクセスチームグルコン参加／毎週金曜9:00〜11:00</span><span class="c"><span class="pill">毎週開催</span></span><span class="c"><span class="pill">毎週開催</span></span></div>
         <div class="row"><span class="item">疑問解消グループチャットサポート（LINE）</span><span class="c"><span class="pill">無制限</span></span><span class="c"><span class="pill">無制限</span></span></div>
-        <div class="row"><span class="item">SFCサクセスチームのマンツーマンサポート</span><span class="c"><span class="pill">無制限</span></span><span class="c"><span class="pill">無制限</span></span></div>
         <div class="row"><span class="item">SFC合同オフ会の特別参加権利</span><span class="c">◯</span><span class="c">◯</span></div>
         <div class="row"><span class="item">年1回のリトリート合宿</span><span class="c">◯</span><span class="c">◯</span></div>
       </div>
@@ -1821,7 +1824,7 @@
         el.textContent = SUB[plan] + suffix;
       });
       // 全体の地図の合計：運用プログラムのみの時は SFC だけの 07 を数えない
-      document.getElementById('ovTotal').textContent = plan === 'htf' ? '66' : '72';
+      document.getElementById('ovTotal').textContent = plan === 'htf' ? '65' : '71';
       syncTabHeight();
       if (typeof updateSteps === 'function') { updateSteps(); }
     }
