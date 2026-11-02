@@ -107,8 +107,9 @@
      2年目以降も先行メンバー価格のまま（年間一括396,000円／月払い 月額33,000円・入会費なし）
    - 決済ページの導線（ボタン・QR・コピー）を新ページの #checkout に差し替え。旧ページ（/p/axfunnelholder_kobemenoffer）は旧価格（330,000円）のまま残っているので使わない
    - 注記を「運用プログラム・SFCの売上保証の対象外（超速AIファネルホルダー®︎には別途 10倍売上チャレンジ保証あり）」に
-   - 森さん指摘「金額の表記がおかしい」で表記を販売ページと同じ並び・文言に揃えた：通常価格 総額990,000円を打ち消し線＋内訳つきで先頭に、
-     ① 年間一括プラン 396,000円（60%OFF・入会費0円）→ ② 月払いプラン 528,000円（46%OFF・初年度の総額）の順。「−594,000円」のような販売ページに無い数字は使わない
+   - 森さん指摘「金額の表記がおかしい」→「通常価格は記載しない。一番高い金額を上にして、割引で一括の金額を記載」
+     見出し価格 = 月払いの初年度総額 528,000円。支払い方法は 月払い 528,000円 → 年間一括 396,000円（月払いより −132,000円・best）の順。
+     他のプランカード（定価を上・下の行に「定価より −X円」）と同じ見せ方。通常価格 990,000円・60%OFF・46%OFF は書かない
 
   v19 (2026-10-19) 鈴木さん提案（森さん了承）
    - 契約情報の入力項目から「再商談の日程」を外す（決済が前提のため）
@@ -465,12 +466,6 @@
   .card.ds .cguard { color: var(--gold); border-color: rgba(212,168,67,0.4); background: rgba(212,168,67,0.08); }
   .card.ds .paybox { margin-bottom: 14px; }
   .card.ds .payrow.best .pamt { color: var(--gold); }
-  /* 通常価格（打ち消し）：販売ページの「通常価格：総額990,000円のところ…」と同じ見せ方 */
-  .card.ds .cwas { text-align: center; font-size: 12px; color: var(--soft); margin: -6px 0 4px; line-height: 1.6; }
-  .card.ds .cwas s { font-weight: 700; color: var(--muted); text-decoration-color: rgba(255,255,255,0.45); }
-  .card.ds .cwas-note { display: block; font-size: 10.5px; color: var(--muted); }
-  html.present .card.ds .cwas { font-size: 14px; }
-  html.present .card.ds .cwas-note { font-size: 12px; }
   .card.ds .payrow.best { background: rgba(212,168,67,0.08); }
   .ds-inc .phead { margin-bottom: 4px; }
   .ds-inc ul { list-style: none; }
@@ -1411,19 +1406,18 @@
           <div>
             <div class="cname">超速AIファネルホルダー®︎</div>
             <span class="cguard">12ヶ月の年間プログラム・先行メンバー価格</span>
-            <div class="cwas">通常価格：<s>総額990,000円</s>のところ<span class="cwas-note">（入会費330,000円＋月額会費55,000円×12ヶ月）</span></div>
-            <div class="cprice">¥396,000</div>
-            <div class="ctax">年間一括プラン・税込・60%OFF（入会費0円）</div>
+            <div class="cprice">¥528,000</div>
+            <div class="ctax">初年度の総額（入会費＋月額会費）／税込</div>
 
             <div class="paybox">
-              <div class="phead">2つの支払いプランから選べます</div>
-              <div class="payrow best">
-                <div><span class="pname">① 年間一括プラン</span><span class="pnote">入会費0円。12ヶ月分の月額会費（33,000円×12ヶ月）を一括でお支払い</span></div>
-                <div class="pamt">¥396,000<span class="poff">60%OFF・税込</span></div>
-              </div>
+              <div class="phead">お支払い方法</div>
               <div class="payrow">
-                <div><span class="pname">② 月払いプラン</span><span class="pnote">初回のお支払いは入会費165,000円のみ。初月の会費は無料で、翌月から月額33,000円（税込）×11ヶ月</span></div>
-                <div class="pamt">¥528,000<span class="poff">46%OFF・税込・初年度の総額</span></div>
+                <div><span class="pname">月払いプラン</span><span class="pnote">初回は入会費165,000円のみ。初月の会費は無料で、翌月から月額33,000円×11ヶ月</span></div>
+                <div class="pamt">¥528,000</div>
+              </div>
+              <div class="payrow best">
+                <div><span class="pname">年間一括プラン</span><span class="pnote">入会費0円。月額会費33,000円×12ヶ月分を一括でお支払い・最もお得な条件</span></div>
+                <div class="pamt">¥396,000<span class="poff">月払いより −132,000円</span></div>
               </div>
             </div>
 
