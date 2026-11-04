@@ -129,6 +129,10 @@
    - 見送り（確認が残る）：三浦さん（SSOT ✅ だが会員DBで支払い要確認＝河本さんと同じ扱い）、佐瀬さん（SFC 移行後の成約が未確認）、平さん・はるかさん（会員DBに無い）、山本さん（光子さんとの同一人物照合が未）
    - 出典はローカルの出典メモ「v24 反映」節。事例集（ローカル・Notion）にも5人の1枚を追加し、残りは候補として確認状況を書いた
 
+  v25 (2026-11-04) 森さん「UI崩れてませんか」→ SFC 顧問生の成果のグリッドを直した
+   - 1列目が 150px 固定（93% のタイル用）だったため、3段目以降で1列目に落ちたカードが細長くなり段がガタついていた
+   - 4列とも等幅に変更（93% のタイルは2段分のまま）。1＋22 枚で 6 段ちょうど・余りなし
+
   v19 (2026-10-19) 鈴木さん提案（森さん了承）
    - 契約情報の入力項目から「再商談の日程」を外す（決済が前提のため）
    - 「ご契約手続き」に「1 初回オンボーディングの日程調整」（鈴木さんの TimeRex 予約リンク・QR・ボタン・コピー）を追加。予約した日をクローザーが「決済日」に入れて「2 ご契約情報の入力」の項目を渡す
@@ -984,7 +988,7 @@
     color: var(--blue); border: 1px solid rgba(107,184,224,0.45); border-radius: 100px; padding: 0 7px; vertical-align: 1px;
   }
   .sp-tag.res { color: var(--gold); border-color: rgba(212,168,67,0.55); }
-  .sp-voices { display: grid; grid-template-columns: 150px repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .sp-voices { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
   .sp-stat {
     grid-row: span 2; border-radius: 10px; border: 1px solid rgba(212,168,67,0.5);
     background: rgba(212,168,67,0.08); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 12px;
