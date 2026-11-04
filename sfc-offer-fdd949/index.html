@@ -115,6 +115,7 @@
    - 成果ブロックの全員に事業を1行追加（SFA の実績6人・朝礼FBの3人・SFC 顧問生14人）。事例カード3枚は元から事業あり
    - 出典は会員DB の業種・更新面談と個別面談の議事録・実績SSOT の業種欄（ローカルの出典メモ v22 節）
    - さなえさんだけ会員DB の業種が空欄のため、更新面談の記録「広告運用・プロデュース業」を採用（要確認）
+   - 同日 森さん「名前の上に出るパターンと横に出るパターンがあるので統一」→ 事例カード3枚（有城・宮邉・みさっきー）の事業も名前の下に出す形に揃えた
      他のプランカード（定価を上・下の行に「定価より −X円」）と同じ見せ方。通常価格 990,000円・60%OFF・46%OFF は書かない
 
   v19 (2026-10-19) 鈴木さん提案（森さん了承）
@@ -947,9 +948,10 @@
   .sp-title h2 { font-size: 18px; font-weight: 700; letter-spacing: .04em; margin-top: 4px; }
   .sp-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .sp-case { border: 1px solid var(--line); border-radius: 10px; background: rgba(20,20,34,0.55); padding: 14px 14px 12px; }
-  .sp-who { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-  .sp-who b { font-size: 15px; font-weight: 700; color: #fff; }
-  .sp-who span { font-size: 11px; color: var(--muted); }
+  /* 事例カードの事業も、他の成果と同じく名前の下に出す（森さん 2026-11-04 統一指示） */
+  .sp-who { margin-bottom: 10px; }
+  .sp-who b { display: block; font-size: 15px; font-weight: 700; color: #fff; }
+  .sp-who span { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: .02em; color: var(--muted); margin-top: 2px; }
   .sp-ba em { display: block; font-style: normal; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; color: var(--muted); margin-bottom: 2px; }
   .sp-before strong { font-size: 15px; font-weight: 700; color: var(--soft); }
   .sp-arrow { color: var(--gold); font-size: 14px; line-height: 1; padding: 6px 0 4px 2px; }
@@ -993,6 +995,7 @@
   html.present .sd-note { font-size: 12.5px; }
   html.present .sp-title h2 { font-size: 22px; }
   html.present .sp-who b { font-size: 17px; }
+  html.present .sp-who span { font-size: 12px; }
   html.present .sp-ba em { font-size: 12px; }
   html.present .sp-before strong { font-size: 17px; }
   html.present .sp-after strong { font-size: 26px; }
