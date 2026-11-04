@@ -110,6 +110,11 @@
    - 注記を「運用プログラム・SFCの売上保証の対象外（超速AIファネルホルダー®︎には別途 10倍売上チャレンジ保証あり）」に
    - 森さん指摘「金額の表記がおかしい」→「通常価格は記載しない。一番高い金額を上にして、割引で一括の金額を記載」
      見出し価格 = 月払いの初年度総額 528,000円。支払い方法は 月払い 528,000円 → 年間一括 396,000円（月払いより −132,000円・best）の順。
+
+  v22 (2026-11-04) 森さん指示：サクセスパスの事例集に「誰が何の事業をやっているか」を必ず書く
+   - 成果ブロックの全員に事業を1行追加（SFA の実績6人・朝礼FBの3人・SFC 顧問生14人）。事例カード3枚は元から事業あり
+   - 出典は会員DB の業種・更新面談と個別面談の議事録・実績SSOT の業種欄（ローカルの出典メモ v22 節）
+   - さなえさんだけ会員DB の業種が空欄のため、更新面談の記録「広告運用・プロデュース業」を採用（要確認）
      他のプランカード（定価を上・下の行に「定価より −X円」）と同じ見せ方。通常価格 990,000円・60%OFF・46%OFF は書かない
 
   v19 (2026-10-19) 鈴木さん提案（森さん了承）
@@ -977,6 +982,9 @@
   .sp-voice { border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; background: rgba(255,255,255,0.025); }
   .sp-voice b { display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 2px; }
   .sp-voice span { font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  /* 事例の「何の事業か」（森さん 2026-11-04：誰が何の事業をやっているかを必ず書く） */
+  .sp-voice i, .sp-fb-who i { display: block; font-style: normal; font-size: 10.5px; font-weight: 600; letter-spacing: .02em; color: var(--muted); margin-bottom: 4px; }
+  .sp-fb-who i { margin-top: 2px; }
   .sp-note { font-size: 10.5px; color: var(--muted); text-align: right; margin-top: 10px; }
 
   html.present .sd-label { font-size: 13px; }
@@ -993,6 +1001,7 @@
   html.present .sp-fb-who { font-size: 15.5px; }
   html.present .sp-fb-step { font-size: 14px; }
   html.present .sp-voice b { font-size: 14.5px; }
+  html.present .sp-voice i, html.present .sp-fb-who i { font-size: 12px; }
   html.present .sp-stat b { font-size: 46px; }
   html.present .sp-stat span { font-size: 13px; }
 
@@ -1669,12 +1678,12 @@
         </div>
         <p class="sa-src">運用プログラム在籍中に報告された成果を集計（金額は本人の申告）</p>
         <div class="sa-grid">
-          <div class="sp-voice"><b>根本さん</b><span>「500万円で止まっていた」状態から、7月の売上 2,300万円で初の月商8桁</span></div>
-          <div class="sp-voice"><b>田口さん</b><span>広告の運用を始めて1ヶ月で、広告費31万円から 120万円の売上（黒字化）</span></div>
-          <div class="sp-voice"><b>ユウさん</b><span>広告なし・インスタだけで、11月の売上 2,000万円</span></div>
-          <div class="sp-voice"><b>舟橋さん</b><span>入会時は年商約800万円 → 1年後に月商1,000万円を突破</span></div>
-          <div class="sp-voice"><b>リオンさん</b><span>広告費7万円で 150万円の売上。広告を始めて約半年で約900万円</span></div>
-          <div class="sp-voice"><b>中田さん</b><span>海外に滞在している間に6件・341万円の成約。直近2週間の ROAS 1,700%</span></div>
+          <div class="sp-voice"><b>根本さん</b><i>物販コミュニティの運営</i><span>「500万円で止まっていた」状態から、7月の売上 2,300万円で初の月商8桁</span></div>
+          <div class="sp-voice"><b>田口さん</b><i>パーソナルトレーナー向けコンサル</i><span>広告の運用を始めて1ヶ月で、広告費31万円から 120万円の売上（黒字化）</span></div>
+          <div class="sp-voice"><b>ユウさん</b><i>ジャーナリング講座（会社員の副業）</i><span>広告なし・インスタだけで、11月の売上 2,000万円</span></div>
+          <div class="sp-voice"><b>舟橋さん</b><i>サロン経営者向けコンサル</i><span>入会時は年商約800万円 → 1年後に月商1,000万円を突破</span></div>
+          <div class="sp-voice"><b>リオンさん</b><i>整体×スピリチュアルのエネルギー調整</i><span>広告費7万円で 150万円の売上。広告を始めて約半年で約900万円</span></div>
+          <div class="sp-voice"><b>中田さん</b><i>アーティスト向けプロデュース・コーチング</i><span>海外に滞在している間に6件・341万円の成約。直近2週間の ROAS 1,700%</span></div>
         </div>
         <p class="sp-note">※個人の実績であり、成果を保証するものではありません</p>
       </section>
@@ -1716,17 +1725,17 @@
         <div class="sp-sub">朝礼で直したら、数字がすぐ動いた</div>
         <div class="sp-fbs">
           <div class="sp-fb">
-            <div class="sp-fb-who">宮邉さん</div>
+            <div class="sp-fb-who">宮邉さん<i>介護・医療の採用コンサル</i></div>
             <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>ウェビナーの追加した部分だけを撮り直す</div>
             <div class="sp-fb-step"><span class="sp-tag res">約2週間後</span>ウェビナーの視聴完了率 <b>10% → 23%</b></div>
           </div>
           <div class="sp-fb">
-            <div class="sp-fb-who">白井さん</div>
+            <div class="sp-fb-who">白井さん<i>ダイエットコンサル</i></div>
             <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>「一緒に増やしていく」ムーブメント型の訴求に変える</div>
             <div class="sp-fb-step"><span class="sp-tag res">約3週間後</span>1件目の個別面談で <b>1,100万円</b>のプランが成約（それまでの最高は550万円）</div>
           </div>
           <div class="sp-fb">
-            <div class="sp-fb-who">今田さん</div>
+            <div class="sp-fb-who">今田さん<i>美容サロンコンサル</i></div>
             <div class="sp-fb-step"><span class="sp-tag">朝礼のFB</span>80万円（保証なし）と120万円（成果保証つき）の2プランに分ける</div>
             <div class="sp-fb-step"><span class="sp-tag res">1週間後</span>LPだけで5名が申込み、全員が120万円プランを選んで <b>600万円</b></div>
           </div>
@@ -1735,20 +1744,20 @@
         <div class="sp-sub">SFC 顧問生の成果</div>
         <div class="sp-voices">
           <div class="sp-stat"><b>93<small>%</small></b><span>顧問先の<br>最高月商更新率</span></div>
-          <div class="sp-voice"><b>ともかさん</b><span>ハイチケット化して1年で年間1億円（それまでの5〜6年分）</span></div>
-          <div class="sp-voice"><b>ようさん</b><span>開始7週間で 2,464万円の契約。入金は1年目1億円、2年目1.5億円</span></div>
-          <div class="sp-voice"><b>白井さん</b><span>1回のプロモーションで 1,529万円。1件目の面談で 1,100万円のプランが成約</span></div>
-          <div class="sp-voice"><b>澤さん</b><span>年商2億円を達成</span></div>
-          <div class="sp-voice"><b>みゆさん</b><span>最高月商 1,680万円（それまでの最高月収 600万円の2.8倍）</span></div>
-          <div class="sp-voice"><b>俊介さん</b><span>最高月商8桁を4ヶ月連続で更新</span></div>
-          <div class="sp-voice"><b>今田さん</b><span>初回ウェビナーで 1,200万円（それまでの最高月商の2.4倍）</span></div>
-          <div class="sp-voice"><b>リオナさん</b><span>最高月商 1,200万円、年商は参加前の3倍</span></div>
-          <div class="sp-voice"><b>ようこさん</b><span>「ファネルという言葉すら分からなかった」状態から、低単価とサブスクで 1,000万円＋初のハイチケット 240万円</span></div>
-          <div class="sp-voice"><b>さなえさん</b><span>入会約3ヶ月で初のハイチケット 220万円、約1年4ヶ月で 1,000万円の成約</span></div>
-          <div class="sp-voice"><b>かおるさん</b><span>120万円で出すつもりだった商品を 330万円で成約し、入会費用を回収</span></div>
-          <div class="sp-voice"><b>つっちーさん</b><span>代理店2社で失敗 → 自社ファネルで広告費92万円から1日 330万円の売上</span></div>
-          <div class="sp-voice"><b>マヒナさん</b><span>面談50連敗 → 5人連続で成約</span></div>
-          <div class="sp-voice"><b>じょーさん</b><span>広告を始めて5日で初成約、ROAS 1,300%</span></div>
+          <div class="sp-voice"><b>ともかさん</b><i>心理技術コーチ</i><span>ハイチケット化して1年で年間1億円（それまでの5〜6年分）</span></div>
+          <div class="sp-voice"><b>ようさん</b><i>女性起業家向けセールス・集客コンサル</i><span>開始7週間で 2,464万円の契約。入金は1年目1億円、2年目1.5億円</span></div>
+          <div class="sp-voice"><b>白井さん</b><i>ダイエットコンサル</i><span>1回のプロモーションで 1,529万円。1件目の面談で 1,100万円のプランが成約</span></div>
+          <div class="sp-voice"><b>澤さん</b><i>外注化コンサル</i><span>年商2億円を達成</span></div>
+          <div class="sp-voice"><b>みゆさん</b><i>女性起業家コンサル</i><span>最高月商 1,680万円（それまでの最高月収 600万円の2.8倍）</span></div>
+          <div class="sp-voice"><b>俊介さん</b><i>コーチング</i><span>最高月商8桁を4ヶ月連続で更新</span></div>
+          <div class="sp-voice"><b>今田さん</b><i>美容サロンコンサル</i><span>初回ウェビナーで 1,200万円（それまでの最高月商の2.4倍）</span></div>
+          <div class="sp-voice"><b>リオナさん</b><i>マネースクール</i><span>最高月商 1,200万円、年商は参加前の3倍</span></div>
+          <div class="sp-voice"><b>ようこさん</b><i>片付け専門家</i><span>「ファネルという言葉すら分からなかった」状態から、低単価とサブスクで 1,000万円＋初のハイチケット 240万円</span></div>
+          <div class="sp-voice"><b>さなえさん</b><i>広告運用・プロデュース業</i><span>入会約3ヶ月で初のハイチケット 220万円、約1年4ヶ月で 1,000万円の成約</span></div>
+          <div class="sp-voice"><b>かおるさん</b><i>ヨガスクール</i><span>120万円で出すつもりだった商品を 330万円で成約し、入会費用を回収</span></div>
+          <div class="sp-voice"><b>つっちーさん</b><i>メンズ恋愛コーチング</i><span>代理店2社で失敗 → 自社ファネルで広告費92万円から1日 330万円の売上</span></div>
+          <div class="sp-voice"><b>マヒナさん</b><i>ピラティス</i><span>面談50連敗 → 5人連続で成約</span></div>
+          <div class="sp-voice"><b>じょーさん</b><i>糖質オフ米粉パン教室</i><span>広告を始めて5日で初成約、ROAS 1,300%</span></div>
         </div>
         <p class="sp-note">※個人の実績であり、成果を保証するものではありません</p>
       </section>
