@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>振り返り画面のイメージ（提案後）</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#111827; --sub:#6b7280; --line:#e5e7eb; --A:#1f7a3a; --B:#b26a00; --C:#b3362f; --acc:#2563eb; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif; font-size:14px; line-height:1.65; }
+  .wrap { max-width:980px; margin:0 auto; padding:18px 20px 40px; }
+  .crumb { font-size:12px; color:var(--sub); }
+  h1 { font-size:20px; margin:4px 0 10px; font-weight:900; }
+  .cards { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:12px; }
+  .sc { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:8px 12px; }
+  .sc .l { font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--sub); }
+  .sc .v { font-weight:700; font-size:13px; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+  .panel { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .panel h3 { margin:0 0 6px; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--sub); font-weight:600; }
+  .tabs { display:flex; gap:4px; border-bottom:1px solid var(--line); margin:4px 0 14px; }
+  .tab { padding:8px 12px; font-size:13px; color:var(--sub); border-bottom:2px solid transparent; }
+  .tab.on { color:var(--ink); font-weight:700; border-bottom-color:var(--ink); }
+  .meta { font-size:12px; color:var(--sub); display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .btn { border:1px solid var(--line); background:#fff; border-radius:6px; padding:4px 10px; font-size:12px; }
+  .verdict { display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:center; background:var(--C); color:#fff; border-radius:12px; padding:14px 16px; }
+  .vb { font-size:40px; font-weight:900; text-align:center; line-height:1; }
+  .vt { font-size:12px; opacity:.9; }
+  .vr { font-size:18px; font-weight:800; line-height:1.35; }
+  h2 { font-size:15px; margin:20px 0 8px; font-weight:800; }
+  h2 small { font-weight:400; color:var(--sub); font-size:12px; margin-left:8px; }
+  .hand { display:grid; grid-template-columns:30px 1fr; gap:10px; border:1px solid var(--line); border-left:4px solid var(--acc); border-radius:8px; padding:10px 12px; margin-bottom:8px; background:#fff; }
+  .hn { width:26px; height:26px; border-radius:50%; background:var(--acc); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .ht { font-weight:800; font-size:15px; }
+  .hw { color:var(--sub); font-size:12px; margin:2px 0 6px; }
+  .say { background:#eff6ff; border-radius:6px; padding:6px 10px; font-size:13px; }
+  .say::before { content:"こう言う　"; color:var(--acc); font-weight:700; font-size:11px; }
+  .checks { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+  .ck { display:grid; grid-template-columns:20px 1fr; gap:8px; align-items:start; border:1px solid var(--line); border-radius:8px; padding:8px 10px; background:#fff; }
+  .ci { width:20px; height:20px; border-radius:50%; color:#fff; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:2px; }
+  .ok .ci { background:var(--A);} .ng .ci { background:var(--C);} .part .ci { background:var(--B);} .na .ci { background:#d1d5db; }
+  .cn { font-weight:600; font-size:13px; } .cs { font-size:12px; color:var(--sub); } .ng .cs { color:var(--C); }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .chip { display:inline-block; font-size:11px; font-weight:700; padding:1px 9px; border-radius:999px; margin-bottom:4px; }
+  .chip.ok { background:#dcfce7; color:#166534; } .chip.ng { background:#fee2e2; color:#991b1b; }
+  ul { margin:0; padding-left:0; list-style:none; }
+  li { padding:3px 0; border-bottom:1px dashed var(--line); font-size:13px; }
+  .ev { display:block; color:var(--sub); font-size:12px; }
+  .q { font-size:12px; color:var(--acc); }
+  .fold { border:1px solid var(--line); border-radius:8px; padding:8px 12px; color:var(--sub); font-size:13px; margin-top:8px; background:#fff; }
+  .fold::before { content:"▶ "; }
+  .res { display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; margin-top:8px; }
+  .res label { display:grid; gap:2px; font-size:11px; color:var(--sub); }
+  .res .in { border:1px solid var(--line); border-radius:6px; padding:5px 8px; font-size:13px; color:var(--ink); background:#fff; }
+  .res .in.empty { color:#9ca3af; background:#fffbeb; border-color:#f0d58c; }
+  .cand { background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:8px 10px; font-size:12px; margin-top:6px; }
+  .note { font-size:11px; color:var(--sub); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="background:#fff8e1;border:1px solid #f0d58c;border-radius:8px;padding:8px 12px;font-size:12px;color:#5c4400;margin-bottom:12px">AI クローザーの振り返り画面を「採点仕様 v1」で作り直した場合のイメージ（2026-11-05・AI森）。2026 年 6 月の実際の面談 1 本を仕様 v1 で採点した中身を、今の AX の画面構成に載せた物。顧客名は「〇〇さん」に置き換え。静的なイメージで、ボタンやリンクは動かない。</div>
+  <div class="crumb">AIクローザー › 面談一覧 › 振り返り</div>
+  <h1>〇〇さん 個別面談</h1>
+  <div class="cards">
+    <div class="sc"><div class="l">開始</div><div class="v">2026/6/19 14:00</div></div>
+    <div class="sc"><div class="l">長さ</div><div class="v">94 分</div></div>
+    <div class="sc"><div class="l">最終ステップ</div><div class="v">9. 懸念解消</div></div>
+    <div class="sc"><div class="l">センターピン</div><div class="v">自動化ファネルがない</div></div>
+  </div>
+  <div class="two">
+    <div class="panel"><h3>連絡先</h3><div style="font-size:13px">〇〇さん（ウェビナー経由・2026/6/12 予約）</div></div>
+    <div class="panel"><h3>面談の結果</h3>
+      <div style="font-size:13px;color:var(--sub)">まだ入っていません</div>
+      <div class="cand"><b>AI の候補: 保留</b>（回答は翌朝と約束・再商談の日時は未確定）<br>根拠: 「やる」の結論は出たが、決済日もデポジットも無い。再商談の日時が入れば保留、入らなければ失注</div>
+      <div class="res">
+        <label>やる／やらない<span class="in">やる（口頭）</span></label>
+        <label>デポジット<span class="in empty">残っている</span></label>
+        <label>確定プラン<span class="in">SFC（本線）</span></label>
+        <label>支払い方法<span class="in empty">残っている（分割の話のみ）</span></label>
+        <label>決済日<span class="in empty">残っている</span></label>
+        <label>再商談の日程<span class="in empty">残っている（翌朝に回答）</span></label>
+      </div>
+      <div class="note">黄色の欄は締めのチェックで「残った」項目。クローザーが確認して保存する</div>
+    </div>
+  </div>
+
+  <div class="tabs"><span class="tab on">面談の採点</span><span class="tab">発話タイムライン (1,782)</span><span class="tab">センターピン履歴 (3)</span><span class="tab">ステップ遷移 (9)</span><span class="tab">LLMコール (14)</span></div>
+
+  <div class="meta"><span>2026/6/19 16:02 に採点（gemini-3.5-flash）・読み取り 37 項目のうち確信度 low 9 件</span><span class="btn">採点をやり直す</span></div>
+
+  <div class="verdict">
+    <div class="vb">C</div>
+    <div><div class="vt">ヨミ C　決まりにくい（3 割未満）</div><div class="vr">持ち帰りで終わり、決済日もデポジットも無い</div></div>
+  </div>
+
+  <h2>次回の 1 手</h2>
+  <div class="hand"><div class="hn">1</div><div>
+    <div class="ht">逃げ道を言わない</div>
+    <div class="hw">今回: 決済の場面で「枠だけ押さえる形でも」と自分から言った <span class="q">01:21:40 ↗</span>。2026 年の失注の 64% で出ている</div>
+    <div class="say">「ここで覚悟を決めたっていうことを示していただく、みたいな感じですかね」</div>
+  </div></div>
+  <div class="hand"><div class="hn">2</div><div>
+    <div class="ht">デポジットを切り出す</div>
+    <div class="hw">今回: 「やる」の結論は聞いたが、デポジット 1 万円を出していない。持ち帰りの成約は 11%</div>
+    <div class="say">「そしたらデポジット決済の方に進めさせてもらっても大丈夫ですか？」</div>
+  </div></div>
+
+  <h2>締めのチェック <small>決済レギュレーションの 5 項目＋逃げ道＋LINE</small></h2>
+  <div class="checks">
+    <div class="ck ok"><div class="ci">✓</div><div><div class="cn">やるかやらないかの結論を聞いた</div><div class="cs">「やりたいですか？」→「やりたいです」<span class="q"> 01:12:05 ↗</span></div></div></div>
+    <div class="ck ng"><div class="ci">✕</div><div><div class="cn">デポジット（その場で決済）</div><div class="cs">提案していない</div></div></div>
+    <div class="ck part"><div class="ci">△</div><div><div class="cn">プランと支払い方法を 1 つに</div><div class="cs">プランは SFC と決めたが、支払い方法は「分割で」のみ</div></div></div>
+    <div class="ck ng"><div class="ci">✕</div><div><div class="cn">決済日と再商談の日程</div><div class="cs">「明日の朝までに連絡します」のみ。日時は無い</div></div></div>
+    <div class="ck na"><div class="ci">−</div><div><div class="cn">ヒアリング項目の回収</div><div class="cs">会社名・住所など 10 項目のうち 0</div></div></div>
+    <div class="ck ng"><div class="ci">✕</div><div><div class="cn">逃げ道を言っていない</div><div class="cs">「枠だけ押さえる形でも」と言った <span class="q">01:21:40 ↗</span></div></div></div>
+    <div class="ck ok"><div class="ci">✓</div><div><div class="cn">LINE 交換</div><div class="cs">交換した <span class="q">01:28:10 ↗</span></div></div></div>
+  </div>
+
+  <h2>相手の状態 <small>オファー前に分かっていた物・条件点 +4</small></h2>
+  <div class="cols">
+    <div><span class="chip ok">揃っていた</span><ul>
+      <li>「今すぐ」を本人が言った <span class="ev">「（いつから）もうすぐ」 <span class="q">00:38:20 ↗</span></span></li>
+      <li>目標の数字の「なぜ」を語った</li>
+      <li>課題が感情の層まで出た <span class="ev">「私のネタが尽きたら終わるという不安が消えない」 <span class="q">00:21:05 ↗</span></span></li>
+      <li>課題が具体的で緊急 <span class="ev">「とにかく人を何とか入れないといけない」</span></li>
+      <li>ウェビナーを見て納得して来た</li>
+    </ul></div>
+    <div><span class="chip ng">足りない・マイナス</span><ul>
+      <li style="color:var(--C)">決裁権が他の人にある（−1）<span class="ev">共同事業者に相談してから、と本人</span></li>
+      <li style="color:var(--sub)">面談前に決めてはいなかった</li>
+    </ul></div>
+  </div>
+
+  <h2>センターピン</h2>
+  <div class="cols">
+    <div><span class="chip ok">良かった点</span><ul>
+      <li>相手の「集客ができない」を一段深く「再現性のある勝ちパターンが無い」に言い換えた <span class="q">00:52:30 ↗</span></li>
+    </ul></div>
+    <div><span class="chip ng">改善点</span><ul>
+      <li>相手の返事は「そうかもしれないですね」で、自分の言葉で言い直していない。「どう解決しそうですか？」で語らせる</li>
+    </ul></div>
+  </div>
+
+  <h2>失敗パターン</h2>
+  <div style="font-size:13px;color:var(--sub)">該当なし（雑談・決めつけ・喋りすぎ・説得・否定・即答・力になれるかで失速）</div>
+
+  <div class="cols" style="margin-top:14px">
+    <div><span class="chip ok">良かった点</span><ul><li>共通の課題を一言で言い当て、必要な金額帯まで丁寧に聴いた</li><li>価格抵抗の 3 問を全部、質問の形で聞いた</li></ul></div>
+    <div><span class="chip ng">改善点</span><ul><li>「AI と比べて整理したい」の懸念を深掘りせず、期限回答に任せた。「何と何を比べたいですか？」と真意を聞く</li></ul></div>
+  </div>
+
+  <div class="fold">採点の内訳（条件点 +4・締めの実行点 +3）と判定の式</div>
+  <div class="fold">ステップ別の点とレーダー・従来の総合点（参考・72 点 B）</div>
+  <div class="fold">ヒアリングシートの改善案（聞けていなかった項目 3 件）</div>
+</div>
+</body>
+</html>
